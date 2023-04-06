@@ -1,0 +1,6 @@
+export {Home} from './Components'
+export {Community} from './Components'
+export {Friends} from './Components'
+export {Story} from './Components'
+export {Saved} from './Components'
+export {Discution} from './Components'

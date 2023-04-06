@@ -1,0 +1,7 @@
+export {default as Home} from './Home/Home'
+export {default as Community} from './Community/Community'
+export {default as Saved} from './Saved/Saved'
+export {default as Notification} from './Notification/Notification'
+export {default as Story } from './Story/Story'
+export {default as Friends} from './Friends/Friends'
+export {default as Discution} from './Discution/Discution'
