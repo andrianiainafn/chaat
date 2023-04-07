@@ -1,4 +1,4 @@
-export {default as Home} from './Home/Home'
+export {default as Home} from './Home/interfaces/Home'
 export {default as Community} from './Community/Community'
 export {default as Saved} from './Saved/Saved'
 export {default as Notification} from './Notification/Notification'

@@ -1,38 +1,36 @@
-.App {
-  text-align: center;
-}
+/* CSS HEX */
+/* --shark: #1c1f25;
+--silver: #c1bcbc;
+--trout: #4b4c5c;
+--scorpion: #6d6261;
+--havelock-blue: #4480ce;
+--woody-brown: #45322f;
+--acapulco: #76ab94;
+--nandor: #4d5f60;
+--outer-space: #333c3d; */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+/* SCSS HEX */
+/* $shark: #1c1f25;
+$silver: #c1bcbc;
+$trout: #4b4c5c;
+$scorpion: #6d6261;
+$havelock-blue: #4480ce;
+$woody-brown: #45322f;
+$acapulco: #76ab94;
+$nandor: #4d5f60;
+$outer-space: #333c3d; */
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
-.App-link {
-  color: #61dafb;
-}
+/* SCSS RGB */
+/* --shark: rgba(28,31,37,1);
+--silver: rgba(193,188,188,1);
+--trout: rgba(75,76,92,1);
+--scorpion: rgba(109,98,97,1);
+--havelock-blue: rgba(68,128,206,1);
+--woody-brown: rgba(69,50,47,1);
+--acapulco: rgba(118,171,148,1);
+--nandor: rgba(77,95,96,1);
+--outer-space: rgba(51,60,61,1); */
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
