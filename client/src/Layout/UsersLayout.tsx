@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import NavBar from '../Components/NavBar'
 import SideBar from '../Components/SideBar'
-import { Community, Friends, Home, Saved } from '../Featurs/Users'
+import { AllOFFriends, Community, Friends, Home, List, Request, Saved, Suggestion } from '../Featurs/Users'
 
 const UsersLayout = () => {
   return (
@@ -10,7 +10,7 @@ const UsersLayout = () => {
         <div className="md:flex hidden flex-col w-[17%]">
             <SideBar/>
         </div>
-        <div className=" flex flex-col w-full md:w-[82%]  ">
+        <div className=" flex flex-col w-full md:w-[75%]  ">
             <NavBar/>
             <div className="mt-[3vh]">
                 <Routes>
@@ -19,10 +19,11 @@ const UsersLayout = () => {
                         <Route path='' index={true} element={<p>List de pub des community dont je suis membre</p>}/>
                         <Route path='suggestion' element={<p>Suggestion de community</p>}/> 
                     </Route>
-                    <Route path='friend' element={<Friends/>}>
-                        <Route path='' index={true} element={<p>List de mes amis</p>}/>
-                        <Route path='suggestion' element={<p>List de syggestion d' amis</p>}/>
-                        <Route path='request' element={<p>List des demandes d' amis</p>}/>
+                    <Route path='friends/' element={<Friends/>}>
+                        <Route path = '' index={true} element={<AllOFFriends/>}/>
+                        <Route path='list'  element={<List/>}/>
+                        <Route path='suggestion' element={<Suggestion/>}/>
+                        <Route path='request' element={<Request/>}/>
                     </Route>
                     <Route path='saves' element={<Saved/>}/>
                 </Routes>    

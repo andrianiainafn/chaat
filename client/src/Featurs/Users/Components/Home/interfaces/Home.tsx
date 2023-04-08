@@ -13,6 +13,9 @@ import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import PhotoCameraOutlinedIcon from '@mui/icons-material/PhotoCameraOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 const Home = () => {
   const list = [1,2,3,4,5]

@@ -10,6 +10,7 @@ import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
 import { styled } from '@mui/material/styles'
+import Yor from '../assets/Images/yor.jpg'
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -41,7 +42,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   }));
 const NavBar = () => {
   return (
-    <div className='flex fixed justify-between items-center px-2 w-full md:w-[83%] z-10 bg-[#17202a] h-[8vh] border-b-[1px] border-[#2c3a4a]'>
+    <div className='flex fixed justify-between items-center px-3 w-full md:w-[83%] z-10 bg-[#17202a] h-[8vh] border-b-[1px] border-[#2c3a4a]'>
         {/* <div className="hidden md:flex">
             <h3 className='text-3xl text-white'>text</h3>
         </div> */}
@@ -61,10 +62,14 @@ const NavBar = () => {
                <PeopleOutlineIcon sx={{color: '#efefef'}}/>
             </div>
             <div className="cursor-pointer">
+              <Badge badgeContent={20} color="error">
                 <MarkChatUnreadOutlinedIcon sx={{color: '#efefef'}}/>
+              </Badge>
             </div>
             <div className="cursor-pointer">
+              <Badge badgeContent={17} color="error">
                 <NotificationsNoneOutlinedIcon sx={{color: '#efefef'}}/>
+              </Badge>
             </div>
             <div className=" hidden md:flex justify-center items-center cursor-pointer">
                 <h3 className='text-[#f2f2f2] mr-2'>Yor Forger</h3>
@@ -73,7 +78,7 @@ const NavBar = () => {
                   anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                   variant="dot"
                 >
-                  <Avatar   />
+                  <Avatar src={Yor}   />
                 </StyledBadge>
                 <ExpandMoreOutlinedIcon sx={{color: '#efefef'}} />
             </div>

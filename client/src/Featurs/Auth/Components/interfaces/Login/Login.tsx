@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import { IconButton } from '@mui/material';
 import Google from '../../../../../assets/Images/google.svg' 
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 function Login() {
   const [visibility,setVisibility] = useState(false)
@@ -24,7 +25,7 @@ function Login() {
             <div className="flex flex-col space-y-2">
               <span className='text-[#efefef] ml-4'>Email</span>
               <div className="flex items-center border-[1px]  bg-[#17202a]   rounded-full py-2 px-2 border-[#444]">
-                <PersonOutlinedIcon className='text-[#efefef]'/>
+                <MailOutlineIcon className='text-[#efefef]'/>
                 <input className='placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='emai' placeholder='Your email address...'/>
               </div>
             </div>
@@ -65,18 +66,20 @@ function Login() {
         <div className="w-[80%] md:w-[75%] mx-auto flex flex-col space-y-4">
           <div className=" cursor-pointer space-x-2 flex items-center justify-center  bg-[#17202a]  rounded-full h-[6vh] ">
               <FacebookOutlinedIcon className='h-6 w-6 text-[#1877f2]   '/>
-             <h3 className='text-[#efefef]'>Continue withe Facebook</h3>
+             <h3 className='text-[#efefef]'>Continue with Facebook</h3>
           </div>
           <div className=" cursor-pointer space-x-2 flex items-center justify-center  bg-[#17202a]  rounded-full h-[6vh] ">
              <img src={Google} alt='Facebook icon' className='h-6 w-6'/>
-             <h3 className='text-[#efefef]'>Continue withe Google</h3>
+             <h3 className='text-[#efefef]'>Continue with Google</h3>
           </div>
           <div className="flex justify-between items-center mx-4  ">
             <div className="  ">
                 <h6 className='text-[#efefef]'> Don't have account?</h6>
             </div>
             <div className="  ">
-                <h6 className='text-[#4480ce] text-end cursor-pointer'>Click here</h6>
+                <Link to='/auth/signup'>
+                  <h6 className='text-[#4480ce]  text-end cursor-pointer'>Click here</h6>
+                </Link>
             </div>
           </div>
         </div>
