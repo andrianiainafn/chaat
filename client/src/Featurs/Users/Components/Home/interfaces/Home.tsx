@@ -80,11 +80,11 @@ const Home = () => {
               </div>
               <div className="cursor-pointer flex items-center justify-between ">
                 <ModeCommentOutlinedIcon  sx={{color:"#efefef" ,marginRight:'0.4rem'}}/>
-                <p className='text-[#efefef] text-xs hidden md:flex'>You,and 192 others</p>
+                <p className='text-[#efefef] text-xs hidden md:flex'>187 comments</p>
               </div>
               <div className=" cursor-pointer flex items-center justify-between ">
                 <ShareOutlinedIcon sx={{color:"#efefef" ,marginRight:'0.4rem'}}/>
-                <p className='text-[#efefef] text-xs hidden md:flex'>You,and 192 others</p>
+                <p className='text-[#efefef] text-xs hidden md:flex'>7 shares</p>
               </div>
             </div>
          </div>

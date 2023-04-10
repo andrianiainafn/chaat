@@ -3,7 +3,7 @@ import MarkChatUnreadOutlinedIcon from '@mui/icons-material/MarkChatUnreadOutlin
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import HomeIcon from '@mui/icons-material/Home';
-import { Avatar, Badge } from '@mui/material';
+import { Avatar, Badge, IconButton } from '@mui/material';
 import Logo from '../assets/Images/logo.png'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
@@ -11,6 +11,7 @@ import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
 import { styled } from '@mui/material/styles'
 import Yor from '../assets/Images/yor.jpg'
+import { NavLink } from 'react-router-dom';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -55,21 +56,30 @@ const NavBar = () => {
                 <Avatar src={Logo} sx={{marginRight:'0.5rem'}}/>
                 <h3 className='text-[#4480ce]'>Chaat</h3>
             </div>
-            <div className="flex md:hidden cursor-pointer">
-               <HomeIcon sx={{color: '#efefef'}}/> 
+            <div className="flex md:hidden cursor-pointer ">
+              <NavLink className='text-[#efefef]' to='/users/'>
+                  <HomeIcon  />  
+              </NavLink>  
             </div>
-            <div className="flex md:hidden cursor-pointer">
-               <PeopleOutlineIcon sx={{color: '#efefef'}}/>
+            <div className="flex md:hidden cursor-pointer ">
+                <NavLink className='text-[#efefef]'  to='/users/friends/list'>
+                    <PeopleOutlineIcon  />
+                </NavLink>
             </div>
-            <div className="cursor-pointer">
+            <div className="cursor-pointer ">
               <Badge badgeContent={20} color="error">
-                <MarkChatUnreadOutlinedIcon sx={{color: '#efefef'}}/>
+                  <MarkChatUnreadOutlinedIcon sx={{color: '#efefef'}}/>
               </Badge>
             </div>
             <div className="cursor-pointer">
               <Badge badgeContent={17} color="error">
-                <NotificationsNoneOutlinedIcon sx={{color: '#efefef'}}/>
+                  <NotificationsNoneOutlinedIcon sx={{color: '#efefef'}}/>
               </Badge>
+            </div>
+            <div className="cursor-pointer flex md:hidden">
+                <IconButton>
+                  <MenuOutlinedIcon sx={{color: '#efefef'}}/>
+                </IconButton>
             </div>
             <div className=" hidden md:flex justify-center items-center cursor-pointer">
                 <h3 className='text-[#f2f2f2] mr-2'>Yor Forger</h3>

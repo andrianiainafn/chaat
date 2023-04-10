@@ -45,7 +45,7 @@ const Friends = () => {
               </NavLink>
           </div>
       </div>
-      <div className=" mx-2 md:mx-0 fixed overflow-y-scroll h-[80%] md:right-16 rounded-lg w-[95%] md:w-[40vw] bg-[#17202a] border-[1px] border-[#2c3a4a]">
+      <div className=" mx-2 md:mx-0 fixed overflow-y-scroll scrollbar-hide h-[80%] md:right-16 rounded-lg w-[95%] md:w-[40vw] bg-[#17202a] border-[1px] border-[#2c3a4a]">
         <Outlet/>
       </div>
     </div>

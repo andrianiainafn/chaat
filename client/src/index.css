@@ -26,3 +26,10 @@ body{
 .link:hover::after{
     transform: scaleX(1);
 }
+.scrollbar-hide::-webkit-scrollbar{
+    display: none;
+}
+.scrollbar-hide{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
