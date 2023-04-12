@@ -1,0 +1,17 @@
+  // useEffect(()=>{
+  //   for(let i=2 ; i<= 31; i++){
+  //     if(i in dateInput){
+  //       continue
+  //     }else{
+  //       setDateInput(d=>[...d,i])
+  //     }
+  //   }
+  //   for(let i=1923; i<2011;i++) {
+  //     if(i in yearInput){
+  //       continue
+  //     }
+  //     setYearInput(y=>[...y,i])
+  //  }
+  // },[])
+  // const [yearInput,setYearInput] = useState([1922])
+  // const [dateInput,setDateInput] = useState([1])

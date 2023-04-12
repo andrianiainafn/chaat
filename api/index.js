@@ -14,6 +14,15 @@ const auth = require('./src/routes/auth.router')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 
+//session
+const oneDay = 1000 * 60 *60 * 24 
+app.use(session({
+    secret: "mysecrete",
+    saveUninitialized: true,
+    cookie:{maxAge: oneDay},
+    resave: false
+}))
+
 //Connection avec La BD
 dotenv.config();
 mongoose.set('strictQuery', true)
@@ -26,7 +35,7 @@ app.use(cors({
     origin:['http://localhost:3000'],
     credentials: true
 }))
-app.use(cookieParser)
+app.use(cookieParser())
 
 //Routes
 app.use('/auth/',auth)
@@ -47,12 +56,3 @@ async function main(){
         }
     })
 }
-//session
-app.use(session({
-    secret: "mysecrete",
-    cookie:{
-        sameSite: 'strict',
-        // originalMaxAge: 10,
-        // expires: 3600,
-    }
-}))

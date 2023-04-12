@@ -31,8 +31,8 @@ function Confirmation() {
             </div>
             <div className="">
               <h3 className='text-[#efefef] text-2xl  text-center'>Confirmation </h3>
-            </div>
        </div>
+            </div>
         <div className="flex flex-col items-center space-y-8">
           <div className="w-[80%] flex flex-col space-y-2">
               {
