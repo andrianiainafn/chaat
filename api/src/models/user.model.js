@@ -3,7 +3,7 @@ const {Schema} = mongoose
 const userSchema = mongoose.Schema(
     {
         
-        firtsname:{
+        firstname:{
             type:String,
             required: true
         },
@@ -27,19 +27,22 @@ const userSchema = mongoose.Schema(
             required: true
         },
         profilepicture:{
-            type:String
+            type:String,
+            default: ''
         },
         couverturepicture:{
-            type:String
+            type:String,
+            default: ''
         },
         bioraphie:{
-            type:String
+            type:String,
+            default: ''
         },
         friends:[
             {
                 type: Schema.Types.ObjectId,
-                ref: 'user'
-            }
+                ref: 'user',
+            },
         ],
         verified: {
             type:Boolean,

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import MarkChatUnreadOutlinedIcon from '@mui/icons-material/MarkChatUnreadOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
@@ -12,6 +12,7 @@ import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
 import { styled } from '@mui/material/styles'
 import Yor from '../assets/Images/yor.jpg'
 import { NavLink } from 'react-router-dom';
+import AuthContext from '../Context/GlobalContext';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -42,6 +43,10 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     },
   }));
 const NavBar = () => {
+  const {connected,firstname} = useContext(AuthContext)
+  useEffect(()=>{
+    console.log(connected,firstname)
+  },[connected])
   return (
     <div className='flex fixed justify-between items-center px-3 w-full md:w-[83%] z-10 bg-[#17202a] h-[8vh] border-b-[1px] border-[#2c3a4a]'>
         {/* <div className="hidden md:flex">
@@ -82,7 +87,7 @@ const NavBar = () => {
                 </IconButton>
             </div>
             <div className=" hidden md:flex justify-center items-center cursor-pointer">
-                <h3 className='text-[#f2f2f2] mr-2'>Yor Forger</h3>
+                <h3 className='text-[#f2f2f2] mr-2'>{firstname}</h3>
                 <StyledBadge
                   overlap="circular"
                   anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
@@ -12,9 +12,11 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import {yearInput,months,dateInput} from '../../Elements/data'
 import axios from 'axios';
+import AuthContext from '../../../../../Context/GlobalContext';
 
 
 function Signup() {
+  const {getConnection} = useContext(AuthContext)
   const [visibility,setVisibility] = useState<Boolean>(false)
   const [visibilityConfirm,setVisibilityConfirm] = useState<Boolean>(false)
   const [error,setError] = useState({fname:false,lname:false,year: false,month:false,day:false,gender:false,email:false,password:false,confirmpassword:false})
@@ -37,7 +39,7 @@ function Signup() {
     const value = e.target.value
     setInformation(info=> ({...info,[name]:value}))
   }
-  const HandleClickCreate = ()=>{
+  const HandleClickCreate = async()=>{
     if(!information.lname){
       setError(err=>({...err,lname:true}))
     }
@@ -74,9 +76,14 @@ function Signup() {
         gender: information.gender,
         password: information.password,
         birth: information.year + '-' + information.month + '-' + information.day,
-        emaail: information.email
+        email: information.email
        }
        console.log(userinformation)
+       const register = await axios.post('http://localhost:8000/auth/register',userinformation)
+       if(register.status === 200){
+        getConnection()
+         navigate('/auth/confirmation')
+       }
     }
   }
   return (
@@ -85,6 +92,14 @@ function Signup() {
         <div className=" w-[80%] md:w-[75%] mx-auto flex flex-col space-y-4">
             <div className="flex items-center justify-between flex-wrap ">
               <div className="w-[45%] flex flex-col space-y-1">
+                {
+                  error.fname && (
+                    <div className="flex justify-between items-center text-red-500 text-sm">
+                      <span className=' '>This is required !!</span>
+                      <InfoOutlinedIcon sx={{height:'3vh'}}/>
+                    </div>
+                  )                  
+                }
                 <div className={
                   error.fname ? "flex items-center w-full border-[1px]  bg-[#17202a]   rounded-full py-2 px-2 border-red-500"
                   : "flex items-center w-full border-[1px]  bg-[#17202a]   rounded-full py-2 px-2 border-[#444]"
@@ -94,6 +109,14 @@ function Signup() {
                 </div>
               </div>
               <div className="w-[45%] flex flex-col space-y-1">
+                {
+                  error.lname && (
+                    <div className="flex justify-between items-center text-red-500 text-sm">
+                      <span className=' '>This is required !!</span>
+                      <InfoOutlinedIcon sx={{height:'3vh'}}/>
+                    </div>
+                  )
+                }
                 <div className={
                   error.lname ? "flex items-center w-full  border-[1px]  bg-[#17202a]   rounded-full py-2 px-2 border-red-500"
                   : "flex items-center w-full  border-[1px]  bg-[#17202a]   rounded-full py-2 px-2 border-[#444]"
@@ -104,6 +127,14 @@ function Signup() {
               </div>
             </div>
             <div className="flex flex-col space-y-1">
+                {
+                  error.email && (
+                    <div className="flex justify-between items-center text-red-500 text-sm">
+                      <span className=' '>This is required !!</span>
+                      <InfoOutlinedIcon sx={{height:'3vh'}}/>
+                    </div>
+                  )                  
+                }
               <div className={
                 error.email ? "flex items-center border-[1px]  bg-[#17202a]   rounded-full py-2 px-2 border-red-500"
                 : "flex items-center border-[1px]  bg-[#17202a]   rounded-full py-2 px-2 border-[#444]"
@@ -117,6 +148,14 @@ function Signup() {
                 <span className='text-[#efefef] text-sm'>Birth</span>
                 <div className=" flex items-center space-x-2">
                   <div className="  flex flex-col space-y-1">
+                    {
+                      error.year && (
+                        <div className="flex justify-between items-center text-red-500 text-sm">
+                          <span className=' '>This is required !!</span>
+                          <InfoOutlinedIcon sx={{height:'3vh'}}/>
+                        </div>
+                      )                  
+                    }
                     <select onChange={HandleChangeSelect} name='year' 
                      className={
                       error.year ? 'outline-none bg-[#17202a] text-[#efefef] border-[1px] rounded-lg px-2 border-red-500'
@@ -131,6 +170,14 @@ function Signup() {
                     </select>
                   </div>
                   <div className="flex flex-col space-y-1">
+                    {
+                      error.month && (
+                        <div className="flex justify-between items-center text-red-500 text-sm">
+                          <span className=' '>This is required !!</span>
+                          <InfoOutlinedIcon sx={{height:'3vh'}}/>
+                        </div>
+                      )                  
+                    }
                     <select onChange={HandleChangeSelect} name='month' 
                     className={
                       error.month ? 'outline-none bg-[#17202a]  text-[#efefef] border-[1px] rounded-lg px-2 border-red-500'
@@ -145,6 +192,14 @@ function Signup() {
                     </select>
                   </div>
                   <div className="flex flex-col space-y-1">
+                    {
+                      error.day && (
+                        <div className="flex justify-between items-center text-red-500 text-sm">
+                          <span className=' '>This is required !!</span>
+                          <InfoOutlinedIcon sx={{height:'3vh'}}/>
+                        </div>
+                      )                  
+                    }
                     <select onChange={HandleChangeSelect} name='day' 
                     className={
                       error.day  ? 'outline-none  bg-[#17202a] text-[#efefef] border-[1px] rounded-lg px-2 border-red-500'
@@ -162,6 +217,14 @@ function Signup() {
               </div>
               <div className="w-[25%]">
                 <div className="flex flex-col space-y-1">
+                  {
+                    error.gender && (
+                      <div className="flex justify-between items-center text-red-500 text-sm">
+                        <span className=' '>This is required !!</span>
+                        <InfoOutlinedIcon sx={{height:'3vh'}}/>
+                      </div>
+                    )                  
+                  }
                   <label htmlFor='day_naissance' className='text-[#efefef] text-sm'>Gender</label>
                   <select onChange={HandleChangeSelect} name='gender' 
                   className={
@@ -175,6 +238,14 @@ function Signup() {
               </div>
             </div>
             <div className="flex flex-col space-y-1">
+                {
+                  error.password && (
+                    <div className="flex justify-between items-center text-red-500 text-sm">
+                      <span className=' '>This is required !!</span>
+                      <InfoOutlinedIcon sx={{height:'3vh'}}/>
+                    </div>
+                  )                  
+                }
               <div className={
                 error.password ? "flex justify-between items-center border-[1px]  bg-[#17202a]   rounded-full h-[6vh] px-2 border-red-500"
                 : "flex justify-between items-center border-[1px]  bg-[#17202a]   rounded-full h-[6vh] px-2 border-[#444]"
@@ -195,6 +266,14 @@ function Signup() {
               </div>
             </div>
             <div className="flex flex-col space-y-1">
+                {
+                  error.confirmpassword && (
+                    <div className="flex justify-between items-center text-red-500 text-sm">
+                      <span className=' '>This is required !!</span>
+                      <InfoOutlinedIcon sx={{height:'3vh'}}/>
+                    </div>
+                  )                  
+                }
               <div className={
                 error.confirmpassword ? "flex justify-between items-center border-[1px]  bg-[#17202a]   rounded-full h-[6vh] px-2 border-red-500"
                 :"flex justify-between items-center border-[1px]  bg-[#17202a]   rounded-full h-[6vh] px-2 border-[#444]"

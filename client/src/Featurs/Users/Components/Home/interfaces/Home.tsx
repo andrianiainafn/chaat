@@ -36,7 +36,7 @@ const Home = () => {
                   <AttachFileOutlinedIcon sx={{color: '#efefef'}}/>
                   <AddReactionOutlinedIcon sx={{color: '#efefef'}}/>
                </div>
-               <div className="flex justify-between items-center w-[40%] md:w-[30%]">
+               <div className="flex justify-between items-center w-[40%] md:w-[35%]">
                    <div className="cursor-pointer text-[#efefef] flex justify-between items-center">
                       <CreateOutlinedIcon sx={{height: '2.5vh'}}/>
                       <span className='text-sm'>Drafts</span>

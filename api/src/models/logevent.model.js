@@ -8,5 +8,6 @@ const logeventSchema = mongoose.Schema({
     },
     code: Number
 }) 
+ logeventSchema.index({"createdAt": 1}, {expireAfterSeconds:60})
 
 module.exports = mongoose.model('logevent',logeventSchema)

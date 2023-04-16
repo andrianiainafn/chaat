@@ -11,16 +11,15 @@ function Confirmation() {
   const [error,setError] = useState<Boolean>(false)
   const navigate = useNavigate()
   const HandleChange = async(e:ChangeEvent<HTMLInputElement>)=>{
-    setCode(parseInt(e.target.value))
-    const newcode = code?.toString()
-    if(newcode?.length === 5){
-      const confirmation = await axios.post('http://localhost:8000/auth/confirmation',code)
-      if(confirmation.status === 200){
-        navigate('/users/')
-      }else{
-        setError(true)
-      }
+  if(e.target.value.length === 6){
+    const code = parseInt(e.target.value);
+    const confirmation = await axios.post('http://localhost:8000/auth/confirmation',{code})
+    if(confirmation.status === 200){
+      navigate('/users/')
+    }else{
+      setError(true)
     }
+  }
   }
   return (
     <div className='flex h-[90vh] flex-col space-y-12 justify-center'>

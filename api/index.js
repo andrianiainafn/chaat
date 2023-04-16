@@ -23,6 +23,8 @@ app.use(session({
     resave: false
 }))
 
+app.use(express.json())
+
 //Connection avec La BD
 dotenv.config();
 mongoose.set('strictQuery', true)
@@ -48,11 +50,4 @@ app.listen(process.env.PORT,()=>{
 //function to connect on mongodb
 async function main(){
     await mongoose.connect(process.env.MONGO_URL)
-    await logevent.createIndexes({createdAte: 1}, {expireAfterSeconds:180},(err)=>{
-        if(err){
-            console.error(err)
-        }else{
-            console.log("reussi!!")
-        }
-    })
 }
