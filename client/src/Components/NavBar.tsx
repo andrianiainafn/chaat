@@ -43,9 +43,9 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     },
   }));
 const NavBar = () => {
-  const {connected,firstname} = useContext(AuthContext)
+  const {connected,firstname,profilepicture} = useContext(AuthContext)
   useEffect(()=>{
-    console.log(connected,firstname)
+    console.log(connected,firstname,profilepicture)
   },[connected])
   return (
     <div className='flex fixed justify-between items-center px-3 w-full md:w-[83%] z-10 bg-[#17202a] h-[8vh] border-b-[1px] border-[#2c3a4a]'>

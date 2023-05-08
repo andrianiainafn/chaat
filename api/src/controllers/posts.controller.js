@@ -1,0 +1,121 @@
+const mongoose = require('mongoose')
+const postsModel = require('../models/post.model')
+const actualityModel = require('../models/actuality.model')
+const jwt = require('jsonwebtoken')
+
+//creating a new posts
+exports.create = async(req,res)=>{
+    try{
+        const token = req.cookies.user
+        if(!token){
+            return res
+            .status(401)
+            .json({message:"Unauthorized"})
+        }
+        const {description} = req.body
+        console.log(req.body)
+        jwt.verify(token,process.env.JWT_SECRET)
+        const payload = jwt.decode(token,options={"verify_signature": false})
+        let imagesUrl = []
+        if(req.files){
+            imagesUrl = req.files.map(file=>file.path)
+        }
+        const post = new postsModel({
+            author: payload.user_id,
+            description,
+            media: imagesUrl
+        })
+        const newPosts = await post.save()
+        const actuality = new actualityModel({
+            actu: newPosts._id
+        })
+        await actuality.save()
+        res
+        .status(200)
+        .json({message:"Posts created successfully"})
+
+    }catch(e){
+        console.error(e)
+        res
+        .status(500)
+        .json({message:e.message})
+    }
+}
+exports.get = async (req,res)=>{
+    try{
+        const token = req.cookies.user
+        if(!token){
+            return res
+            .status(401)
+            .json({message:"Unauthorized"})
+        }
+        const postId = req.params.post
+        const post = await  postsModel.findById(postId) 
+        res
+        .status(200)
+        .json({post})
+
+    }catch(e){
+        res
+        .status(500)
+        .json({message: e.message})
+    }
+}
+exports.delete = async(req,res)=>{
+    try{
+        const token = req.cookies.user
+        if(!token){
+            return res
+            .status(401)
+            .json({message:"Unauthorized"})
+        }
+        const postId = req.params.post
+        const post = await postsModel.find({_id: postId})
+        jwt.verify(token,process.env.JWT_SECRET)
+        const payload = jwt.decode(token,options={"verify_signature": false})
+        if(post.author !== payload.user_id){
+            return res
+            .status(401)
+            .json({message: "This posts is not yours"})
+        }
+        const deletedPost = await postsModel.deleteOne({_id: postId})
+        if(deletedPost.deletedCount === 1){
+            return res
+            .status(200)
+            .json({message: "Post deleted successfully!"})
+        }else{
+            return res
+            .status(403)
+            .json({message: "Eror! Something went wrong"})
+        }
+
+    }catch(e){
+        res
+        .status(500)
+        json({message: e.message})
+    }
+}
+
+exports.modify = async function(req, res){
+    try{
+        const token = req.cookies.user
+        if(!token){
+            return res
+            .status(401)
+            .json({message:"Unauthorized"})
+        }
+        const postId = req.params.post
+        const post = await postsModel.find({_id: postId})
+        jwt.verify(token,process.env.JWT_SECRET)
+        const payload = jwt.decode(token,options={"verify_signature": false})
+        if(post.author !== payload.user_id){
+            return res
+            .status(401)
+            .json({message: "This posts is not yours"})
+        }
+    }catch(e){
+        res
+        .status(500)
+        json({message: e.message})
+    }
+}

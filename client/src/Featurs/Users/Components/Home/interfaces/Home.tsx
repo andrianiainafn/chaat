@@ -1,51 +1,45 @@
 import { Avatar } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Logo from '../../../../../assets/Images/logo.png'
-import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
-import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
-import PhotoCameraOutlinedIcon from '@mui/icons-material/PhotoCameraOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
-import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import GroupsIcon from '@mui/icons-material/Groups';
+import ClickCreatePost from '../elements/ClickCreatePost';
+import CreatePost from './CreatePost';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 const Home = () => {
+  const [isCreate,setIsCreate] =  useState<boolean>(false)
+  const HandleClickIsCreate:()=>void = ()=>{
+    setIsCreate(ancien=>!ancien)
+  }
+  const queryKey = ['posts']
+  const getPost = async()=>{
+    const pub = await axios.get('http://localhost:8000/actuality')
+    return pub
+  }
+  const {isLoading,data } = useQuery(queryKey, getPost)
   const list = [1,2,3,4,5]
+  useEffect(()=>{
+    console.log(data)
+  },[isLoading])
   return (
-    <div className='flex mx-2 mb-5 md:mx-5 justify-around mt-[8vh]'>
+    <div className=' flex mx-2 mb-5 md:mx-5 justify-around mt-[8vh]'>
+      {
+        isCreate && (
+          <CreatePost open={isCreate} HandleClick={HandleClickIsCreate}/>
+        )
+      }
       <div className="w-[100%] md:w-[50%]">
          <div className="bg-[#17202a] border-[1px] border-[#2c3a4a] rounded-lg">
-            <div className="flex w-[90%] m-2 items-center">
-              <Avatar sx={{height:'2em', width: '2em', marginRight:'1rem'}} />
-              <div className="flex justify-between items-center border-[1px] bg-[#2c3a4a] w-[85%] md:w-[85%] rounded-full p-1  border-[#444]">
-                <input className='outline-none text-[#efefef] ml-2 w-full border-none bg-transparent' placeholder="What's in your mind ?" type='text' />
-              </div>
-            </div>
-            <div className="flex justify-between items-center m-3">
-               <div className="md:w-[25%] w-[35%] cursor-pointer flex justify-between items-center">
-                  <PhotoCameraOutlinedIcon sx={{color: '#efefef'}}/>
-                  <ImageOutlinedIcon sx={{color: '#efefef'}}/>
-                  <AttachFileOutlinedIcon sx={{color: '#efefef'}}/>
-                  <AddReactionOutlinedIcon sx={{color: '#efefef'}}/>
-               </div>
-               <div className="flex justify-between items-center w-[40%] md:w-[35%]">
-                   <div className="cursor-pointer text-[#efefef] flex justify-between items-center">
-                      <CreateOutlinedIcon sx={{height: '2.5vh'}}/>
-                      <span className='text-sm'>Drafts</span>
-                   </div>
-                   <div className=" cursor-pointer flex justify-center items-center border border-[#444] w-[10vw] md:w-[6vw] h-[5vh] text-[#efefef] rounded-lg">
-                     <span className='text-sm'>Posts</span>
-                   </div>
-               </div>
-            </div>
+            <ClickCreatePost HandleClick={HandleClickIsCreate} />
          </div>
         {
           list.map(post=>(
