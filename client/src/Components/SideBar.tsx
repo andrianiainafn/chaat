@@ -10,7 +10,7 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 
 const SideBar = () => {
   return (
-    <div className='md:flex fixed flex-col hidden space-y-5 pt-5   bg-[#17202a] h-screen w-[17%] border-r-[1px] border-[#2c3a4a]'>
+    <div className='md:flex fixed flex-col hidden space-y-5 pt-5 overflow-scroll  bg-[#17202a] h-screen w-[17%] border-r-[1px] border-[#2c3a4a]'>
         <div className="flex   items-center justify-center">
             <Avatar src={Logo} sx={{marginRight:'1rem'}}/>
             <h2 className='text-[#4480ce] font-bold'>CHAAT</h2>

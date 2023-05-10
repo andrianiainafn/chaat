@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import NavBar from '../Components/NavBar'
 import SideBar from '../Components/SideBar'
-import { AllOFFriends, Community, Friends, Home, List, Profile, Request, Saved, Suggestion } from '../Featurs/Users'
+import { AllOFFriends, Community, Discution, Friends, Home, List, Notification, Principale, Profile, Recherche, Request, Saved, Suggestion } from '../Featurs/Users'
 
 const UsersLayout = () => {
   return (
@@ -26,7 +26,12 @@ const UsersLayout = () => {
                         <Route path='suggestion' element={<Suggestion/>}/>
                         <Route path='request' element={<Request/>}/>
                     </Route>
+                    <Route path='messages/' element={<Principale/>} >
+                        <Route path=':id' index={true} element={<Discution/>}/>
+                    </Route>
                     <Route path='saves' element={<Saved/>}/>
+                    <Route path='notifications' element={<Notification/>}/>
+                    <Route path='search' element={<Recherche/>}/>
                 </Routes>    
             </div>
         </div>

@@ -14,11 +14,16 @@ import ClickCreatePost from '../elements/ClickCreatePost';
 import CreatePost from './CreatePost';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import ViewPost from './ViewPost';
 
 const Home = () => {
   const [isCreate,setIsCreate] =  useState<boolean>(false)
+  const [isPostView,setIsPostView] = useState<boolean>(false)
   const HandleClickIsCreate:()=>void = ()=>{
     setIsCreate(ancien=>!ancien)
+  }
+  const HandleClickPost:()=>void=()=>{
+    setIsPostView(ancien=>!ancien)
   }
   const queryKey = ['posts']
   const getPost = async()=>{
@@ -29,12 +34,20 @@ const Home = () => {
   const list = [1,2,3,4,5]
   useEffect(()=>{
     console.log(data)
+    if(data){
+      console.log(JSON.parse(data.data.message))
+    }
   },[isLoading])
   return (
     <div className=' flex mx-2 mb-5 md:mx-5 justify-around mt-[8vh]'>
       {
         isCreate && (
           <CreatePost open={isCreate} HandleClick={HandleClickIsCreate}/>
+        )
+      }
+      {
+        isPostView && (
+          <ViewPost open={isPostView} HandleClickPost={HandleClickPost} />
         )
       }
       <div className="w-[100%] md:w-[50%]">
@@ -72,7 +85,7 @@ const Home = () => {
                 <FavoriteOutlinedIcon  sx={{color:'#ec6b60',marginRight:'0.4rem'}}/>
                 <p className='text-[#efefef] text-xs hidden md:flex'>You,and 192 others</p>
               </div>
-              <div className="cursor-pointer flex items-center justify-between ">
+              <div onClick={HandleClickPost} className="cursor-pointer flex items-center justify-between ">
                 <ModeCommentOutlinedIcon  sx={{color:"#efefef" ,marginRight:'0.4rem'}}/>
                 <p className='text-[#efefef] text-xs hidden md:flex'>187 comments</p>
               </div>

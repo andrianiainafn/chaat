@@ -11,15 +11,21 @@ exports.actuality = async(req,res)=>{
         .json({message: 'Unauthorized'})
      }        
      const actuality = await actualityModel.find().populate({
-        path: 'actu',
-        populate:{
-            path: 'author'
-        },
-    })
-     console.log(actuality.actu)
+        path:'actu',
+        model:'post',
+        populate:[{
+            path: 'author',
+            select:['firstname', 'lastname','profilepicture']
+        },{
+            path: 'love',
+            select:['firstname', 'lastname','profilepicture']
+        }
+    ],
+     }).lean()
+     console.log(JSON.stringify(actuality, null, 2));
      res 
      .status(200)
-     .json({message:'OK'})
+     .json({message:JSON.stringify(actuality, null, 2)})
 
     }catch(e){
         console.error(e)

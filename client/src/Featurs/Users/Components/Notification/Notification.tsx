@@ -2,7 +2,9 @@ import React from 'react'
 
 function Notification() {
   return (
-    <div>Notification</div>
+    <div className='mt-[8vh]'>
+      Notification
+    </div>
   )
 }
 

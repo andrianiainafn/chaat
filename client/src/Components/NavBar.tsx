@@ -54,7 +54,7 @@ const NavBar = () => {
         </div> */}
         <div className="hidden md:flex justify-between items-center border-[1px] rounded-full py-1 px-2 border-[#444]">
             <input className='outline-none text-[#f2f2f2] border-none bg-transparent' placeholder='Explore Chaat..' type='text' />
-            <SearchOutlinedIcon sx={{color: '#efefef'}}/>
+            <SearchOutlinedIcon sx={{color: '#efefef',cursor: 'pointer'}}/>
         </div>
         <div className="flex justify-between w-full md:w-[25%] items-center">
             <div className="flex items-center md:hidden cursor-pointer">
@@ -72,14 +72,18 @@ const NavBar = () => {
                 </NavLink>
             </div>
             <div className="cursor-pointer ">
-              <Badge badgeContent={20} color="error">
-                  <MarkChatUnreadOutlinedIcon sx={{color: '#efefef'}}/>
-              </Badge>
+                <NavLink to='/users/messages/89898'>              
+                  <Badge badgeContent={20} color="error">
+                    <MarkChatUnreadOutlinedIcon sx={{color: '#efefef'}}/>
+                  </Badge>
+              </NavLink>
             </div>
             <div className="cursor-pointer">
-              <Badge badgeContent={17} color="error">
-                  <NotificationsNoneOutlinedIcon sx={{color: '#efefef'}}/>
-              </Badge>
+              <NavLink to='/users/notifications'>
+                <Badge badgeContent={17} color="error">
+                    <NotificationsNoneOutlinedIcon sx={{color: '#efefef'}}/>
+                </Badge>
+              </NavLink>
             </div>
             <div className="cursor-pointer flex md:hidden">
                 <IconButton>
