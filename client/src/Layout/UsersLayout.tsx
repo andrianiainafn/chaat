@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import NavBar from '../Components/NavBar'
 import SideBar from '../Components/SideBar'
 import { AllOFFriends, Community, Discution, Friends, Home, List, Notification, Principale, Profile, Recherche, Request, Saved, Suggestion } from '../Featurs/Users'
+import { PostContext } from '../Featurs/Users/Components/Home/Context/PostContext'
 
 const UsersLayout = () => {
   return (
@@ -14,7 +15,7 @@ const UsersLayout = () => {
             <NavBar/>
             <div className="mt-[3vh]">
                 <Routes>
-                    <Route path='' index={true} element={<Home/>}/>
+                    <Route path='' index={true} element={<PostContext><Home/></PostContext> }/>
                     <Route path='profile' element={<Profile/>} ></Route>
                     <Route path='community' element={<Community/>}>
                         <Route path='' index={true} element={<p>List de pub des community dont je suis membre</p>}/>

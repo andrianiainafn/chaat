@@ -13,6 +13,7 @@ const cors= require('cors')
 const auth = require('./src/routes/auth.router') 
 const actuality = require('./src/routes/actuality.router')
 const posts = require('./src/routes/posts.router')
+const comment = require('./src/routes/comment.router')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const {create} = require('./src/sockets/posts.socket') 
@@ -48,7 +49,7 @@ app.use(cookieParser())
 app.use('/auth/',auth)
 app.use('/post/',postImage.array('images',4),posts)
 app.use('/actuality', actuality)
-
+app.use('/comment',comment)
 
 app.listen(process.env.PORT,()=>{
     console.log("listenning on port:" + process.env.PORT)

@@ -44,7 +44,8 @@ const Discution = (props: Props) => {
               Heyy
           </div>
         </div>
-        <div className="flex justify-start">
+        <div className="flex justify-start space-x-1">
+          <Avatar />
           <div className=" bg-[#2c3a4a] rounded-full p-2  ">
               Heyy
           </div>
