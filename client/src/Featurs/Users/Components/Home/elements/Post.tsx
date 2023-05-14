@@ -9,20 +9,22 @@ import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import GroupsIcon from '@mui/icons-material/Groups';
+import { useEffect } from 'react';
 
 type Props = {
-    post: Object,
+    post: any,
     HandleClickPost: ()=>void
 }
 
 const Post = (props: Props) => {
+  useEffect(()=>{console.log(props.post)},[])
   return (
     <div  className="bg-[#17202a] flex flex-col space-y-2 border-[1px]  border-[#2c3a4a] rounded-lg mt-3">
         <div className="p-2 flex w-full justify-between items-center">
           <div className="flex items-center ">
             <Avatar sx={{height:'2em', width: '2em', marginRight:'1rem'}}/>
             <div className="">
-                <h6 className='text-xs text-[#efefef]'>FCB MADA</h6>
+                <h6 className='text-xs text-[#efefef]'>{props.post.author.lastname}</h6>
                 <h6 className='text-xs text-[#777]'>3000 members</h6>
             </div>
           </div>
@@ -33,13 +35,11 @@ const Post = (props: Props) => {
         </div>
         <div className="text-[#efefef] m-2 text-sm ">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-            Eos dolorem, error tempore dicta porro nostrum sint expedita mollitia labore magni,
-            nobis adipisci voluptatibus eligendi rerum iusto ad quidem aspernatur deleniti?
+            {props.post.description}
           </p>
         </div>
         <div className="w-full">
-           <img src={Logo} className='w-full h-[34vh]' alt='example' />
+           <img src={`http://localhost:8000/${props.post.media[0]}`} className='w-full h-[34vh]' alt='example' />
         </div>
         <div className="w-full p-2 flex justify-between items-center">
           <div className="cursor-pointer flex items-center justify-between  ">

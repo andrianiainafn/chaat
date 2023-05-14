@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ClickCreatePost from '../elements/ClickCreatePost';
 import CreatePost from './CreatePost';
 import { useQuery } from '@tanstack/react-query';
@@ -6,14 +6,24 @@ import axios from 'axios';
 import ViewPost from './ViewPost';
 import Post from '../elements/Post';
 import animation from '../../../../../assets/Images/animation.gif'
+import ContextOfPost from '../Context/PostContext';
 
 const Home = () => {
   const [isCreate,setIsCreate] =  useState<boolean>(false)
+  const [posts,setPosts] = useState([])
+  const {ModifyIdPost} = useContext(ContextOfPost)
   const [isPostView,setIsPostView] = useState<boolean>(false)
   const HandleClickIsCreate:()=>void = ()=>{
     setIsCreate(ancien=>!ancien)
   }
-  const HandleClickPost:()=>void=()=>{
+  const HandleClickPost=(newPostId:any)=>{
+    if(newPostId){
+      console.log(newPostId.actu[0])
+      ModifyIdPost(newPostId.actu[0]._id)
+    }
+    setIsPostView(ancien=>!ancien)
+  }
+  const HandleClickPostBool:()=>void = ()=>{
     setIsPostView(ancien=>!ancien)
   }
   const queryKey = ['posts']
@@ -22,11 +32,10 @@ const Home = () => {
     return pub
   }
   const {isLoading,data } = useQuery(queryKey, getPost)
-  const list = [1,2,3,4,5]
   useEffect(()=>{
-    console.log(data)
     if(data){
       console.log(JSON.parse(data.data.message))
+      setPosts(JSON.parse(data.data.message))
     }
   },[isLoading])
   if(isLoading){
@@ -34,7 +43,6 @@ const Home = () => {
       <div className=' flex mx-2 mb-5 md:mx-5 justify-around mt-[8vh]'>
           <img src={animation} alt='loading animation'/>
       </div>
- 
     )
   }
   else{
@@ -47,7 +55,7 @@ const Home = () => {
         }
         {
           isPostView && (
-            <ViewPost open={isPostView} HandleClickPost={HandleClickPost} />
+            <ViewPost open={isPostView} HandleClickPost={HandleClickPostBool} />
           )
         }
         <div className="w-[100%] md:w-[50%]">
@@ -55,8 +63,8 @@ const Home = () => {
               <ClickCreatePost HandleClick={HandleClickIsCreate} />
            </div>
           {
-            list.map(post=>(
-                <Post post={post} HandleClickPost={HandleClickPost}/>
+            posts.map((post:any,key)=>(
+                <Post key={key} post={post.actu[0]} HandleClickPost={()=>HandleClickPost(post)}/>
             ))
           }
         </div>

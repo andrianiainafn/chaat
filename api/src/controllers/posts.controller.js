@@ -50,8 +50,12 @@ exports.get = async (req,res)=>{
             .status(401)
             .json({message:"Unauthorized"})
         }
-        const postId = req.params.post
-        const post = await  postsModel.findById(postId) 
+        const postId = req.params['id']
+        console.log(postId)
+        const post = await  postsModel.findById(postId).populate({
+            path:'author',
+            select:['firstname', 'lastname','profilepicture']
+        })
         res
         .status(200)
         .json({post})

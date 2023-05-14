@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose')
 const multer = require('multer')
 const profile = multer({dest:'profile/'})
-const postImage = multer({dest:'posts/Images'})
+const postImage = multer({dest:'posts/'})
 const cors= require('cors')
 const auth = require('./src/routes/auth.router') 
 const actuality = require('./src/routes/actuality.router')
@@ -27,6 +27,7 @@ app.use(session({
     resave: false
 }))
 
+app.use('/posts',express.static('posts'))
 
 //authorization to use req.body
 app.use(express.json())
