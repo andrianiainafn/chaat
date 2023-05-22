@@ -124,3 +124,26 @@ exports.modify = async function(req, res){
         json({message: e.message})
     }
 }
+
+exports.reaction = async (req,res) =>{
+  try{
+    const token = req.cookies.user
+    if(!token){
+        return res
+        .status(401)
+        .json({message:"Unauthorized"})
+    }
+    const postId = req.params.post
+    const post = await postsModel.find({_id: postId}).populate({
+        path:'love',
+    })
+    
+    jwt.verify(token,process.env.JWT_SECRET)
+    const payload = jwt.decode(token,options={"verify_signature": false})
+    
+
+  }catch(e){
+
+
+  }  
+}
