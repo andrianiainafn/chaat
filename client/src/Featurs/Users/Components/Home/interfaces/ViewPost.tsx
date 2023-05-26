@@ -76,7 +76,7 @@ const ViewPost = ({open,HandleClickPost}: Props) => {
                               ))
                             }
                           <div className="mb-[14vh]"/>
-                           <CommentInput/>
+                           <CommentInput postId={data?.data.post._id}/>
                         </div>
                     </div>
                   </motion.div>

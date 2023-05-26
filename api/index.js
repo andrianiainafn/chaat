@@ -1,9 +1,6 @@
 const express = require('express');
 const app = express();
-const http = require('http')
 const socketio = require('socket.io');
-const server = http.createServer(app);
-const io = socketio(server);
 const dotenv = require('dotenv');
 const mongoose = require('mongoose')
 const multer = require('multer')
@@ -52,9 +49,15 @@ app.use('/post/',postImage.array('images',4),posts)
 app.use('/actuality', actuality)
 app.use('/comment',comment)
 
-app.listen(process.env.PORT,()=>{
+const socket = app.listen(process.env.PORT,()=>{
     console.log("listenning on port:" + process.env.PORT)
 })
+const io = socketio(socket,{cors:{
+    origin:['http://localhost:3000'],
+    credentials: true
+}});
+
+
 
 //function to connect on mongodb
 async function main(){

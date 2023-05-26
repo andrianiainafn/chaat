@@ -22,7 +22,6 @@ exports.actuality = async(req,res)=>{
         }
     ],
      }).lean()
-     console.log(JSON.stringify(actuality, null, 2));
      res 
      .status(200)
      .json({message:JSON.stringify(actuality, null, 2)})

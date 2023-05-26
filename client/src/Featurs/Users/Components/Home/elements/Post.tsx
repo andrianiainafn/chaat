@@ -9,17 +9,25 @@ import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import GroupsIcon from '@mui/icons-material/Groups';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios'
 
 type Props = {
     post: any,
     HandleClickPost: ()=>void
 }
-
 const Post = (props: Props) => {
-  useEffect(()=>{console.log(props.post)},[])
+  const HandleClickReaction = async(e: any)=>{
+      const postId = e!.currentTarget.getAttribute('data-postid')
+      const response = await axios.put(`http://localhost:8000/post/reaction/${postId}`)
+      if(response.status === 200){
+        console.log(response.data,9696)
+      }else{
+        console.log(response,666)
+      }
+  } 
   return (
-    <div  className="bg-[#17202a] flex flex-col space-y-2 border-[1px]  border-[#2c3a4a] rounded-lg mt-3">
+    <div data-postid={props.post._id}  className="bg-[#17202a] flex flex-col space-y-2 border-[1px]  border-[#2c3a4a] rounded-lg mt-3">
         <div className="p-2 flex w-full justify-between items-center">
           <div className="flex items-center ">
             <Avatar sx={{height:'2em', width: '2em', marginRight:'1rem'}}/>
@@ -42,7 +50,7 @@ const Post = (props: Props) => {
            <img src={`http://localhost:8000/${props.post.media[0]}`} className='w-full h-[34vh]' alt='example' />
         </div>
         <div className="w-full p-2 flex justify-between items-center">
-          <div className="cursor-pointer flex items-center justify-between  ">
+          <div data-postid={props.post._id} onClick={HandleClickReaction} className="cursor-pointer flex items-center justify-between  ">
             <FavoriteOutlinedIcon  sx={{color:'#ec6b60',marginRight:'0.4rem'}}/>
             <p className='text-[#efefef] text-xs hidden md:flex'>You,and 192 others</p>
           </div>

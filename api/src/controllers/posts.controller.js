@@ -13,7 +13,6 @@ exports.create = async(req,res)=>{
             .json({message:"Unauthorized"})
         }
         const {description} = req.body
-        console.log(req.body)
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
         let imagesUrl = []
@@ -51,7 +50,6 @@ exports.get = async (req,res)=>{
             .json({message:"Unauthorized"})
         }
         const postId = req.params['id']
-        console.log(postId)
         const post = await  postsModel.findById(postId).populate({
             path:'author',
             select:['firstname', 'lastname','profilepicture']
@@ -74,7 +72,7 @@ exports.delete = async(req,res)=>{
             .status(401)
             .json({message:"Unauthorized"})
         }
-        const postId = req.params.post
+        const postId = req.params['post']
         const post = await postsModel.find({_id: postId})
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
@@ -134,13 +132,28 @@ exports.reaction = async (req,res) =>{
         .json({message:"Unauthorized"})
     }
     const postId = req.params.post
-    const post = await postsModel.find({_id: postId}).populate({
+    const post = await postsModel.findOne({_id: postId}).select('love').populate({
         path:'love',
+        select: '_id'
     })
-    
+    const love =  post.love
     jwt.verify(token,process.env.JWT_SECRET)
     const payload = jwt.decode(token,options={"verify_signature": false})
-    
+    const idLove = love.filter(elem => JSON.stringify(elem._id) == JSON.stringify(payload.user_id))
+    if(idLove.length > 0){
+        await postsModel.updateOne(
+            {_id: postId},
+            {$pull: {love: payload.user_id }}
+        )
+    }else{
+        await postsModel.updateOne(
+            {_id: postId},
+            {$push: {love: payload.user_id }}
+        )
+    }
+    res
+    .status(200)
+    .json({message:'OK'})  
 
   }catch(e){
 
