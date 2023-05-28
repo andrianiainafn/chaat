@@ -12,7 +12,6 @@ dotenv.config()
 //sinup
 exports.register = async(req,res)=>{
     try{
-        console.log(req.body)
         const {email,password,lname,fname,birth,gender} = req.body
         if(!email || !password || !lname || !fname || !birth || !gender){
             return res
@@ -122,7 +121,6 @@ exports.login = async(req,res)=>{
         .json({message:"login successfully!!"})
 
     }catch(e){
-        console.error(e)
         res
         .status(500)
         .json({message:"Error login"})
@@ -132,7 +130,6 @@ exports.login = async(req,res)=>{
 //connection verification
 exports.verifySession = async(req,res)=>{
     try{
-        console.log(req.session)
         const token = req.cookies.user
         if(!token){
             return res
@@ -145,7 +142,7 @@ exports.verifySession = async(req,res)=>{
         if(userInfo){
             return res
             .status(200)
-            .json({connected: true,profilepicture: userInfo.profilepicture,firstname: userInfo.firstname,lastname: userInfo.lastname})
+            .json({userid:payload.user_id,connected: true,profilepicture: userInfo.profilepicture,firstname: userInfo.firstname,lastname: userInfo.lastname})
 
         }
         return res
@@ -166,10 +163,7 @@ exports.verifyCode = async(req,res)=>{
         const token = req.cookies.user
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
-        console.log(payload)
         const codeFromDb = await logevent.findOne({author: payload.user_id})
-        console.log(codeFromDb)
-        console.log(code)
         if(code === codeFromDb.code){
             await logevent.deleteMany({author: payload.user_id})
             return res
@@ -181,7 +175,6 @@ exports.verifyCode = async(req,res)=>{
         .json({message:"Code incorrecte"})
 
     }catch(e){
-        console.error(e)
         res
        .status(500)
        .json({message:'Error when verify code'})

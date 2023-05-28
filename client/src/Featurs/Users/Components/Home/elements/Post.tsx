@@ -1,9 +1,6 @@
 import { Avatar } from '@mui/material'
-import Logo from '../../../../../assets/Images/logo.png'
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
@@ -11,21 +8,25 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import GroupsIcon from '@mui/icons-material/Groups';
 import { useEffect, useState } from 'react';
 import axios from 'axios'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import Reaction from './Reaction';
 
 type Props = {
     post: any,
     HandleClickPost: ()=>void
 }
 const Post = (props: Props) => {
+  const queryClient = useQueryClient()
   const HandleClickReaction = async(e: any)=>{
-      const postId = e!.currentTarget.getAttribute('data-postid')
-      const response = await axios.put(`http://localhost:8000/post/reaction/${postId}`)
-      if(response.status === 200){
+    const postId = e!.currentTarget.getAttribute('data-postid')
+    const response = await axios.put(`http://localhost:8000/post/reaction/${postId}`)
+    if(response.status === 200){
         console.log(response.data,9696)
+        queryClient.invalidateQueries(['reaction',postId])
       }else{
         console.log(response,666)
       }
-  } 
+    } 
   return (
     <div data-postid={props.post._id}  className="bg-[#17202a] flex flex-col space-y-2 border-[1px]  border-[#2c3a4a] rounded-lg mt-3">
         <div className="p-2 flex w-full justify-between items-center">
@@ -51,8 +52,7 @@ const Post = (props: Props) => {
         </div>
         <div className="w-full p-2 flex justify-between items-center">
           <div data-postid={props.post._id} onClick={HandleClickReaction} className="cursor-pointer flex items-center justify-between  ">
-            <FavoriteOutlinedIcon  sx={{color:'#ec6b60',marginRight:'0.4rem'}}/>
-            <p className='text-[#efefef] text-xs hidden md:flex'>You,and 192 others</p>
+            <Reaction id={props.post._id} />
           </div>
           <div onClick={props.HandleClickPost} className="cursor-pointer flex items-center justify-between ">
             <ModeCommentOutlinedIcon  sx={{color:"#efefef" ,marginRight:'0.4rem'}}/>

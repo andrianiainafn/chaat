@@ -13,7 +13,8 @@ const posts = require('./src/routes/posts.router')
 const comment = require('./src/routes/comment.router')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
-const {create} = require('./src/sockets/posts.socket') 
+const {create} = require('./src/sockets/posts.socket'); 
+const { text } = require('body-parser');
 
 //session
 const oneDay = 1000 * 60 *60 * 24 
@@ -56,6 +57,11 @@ const io = socketio(socket,{cors:{
     origin:['http://localhost:3000'],
     credentials: true
 }});
+io.on('connect', (socket)=>{
+    console.log('userconnected')
+    io.emit('welcom','hello this is socekt')
+    socket.on('hello',(text)=>console.log(text))
+})
 
 
 

@@ -6,21 +6,25 @@ interface IthemeContext {
   profilepicture: string,
   firstname: string,
   lastname: string,
+  userId: string,
   getConnection: () => void
 
 }
 const AuthContext = createContext<IthemeContext>({
+  userId:'',
   connected: false,
   profilepicture: '',
   firstname: '',
   lastname: '',
   getConnection: () => {},
 });
+
 function GlobalContext({children}:PropsWithChildren) {
   const [connected,setConnected] = useState(false)
   const [profilepicture,setProfilePicture] = useState('')
   const [firstname,setFirstname] = useState('')
   const [lastname,setLastname] = useState('')
+  const [userId,setUserId] = useState('')
   const getConnection = async()=>{
     const connection = await axios.get('http://localhost:8000/auth/verify')
     if(connection.status === 200){
@@ -29,6 +33,7 @@ function GlobalContext({children}:PropsWithChildren) {
       setFirstname(connection.data.firstname)
       setLastname(connection.data.lastname)
       setProfilePicture(connection.data.profilepicture)
+      setUserId(connection.data.userid)
     }
   }
   useEffect(()=>{
@@ -36,7 +41,7 @@ function GlobalContext({children}:PropsWithChildren) {
     console.log(connected)
   },[])
   return (
-    <AuthContext.Provider value={{getConnection,connected,profilepicture,firstname,lastname}}>
+    <AuthContext.Provider value={{getConnection,connected,profilepicture,firstname,lastname,userId}}>
         {children}
     </AuthContext.Provider>
   )

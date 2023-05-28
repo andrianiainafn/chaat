@@ -139,6 +139,7 @@ exports.reaction = async (req,res) =>{
     const love =  post.love
     jwt.verify(token,process.env.JWT_SECRET)
     const payload = jwt.decode(token,options={"verify_signature": false})
+    console.log(postId)
     const idLove = love.filter(elem => JSON.stringify(elem._id) == JSON.stringify(payload.user_id))
     if(idLove.length > 0){
         await postsModel.updateOne(
@@ -156,7 +157,35 @@ exports.reaction = async (req,res) =>{
     .json({message:'OK'})  
 
   }catch(e){
-
+    res
+    .status(500)
+    .json({message:'Internal Server Error'})
 
   }  
+}
+exports.checkReaction = async(req,res)=>{
+    try{
+    const token = req.cookies.user
+    if(!token){
+        return res
+        .status(401)
+        .json({message:"Unauthorized"})
+    }
+    jwt.verify(token,process.env.JWT_SECRET)
+    const payload = jwt.decode(token,options={"verify_signature": false})
+    const postId = req.params['post']
+    const post = await postsModel.findOne({_id: postId}).select('love').populate({
+        path:'love',
+        select: '_id'
+    })
+    const love =  post.love
+    const reaction = love.map(elem=>{return elem._id})
+    res
+    .status(200)
+    .json({message: reaction})
+    }catch(e){
+        res
+            .status(500)
+            .json({message:'Internal Server Error'})
+    }
 }

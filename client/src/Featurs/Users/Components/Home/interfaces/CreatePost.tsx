@@ -9,23 +9,24 @@ type Props = {
     HandleClick:()=> void
 }
 function CreatePost({open,HandleClick}:Props) {    
-    // const socket = io('http://localhost:5000', {
-    //     withCredentials: true,
-    //     extraHeaders: {
-    //         "my-custom-header": "abcd"
-    //     }
-    // });
+    const socket = io('http://localhost:8000', {
+        withCredentials: true,
+        extraHeaders: {
+            "my-custom-header": "abcd"
+        }
+    });
     const [description,setDescription] = useState<string>('')
     const [images,setImages] = useState<File[]>([])
     const HandleTextChange = (e:ChangeEvent<HTMLTextAreaElement>)=>{
         console.log(e.target.value)
         setDescription(e.target.value)
     }
-    // useEffect(()=>{
-    //     socket.on('message', (data)=>{
-    //         console.log(data)
-    //     })
-    // },[])
+    useEffect(()=>{
+        socket.on('welcom', (data)=>{
+            console.log(data)
+        })
+        socket.emit('hello','Hello world')
+    },[])
     const HandleImageChange = (e:ChangeEvent<HTMLInputElement>)=>{
         const files = e.target.files
         if(files){
