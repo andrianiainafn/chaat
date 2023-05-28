@@ -3,7 +3,7 @@ import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import { Avatar } from '@mui/material';
 
 type Props = {
-    comment: object
+    comment: any
 }
 
 const Comments = (props: Props) => {
@@ -13,7 +13,7 @@ const Comments = (props: Props) => {
           <Avatar/>
               <div className="flex flex-col space-y-1">
                  <div className="">
-                    <span className='font-semibold hover:underline'>Loyd Forger</span> je commente 
+                    <span className='font-semibold hover:underline'>{props.comment?.author.firstname}</span> {props.comment?.description}
                  </div>
                  <div className='text-[#777] flex items-center space-x-3 text-sm'>
                     <span className='cursor-pointer' >18 h</span>

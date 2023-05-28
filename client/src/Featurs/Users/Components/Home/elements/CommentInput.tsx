@@ -12,7 +12,7 @@ type Props = {
 
 const CommentInput = (props: Props) => {
   const queryClient = useQueryClient()
-  const [comment,setComment] = useState<String>('')
+  const [comment,setComment] = useState<string>('')
   const HandleChange = (e:ChangeEvent<HTMLTextAreaElement>)=>{
     setComment(e.target.value)
   }
@@ -45,7 +45,7 @@ const CommentInput = (props: Props) => {
         </div>
         <AddReactionOutlinedIcon className='text-[#f2f2f2]'/>
         <div className="overflow-hidden border-[2px] rounded-3xl h-[9vh] relative  border-[#444] flex justify-center items-center p-2">
-          <textarea onChange={HandleChange} className='bg-transparent outline-none w-[14vw] p-2 text-[#f2f2f2] '  placeholder='Add comments...'/>
+          <textarea onChange={HandleChange} className='bg-transparent outline-none w-[14vw] p-2 text-[#f2f2f2] ' value={comment}  placeholder='Add comments...'/>
         </div>
         <button onClick={addCommments} className="border-[2px] text-[#f2f2f2] rounded-3xl h-[9vh] px-2 border-[#444] flex justify-center items-center space-x-1">
           <span className='text-base'>Publier</span>

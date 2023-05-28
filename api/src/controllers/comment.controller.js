@@ -18,10 +18,10 @@ exports.add = async(req,res)=>{
             descripion,
             post
         })
-       const newcomment = await newComment.save()
+       const commmentSave = await newComment.save()
        await postsModel.updateOne(
         {_id: post},
-        {$push: {comments: newcomment._id }}
+        {$push: {comment: commmentSave._id}}
         )
        res
        .status(200)
@@ -79,7 +79,18 @@ exports.get = async(req,res)=>{
             .json({message:"Unauthorized"})
         }
         const post = req.params.post
-        const allComments = await commentModel.find({post})
+        const allComments = await commentModel.find({post}).populate([
+            {
+                path: 'author',
+                model:'user',
+                select:['firstname', 'lastname','profilepicture']
+            },{
+                path:'love',
+                model:'user',
+                select:['firstname', 'lastname','profilepicture']
+            }
+        ])
+        console.log(allComments)
         res
         .status(200)
         .json({comments:allComments})
