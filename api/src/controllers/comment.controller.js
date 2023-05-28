@@ -1,5 +1,6 @@
 const commentModel = require('../models/comment.model')
 const jwt = require('jsonwebtoken')
+const postsModel = require('../models/post.model')
 
 exports.add = async(req,res)=>{
     try{
@@ -17,7 +18,11 @@ exports.add = async(req,res)=>{
             descripion,
             post
         })
-       await newComment.save()
+       const newcomment = await newComment.save()
+       await postsModel.updateOne(
+        {_id: post},
+        {$push: {comments: newcomment._id }}
+        )
        res
        .status(200)
        .json({message: 'Comment saved successfully'})

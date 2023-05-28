@@ -36,7 +36,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 function Sidebar() {
   const discution = [1,2,3,4,5,6,7,8,9,10]
   return (
-    <div className=' fixed flex flex-col bg-[#17202a]  text-[#f2f2f2] w-[25%] p-4  space-y-4 overflow-scroll h-[85vh] '>
+    <div className=' fixed hidden md:flex flex-col bg-[#17202a]  text-[#f2f2f2] w-[25%] p-4  space-y-4 overflow-scroll h-[85vh] '>
         <div className="flex flex-col space-y-3">
             <h3>Your Discutions</h3>
             <div className="hidden md:flex justify-between items-center border-[1px] rounded-full py-1 px-2 border-[#444]">

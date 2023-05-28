@@ -3,12 +3,12 @@ import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import { Avatar } from '@mui/material';
 
 type Props = {
-    comment: number
+    comment: object
 }
 
 const Comments = (props: Props) => {
   return (
-      <div key={props.comment} data-idcomment='idcomment' className="flex justify-between items-center w-full pr-3">
+      <div data-idcomment='idcomment' className="flex justify-between items-center w-full pr-3">
         <div className="text-[#f2f2f2] p-3 flex items-center space-x-2">
           <Avatar/>
               <div className="flex flex-col space-y-1">

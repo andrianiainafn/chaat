@@ -4,12 +4,14 @@ import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import SendIcon from '@mui/icons-material/Send';
 import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import axios from 'axios'
+import { useQueryClient } from '@tanstack/react-query';
 
 type Props = {
   postId: String
 }
 
 const CommentInput = (props: Props) => {
+  const queryClient = useQueryClient()
   const [comment,setComment] = useState<String>('')
   const HandleChange = (e:ChangeEvent<HTMLTextAreaElement>)=>{
     setComment(e.target.value)
@@ -23,6 +25,7 @@ const CommentInput = (props: Props) => {
     const data = await axios.post('http://localhost:8000/comment/add',info)
     if(data.status === 200){
       console.log('comment created')
+      queryClient.invalidateQueries( ['comment',props.postId])
     }else{
       console.log('error when comment creation')
     }

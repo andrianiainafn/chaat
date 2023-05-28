@@ -16,17 +16,22 @@ const Commentst = [1,2,3,4,5,6]
 const ViewPost = ({open,HandleClickPost}: Props) => {
   const {idPost} = useContext(ContextOfPost)
   const queryKey = ['post']
-  const commentqueryKey = ['comment']
+  const commentqueryKey = ['comment',idPost]
   const getPost = async()=>{
     const pub = await axios.get(`http://localhost:8000/post/getpost/${idPost}`)
     return pub
   }
   const getComment = async()=>{
     const comment = await axios.get('http://localhost:8000/comment/get')
-    return comment
+    return comment.data.comments
   }
   const {isLoading :commentLoading, data :comments} = useQuery(commentqueryKey,getComment)
   const {isLoading,data} = useQuery(queryKey,getPost)
+  useEffect(()=>{
+    if(!commentLoading){
+      console.log(comments)
+    }
+  },[commentLoading])
   if(isLoading){
     return (
       <>
@@ -71,8 +76,8 @@ const ViewPost = ({open,HandleClickPost}: Props) => {
                            </div>
                            <span className='text-[#777] text-sm p-3' >18 h</span>
                             {
-                              Commentst.map(comment =>(
-                                 <Comments key={comment} comment={comment} />
+                              comments?.map((comment:object,key:number) =>(
+                                 <Comments key={key} comment={comment} />
                               ))
                             }
                           <div className="mb-[14vh]"/>
