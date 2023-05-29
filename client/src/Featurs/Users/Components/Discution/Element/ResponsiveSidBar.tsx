@@ -41,7 +41,7 @@ type Props = {
 const ResponsiveSidBar = (props: Props) => {
   const discution = [1,2,3,4,5,6,7,8,9,10]
   return (
- <div className="overlay cursor-pointer" onClick={props.ClickDiscu}>
+ <div className="overlay cursor-pointer fixed md:hidden" onClick={props.ClickDiscu}>
   <div onClick={(e)=>e.stopPropagation()} className='centraleDiscu flex-col z-40 bg-[#17202a] w-[100vw]  text-[#f2f2f2] p-4  space-y-4 overflow-scroll h-[100vh] '>
     <div className="flex flex-col space-y-3">
         <h3>Your Discutions</h3>

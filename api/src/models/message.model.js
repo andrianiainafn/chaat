@@ -10,7 +10,11 @@ const messageSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: ['user','groupemessage']
     },
-    message: String
+    message: String,
+    conversation:{
+        type: Schema.Types.ObjectId,
+        ref:'conversation'
+    }
 },
 {
     timeistamp: true

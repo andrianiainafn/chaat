@@ -9,11 +9,9 @@ const consversationSchema = Schema({
     destination:{
         type: Schema.Types.ObjectId,
         ref:['user','groupemessage']
-    },
-    message:{
-        type: Schema.Types.ObjectId,
-        ref:'message'
     }
+},{
+    timeistamp:true
 })
 
 module.exports = mongoose.model('conversation',consversationSchema)
