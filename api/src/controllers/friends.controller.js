@@ -133,7 +133,7 @@ exports.getSuggestions = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
-        const usersuggestions = await userModel.find({})
+        const usersuggestions = await userModel.find({_id:{$ne: payload.user_id}}).select(['firstname','lastname','profilepicture'])
         console.log(usersuggestions)
         res
         .status(200)
@@ -154,7 +154,7 @@ exports.getFriendRequest = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
-        const friendRequest = await userModel.find().select('friends').populate(
+        const friendRequest = await userModel.findOne({_id: payload.user_id}).select('friends').populate(
             {
                 path:'friends',
                 model:'user',

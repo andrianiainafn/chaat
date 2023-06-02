@@ -1,13 +1,14 @@
 import { Avatar } from '@mui/material'
 import React from 'react'
 import Logo from '../assets/Images/logo.png'
+import fcb from '../assets/Images/fcb.jpg'
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import HomeIcon from '@mui/icons-material/Home';
 import { NavLink } from 'react-router-dom';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
-
+import logoReact from '../assets/Images/logo192.png'
 const SideBar = () => {
   return (
     <div className='md:flex fixed overflow-x-hidden flex-col hidden space-y-5 pt-5 overflow-scroll  bg-[#17202a] h-screen w-[17%] border-r-[1px] border-[#2c3a4a]'>
@@ -59,14 +60,14 @@ const SideBar = () => {
             </div>
             <div className="flex flex-col  space-y-3 pl-2">
                 <div className="flex items-center space-x-2 ">
-                    <Avatar sx={{height:'5vh', width: '3vw'}}/>
+                    <Avatar src={fcb} sx={{height:'5vh', width: '3vw'}}/>
                     <div className="">
                         <h6 className='text-xs text-[#f2f2f2]'>FCB MADA</h6>
                         <h6 className='text-xs text-[#777]'>3000 members</h6>
                     </div>
                 </div>
                 <div className="flex items-center space-x-2 ">
-                    <Avatar sx={{height:'5vh', width: '3vw'}}/>
+                    <Avatar src={logoReact} sx={{height:'5vh', width: '3vw'}}/>
                     <div className="">
                         <h6 className='text-xs text-[#f2f2f2]'>React Developers</h6>
                         <h6 className='text-xs text-[#777]'>7M members</h6>
