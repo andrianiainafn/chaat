@@ -11,6 +11,8 @@ const auth = require('./src/routes/auth.router')
 const actuality = require('./src/routes/actuality.router')
 const posts = require('./src/routes/posts.router')
 const comment = require('./src/routes/comment.router')
+const friend = require('./src/routes/friends.router')
+const notification = require('./src/routes/notification.router')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const {create} = require('./src/sockets/posts.socket'); 
@@ -49,6 +51,8 @@ app.use('/auth/',auth)
 app.use('/post/',postImage.array('images',4),posts)
 app.use('/actuality', actuality)
 app.use('/comment',comment)
+app.use('/friend',friend)
+app.use('/notification',notification)
 
 const socket = app.listen(process.env.PORT,()=>{
     console.log("listenning on port:" + process.env.PORT)
@@ -58,7 +62,6 @@ const io = socketio(socket,{cors:{
     credentials: true
 }});
 io.on('connect', (socket)=>{
-    console.log('userconnected')
     io.emit('welcom','hello this is socekt')
     socket.on('hello',(text)=>console.log(text))
 })

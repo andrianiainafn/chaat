@@ -55,7 +55,7 @@ exports.delete = async(req,res)=>{
             .json({message:"Unauthorized"})
         }
         const conversationId = req.params['conversation']
-        const deletingConversation = await conversationModel.deleteOne(id:conversationId)
+        const deletingConversation = await conversationModel.deleteOne({id:conversationId})
         if(deletingConversation.deletedCount === 1){
             res
             .status(200)
@@ -64,9 +64,10 @@ exports.delete = async(req,res)=>{
         else{
             res
             .status(400)
-            .json({message:"Error when deleting conversation})
+            .json({message:"Error when deleting conversation"})
         }
-    }catch(e){
+    }
+    catch(e){
         res
         .status(500)
         .json({message:'Internal Server Error'})

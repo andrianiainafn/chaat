@@ -7,6 +7,8 @@ const notificationSchema = Schema({
         reference: ['post','page','user']
     },
     description: String,
-    
+    isread: boolean
 
 })
+
+module.exports = mongoose.Model(notificationSchema,'notification')

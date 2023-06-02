@@ -16,7 +16,7 @@ const UsersLayout = () => {
             <div className="mt-[3vh]">
                 <Routes>
                     <Route path='' index={true} element={<PostContext><Home/></PostContext> }/>
-                    <Route path='profile' element={<Profile/>} ></Route>
+                    <Route path='profile/:name' element={<Profile/>} ></Route>
                     <Route path='community' element={<Community/>}>
                         <Route path='' index={true} element={<p>List de pub des community dont je suis membre</p>}/>
                         <Route path='suggestion' element={<p>Suggestion de community</p>}/> 
