@@ -1,12 +1,16 @@
 import React from 'react'
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import { Avatar } from '@mui/material';
+import {useEffect} from 'react'
 
 type Props = {
     comment: any
 }
 
 const Comments = (props: Props) => {
+  useEffect(()=>{
+    console.log(props.comment)
+  },[])
   return (
       <div data-idcomment='idcomment' className="flex justify-between items-center w-full pr-3">
         <div className="text-[#f2f2f2] p-3 flex items-center space-x-2">

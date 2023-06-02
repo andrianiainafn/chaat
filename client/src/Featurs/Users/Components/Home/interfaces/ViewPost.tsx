@@ -22,7 +22,7 @@ const ViewPost = ({open,HandleClickPost}: Props) => {
     return pub
   }
   const getComment = async()=>{
-    const comment = await axios.get('http://localhost:8000/comment/get')
+    const comment = await axios.get(`http://localhost:8000/comment/get/${idPost}`)
     return comment.data.comments
   }
   const {isLoading :commentLoading, data :comments} = useQuery(commentqueryKey,getComment)

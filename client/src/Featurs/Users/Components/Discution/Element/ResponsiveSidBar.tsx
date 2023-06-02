@@ -42,18 +42,19 @@ const ResponsiveSidBar = (props: Props) => {
   const discution = [1,2,3,4,5,6,7,8,9,10]
   return (
  <div className="overlay cursor-pointer fixed md:hidden" onClick={props.ClickDiscu}>
-  <div onClick={(e)=>e.stopPropagation()} className='centraleDiscu flex-col z-40 bg-[#17202a] w-[100vw]  text-[#f2f2f2] p-4  space-y-4 overflow-scroll h-[100vh] '>
+  <div onClick={(e)=>e.stopPropagation()} className='centraleDiscu flex-col z-40 bg-[#17202a] w-[100vw]  text-[#f2f2f2] p-4 space-y-6  md:space-y-4 overflow-scroll h-[100vh] '>
     <div className="flex flex-col space-y-3">
-        <h3>Your Discutions</h3>
+        <h3 className='text-[#444]'>Your Discutions</h3>
         <div className="hidden md:flex justify-between items-center border-[1px] rounded-full py-1 px-2 border-[#444]">
             <input className='outline-none text-[#f2f2f2] border-none bg-transparent' placeholder='Search Discution..' type='text' />
             <SearchOutlinedIcon sx={{color: '#efefef',cursor: 'pointer'}}/>
         </div>
     </div>
-    <div className='bg-[#2c3a4a] h-[1px] w-[80%] flex justify-center items-center mx-auto ' />
+    <div className='bg-[#2c3a4a] h-[1px] w-[80%] flex justify-center items-center mx-auto  ' />
+    <div className="mt-10"/>
     {
         discution.map((message)=>(
-        <Link to='/users/messages/33436' key={message}>
+        <Link to='/users/messages/33436' className='mt-5' key={message}>
           <div className="" >
             <div className="flex space-x-2 ">
                 <StyledBadge
@@ -64,7 +65,7 @@ const ResponsiveSidBar = (props: Props) => {
                   <Avatar   />
                 </StyledBadge>
                 <div className="flex flex-col space-y-1">
-                    <h5>Loyd Forger</h5>
+                    <h5 className='text-[#444]'>Loyd Forger</h5>
                     <h6 className='text-xs text-[#777]'>You: Heyy .1h</h6>
                 </div>
             </div>

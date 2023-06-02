@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import MarkChatUnreadOutlinedIcon from '@mui/icons-material/MarkChatUnreadOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
@@ -13,6 +13,7 @@ import { styled } from '@mui/material/styles'
 import Yor from '../assets/Images/yor.jpg'
 import { NavLink } from 'react-router-dom';
 import AuthContext from '../Context/GlobalContext';
+import ReponsiveMenu from './ReponsiveMenu';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -44,10 +45,21 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   }));
 const NavBar = () => {
   const {connected,firstname,profilepicture} = useContext(AuthContext)
+  const [showMenu,setShowMenu] = useState(false)
+  const HandleClickProfile = ()=>{
+    setShowMenu(ancien=>!ancien)
+  }
   useEffect(()=>{
     console.log(connected,firstname,profilepicture)
   },[connected])
   return (
+    <>
+    {
+      showMenu && (
+        <ReponsiveMenu HandleClickProfile={HandleClickProfile} showMenu={showMenu}  />
+        )
+    }
+    
     <div className='flex fixed justify-between items-center px-3 w-full md:w-[83%] z-10 bg-[#17202a] h-[8vh] border-b-[1px] border-[#2c3a4a]'>
         {/* <div className="hidden md:flex">
             <h3 className='text-3xl text-white'>text</h3>
@@ -90,7 +102,7 @@ const NavBar = () => {
                   <MenuOutlinedIcon sx={{color: '#efefef'}}/>
                 </IconButton>
             </div>
-            <div className=" hidden md:flex justify-center items-center cursor-pointer">
+            <div onClick={HandleClickProfile} className=" hidden md:flex justify-center items-center cursor-pointer">
                 <h3 className='text-[#f2f2f2] mr-2'>{firstname}</h3>
                 <StyledBadge
                   overlap="circular"
@@ -103,6 +115,7 @@ const NavBar = () => {
             </div>
         </div>
     </div>
+    </>
   )
 }
 

@@ -26,7 +26,7 @@ const Post = (props: Props) => {
       }else{
         console.log(response,666)
       }
-    } 
+    }
   return (
     <div data-postid={props.post._id}  className="bg-[#17202a] flex flex-col space-y-2 border-[1px]  border-[#2c3a4a] rounded-lg mt-3">
         <div className="p-2 flex w-full justify-between items-center">
@@ -56,7 +56,7 @@ const Post = (props: Props) => {
           </div>
           <div onClick={props.HandleClickPost} className="cursor-pointer flex items-center justify-between ">
             <ModeCommentOutlinedIcon  sx={{color:"#efefef" ,marginRight:'0.4rem'}}/>
-            <p className='text-[#efefef] text-xs hidden md:flex'>187 comments</p>
+            <p className='text-[#efefef] text-xs hidden md:flex'>{props.post.comments.length} comments</p>
           </div>
           <div className=" cursor-pointer flex items-center justify-between ">
             <ShareOutlinedIcon sx={{color:"#efefef" ,marginRight:'0.4rem'}}/>

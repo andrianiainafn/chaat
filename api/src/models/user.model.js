@@ -44,6 +44,12 @@ const userSchema = mongoose.Schema(
                 ref: 'user',
             },
         ],
+        request:[
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'user',
+            }
+        ],
         verified: {
             type:Boolean,
             default: false

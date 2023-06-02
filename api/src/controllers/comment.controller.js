@@ -78,22 +78,18 @@ exports.get = async(req,res)=>{
             .status(401)
             .json({message:"Unauthorized"})
         }
-        const post = req.params.post
-        const allComments = await commentModel.find({post}).populate([
-            {
-                path: 'author',
-                model:'user',
-                select:['firstname', 'lastname','profilepicture']
-            },{
-                path:'love',
-                model:'user',
+        const postId = req.params.post
+        const allComments = await postsModel.findOne({_id: postId}).select('comments').populate({
+            path:'comments',
+            populate:{
+                path:'author',
                 select:['firstname', 'lastname','profilepicture']
             }
-        ])
-        console.log(allComments)
+        })
+        console.log(allComments.comments)
         res
         .status(200)
-        .json({comments:allComments})
+        .json({comments:allComments.comments})
         
 
     }catch(e){

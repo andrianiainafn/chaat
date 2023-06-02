@@ -69,10 +69,10 @@ function CreatePost({open,HandleClick}:Props) {
                                 </motion.div>
                         </AnimatePresence>
                     <div className="flex justify-start space-x-4  items-center h-[7vh] mt-2">
-                      <button onClick={HandleClickCreate} className='text-[#f2f2f2] bg-[#4480ce]  rounded-lg p-2 w-[7vw]'>
+                      <button onClick={HandleClickCreate} className='text-[#f2f2f2] bg-[#4480ce]  rounded-lg p-2 md:w-[7vw] w-[17vw]'>
                           Create
                       </button>
-                      <button onClick={HandleClick} className='bg-transparent w-[7vw] border border-[#4480ce] text-[#4480ce] p-2 rounded-lg'>
+                      <button onClick={HandleClick} className='bg-transparent w-[17vw] md:w-[7vw] border border-[#4480ce] text-[#4480ce] p-2 rounded-lg'>
                           Cancel
                       </button>
                     </div>
