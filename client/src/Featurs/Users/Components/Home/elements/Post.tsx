@@ -31,7 +31,13 @@ const Post = (props: Props) => {
     <div data-postid={props.post._id}  className="bg-[#17202a] flex flex-col space-y-2 border-[1px]  border-[#2c3a4a] rounded-lg mt-3">
         <div className="p-2 flex w-full justify-between items-center">
           <div className="flex items-center ">
-            <Avatar src={`http://localhost:8000/${props.post.profilepicture}`} sx={{height:'2em', width: '2em', marginRight:'1rem'}}/>
+            {
+              props.post.profilepicture ? (
+                <Avatar src={`http://localhost:8000/${props.post.profilepicture}`} sx={{height:'2em', width: '2em', marginRight:'1rem'}}/>
+              ):(
+                <Avatar  sx={{height:'2em', width: '2em', marginRight:'1rem'}}/>
+              )
+            }
             <div className="">
                 <h6 className='text-xs text-[#efefef]'>{props.post.author.lastname}</h6>
                 <h6 className='text-xs text-[#777]'>3000 members</h6>

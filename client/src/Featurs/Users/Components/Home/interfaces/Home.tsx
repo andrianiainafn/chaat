@@ -64,7 +64,9 @@ const Home = () => {
            </div>
           {
             posts.map((post:any,key)=>(
-                <Post key={key} post={post.actu[0]} HandleClickPost={()=>HandleClickPost(post)}/>
+                post.actu[0] ? (<Post key={key} post={post.actu[0]} HandleClickPost={()=>HandleClickPost(post)}/>):(
+                  <div key={key}></div>
+                )
             ))
           }
         </div>

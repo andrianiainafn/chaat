@@ -4,8 +4,16 @@ import { Link } from 'react-router-dom';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 const Suggestion = () => {
+ const querykey = ['suggestion']
+ const getsuggestion = async()=>{
+     const suggestion = await axios.get('http://localhost:8000/friend/getSuggestions')
+     return suggestion.data.message
+ }
+ const {isLoading,data} = useQuery(querykey,getsuggestion)
  const friends = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
   return (
     <div className='relative flex flex-col space-y-3 space-x-2 m-4 '>

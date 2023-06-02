@@ -1,4 +1,6 @@
 const userModel = require('../models/user.model')
+const jwt = require('jsonwebtoken')
+
 
 exports.addFriends = async(req,res)=>{
     try{
@@ -99,24 +101,26 @@ exports.getAll = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
-        const request = await userModel.find({id:payload.user_id}).select('request').populate({
+        const request = await userModel.findOne({_id: payload.user_id}).select('request').populate({
             path:'request',
             model:'user',
             select:['firstname', 'lastname','profilepicture']
         })
-        const usersuggestions = await userModel.find()
-        const myfriends = await userModel.find().select('friends').populate({
+        const usersuggestions = await userModel.find({_id:{$ne: payload.user_id}})
+        const myfriends = await userModel.findOne({_id: payload.user_id}).select('friends').populate({
             path:'friends',
             model:'user',
             select:['firstname', 'lastname','profilepicture']
         })
+        console.log(request,usersuggestions,myfriends)
         res
         .status(200)
-        .json({message: [request,usersugestions,myfriends]})
+        .json({message: [request.request,usersuggestions,myfriends.friends]})
     }catch(e){
-            res
-            .status(500)
-            .json({message:'Internal Server Error'})
+        console.log(e)
+        res
+        .status(500)
+        .json({message:'Internal Server Error'})
     }
 } 
 exports.getSuggestions = async(req,res)=>{
@@ -129,7 +133,8 @@ exports.getSuggestions = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
-        const usersuggestions = await userModel.find()         
+        const usersuggestions = await userModel.find({})
+        console.log(usersuggestions)
         res
         .status(200)
         .json({message: usersuggestions})

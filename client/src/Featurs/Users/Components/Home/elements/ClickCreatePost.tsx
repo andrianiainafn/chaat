@@ -15,7 +15,13 @@ const ClickCreatePost:React.FC<Props> =({HandleClick}) => {
     return (
     <>
         <div onClick={HandleClick} className="flex w-[90%] m-2 items-center">
-          <Avatar src={`http://localhost:8000/${profilepicture}`} sx={{height:'2em', width: '2em', marginRight:'1rem'}} />
+          {
+            profilepicture ? (
+              <Avatar src={`http://localhost:8000/${profilepicture}`} sx={{height:'2em', width: '2em', marginRight:'1rem'}} />
+            ):(
+              <Avatar  sx={{height:'2em', width: '2em', marginRight:'1rem'}} />
+            )
+          }
           <div className="flex justify-between items-center border-[1px] bg-[#2c3a4a] w-[85%] md:w-[85%] rounded-full p-1  border-[#444]">
             <input className='outline-none text-[#efefef] ml-2 w-full border-none bg-transparent' placeholder="What's in your mind ?" type='text' />
           </div>

@@ -23,7 +23,6 @@ exports.create = async(req,res)=>{
             author: payload.user_id,
             description,
             media: imagesUrl,
-            love: payload.user_id
         })
         const newPosts = await post.save()
         const actuality = new actualityModel({
