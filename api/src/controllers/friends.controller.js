@@ -81,9 +81,14 @@ exports.getAllFriends = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
+        const allfriends = await userModel.findOne({_id: payload.user_id}).select('friends').populate({
+            path:'friends',
+            model:'user',
+            select:['firstname', 'lastname','profilepicture']
+        })
         res
         .status(200)
-        .json({message: 'Request has sent successfully'})
+        .json({message: allfriends})
     }catch(e){
             res
             .status(500)

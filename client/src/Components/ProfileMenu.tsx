@@ -12,7 +12,7 @@ type Props = {
     HandleClickProfile:()=>void
 }
 
-const ReponsiveMenu = (props: Props) => {
+const ProfileMenu = (props: Props) => {
   const {connected,firstname,profilepicture} = useContext(AuthContext)
   const navigate = useNavigate()
   const HandleClickProfile = () =>{
@@ -64,4 +64,4 @@ const ReponsiveMenu = (props: Props) => {
   )
 }
 
-export default ReponsiveMenu
+export default ProfileMenu

@@ -13,7 +13,8 @@ import { styled } from '@mui/material/styles'
 import Yor from '../assets/Images/yor.jpg'
 import { NavLink } from 'react-router-dom';
 import AuthContext from '../Context/GlobalContext';
-import ReponsiveMenu from './ReponsiveMenu';
+import ProfileMenu from './ProfileMenu';
+import ResponsiveProfileMenu from './ResponsiveProfileMenu';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -45,19 +46,25 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   }));
 const NavBar = () => {
   const {connected,firstname,profilepicture} = useContext(AuthContext)
-  const [showMenu,setShowMenu] = useState(false)
+  const [showMenu,setShowMenu] = useState<boolean>(false)
+  const [showResponsiveMenu,setShowResponsiveMenu] = useState<boolean>(false)
   const HandleClickProfile = ()=>{
     setShowMenu(ancien=>!ancien)
   }
-  useEffect(()=>{
-    console.log(connected,firstname,profilepicture)
-  },[connected])
+  const HandleClickMenu = () =>{
+    setShowResponsiveMenu(ancien=>!ancien)
+  }
   return (
     <>
     {
       showMenu && (
-        <ReponsiveMenu HandleClickProfile={HandleClickProfile} showMenu={showMenu}  />
+        <ProfileMenu HandleClickProfile={HandleClickProfile} showMenu={showMenu}  />
         )
+    }
+    { 
+      showResponsiveMenu && (
+        <ResponsiveProfileMenu HandleClickMenu={HandleClickMenu} showResponsiveMenu={showResponsiveMenu}/>
+      )
     }
     
     <div className='flex fixed justify-between items-center px-3 w-full md:w-[83%] z-10 bg-[#17202a] h-[8vh] border-b-[1px] border-[#2c3a4a]'>
@@ -97,7 +104,7 @@ const NavBar = () => {
                 </Badge>
               </NavLink>
             </div>
-            <div className="cursor-pointer flex md:hidden">
+            <div onClick={HandleClickMenu} className="cursor-pointer flex md:hidden">
                 <IconButton>
                   <MenuOutlinedIcon sx={{color: '#efefef'}}/>
                 </IconButton>

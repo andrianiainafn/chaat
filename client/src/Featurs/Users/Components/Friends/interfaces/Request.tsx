@@ -21,7 +21,6 @@ const Request = () => {
 
   }   
   const {isLoading,data} = useQuery(queryKey,getRequest)
-  const friends = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
   return (
     <div className='relative flex flex-col space-y-3 space-x-2 m-4 '>
         <div className="flex justify-between items-center text-[#efefef] ">

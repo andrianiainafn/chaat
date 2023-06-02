@@ -105,3 +105,21 @@ body{
     height: 35vh;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+.menuResponsiveParent{
+    left: 0;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+.menuResponsiveChild{
+    position: absolute;
+    background-color: #17202a;
+    border-radius: 4px;
+    width: 60%;
+    top: 8vh;
+    right: 0%;
+    height: 75vh;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}

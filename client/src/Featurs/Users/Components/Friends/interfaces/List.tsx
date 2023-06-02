@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { styled } from '@mui/material/styles'
 import { Avatar, Badge } from '@mui/material';
 import { Link } from 'react-router-dom';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import animation from '../../../../../assets/Images/animation.gif'
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -36,6 +39,15 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   }));
 const List = () => {
  const friends = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+ const queryKey = ['friend']
+ const getMyFriends = async() =>{
+   const friends = await axios.get('http://localhost:8000/friend/getAllFriends')
+   return friends.data.message
+ }
+ const {isLoading,data} = useQuery(queryKey,getMyFriends)
+ const HandleClickSort = ()=>{
+
+ }
   return (
     <div className='relative flex flex-col space-y-3 space-x-2 m-4 '>
         <div className="fixed flex justify-center mx-auto">
@@ -46,32 +58,34 @@ const List = () => {
         </div>
         <div className="flex justify-between items-center text-[#efefef] pt-10">
             <h6 className=''>Vos amis</h6>
-            <div className="flex space-x-2 items-center text-[#4480ce]">
+            <div onClick={HandleClickSort} className="flex space-x-2 items-center text-[#4480ce] cursor-pointer">
                 <h6 className=''>Sort</h6>
                 <FilterListIcon/>
             </div>
         </div>
         {
-            friends.map(friend=>(
-                <div key={friend} className="flex justify-between items-center">
-                    <div className="flex space-x-2 items-center">
-                        <StyledBadge
-                                   overlap="circular"
-                                   anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                                   variant="dot"
-                                 >
-                                   <Avatar/>
-                        </StyledBadge>
-                        <div className="flex flex-col">
-                            <Link className='text-[#efefef]' to='/users/profile/Nomena'>Anya Forger</Link>
-                            <h6 className='text-xs text-[#777]'>20 amis en commun</h6>
-                        </div>
-                    </div>
-                   <div className="text-[#efefef] cursor-pointer">
-                     <MoreVertOutlinedIcon />
-                   </div>
-                </div>
-            ))
+           isLoading ? (<img src={animation} alt='animation'/>) :(
+            data.friends.map((friend:any,key:number)=>(
+              <div key={key} className="flex justify-between items-center">
+                  <div className="flex space-x-2 items-center">
+                      <StyledBadge
+                                 overlap="circular"
+                                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                 variant="dot"
+                               >
+                                 {friend.profilepicture ? (<Avatar src={friend.profilepicture}/>):(<Avatar/>)}
+                      </StyledBadge>
+                      <div className="flex flex-col">
+                          <Link className='text-[#efefef] hover:underline' to='/users/profile/Nomena'>{friend.firstname} {friend.lastname}</Link>
+                          <h6 className='text-xs text-[#777]'>20 amis en commun</h6>
+                      </div>
+                  </div>
+                 <div className="text-[#efefef] cursor-pointer">
+                   <MoreVertOutlinedIcon />
+                 </div>
+              </div>
+          ))
+           )
         }
     </div>
   )

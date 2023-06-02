@@ -12,16 +12,16 @@ exports.add = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
-        const {descripion,post} = req.body
+        const {description,post} = req.body
         const newComment = new commentModel({
             author: payload.user_id,
-            descripion,
+            description,
             post
         })
        const commmentSave = await newComment.save()
        await postsModel.updateOne(
-        {_id: post},
-        {$push: {comment: commmentSave._id}}
+            {_id: post},
+            {$push: {comments: commmentSave._id}}
         )
        res
        .status(200)
