@@ -15,6 +15,7 @@ import { NavLink } from 'react-router-dom';
 import AuthContext from '../Context/GlobalContext';
 import ProfileMenu from './ProfileMenu';
 import ResponsiveProfileMenu from './ResponsiveProfileMenu';
+import CloseIcon from '@mui/icons-material/Close';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -106,7 +107,11 @@ const NavBar = () => {
             </div>
             <div onClick={HandleClickMenu} className="cursor-pointer flex md:hidden">
                 <IconButton>
-                  <MenuOutlinedIcon sx={{color: '#efefef'}}/>
+                  {
+                     showResponsiveMenu ? (<CloseIcon sx={{color: '#efefef'}}/>) : 
+                     ( <MenuOutlinedIcon sx={{color: '#efefef'}}/>
+                     )                                      
+                  }
                 </IconButton>
             </div>
             <div onClick={HandleClickProfile} className=" hidden md:flex justify-center items-center cursor-pointer">

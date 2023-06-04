@@ -71,6 +71,15 @@ body{
     height: 80vh;
     transform: translate(-50%,-50%);
 }
+.overlayDiscu{
+    left: 0;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5);
+}
 .centraleDiscu{
     position: absolute;
     background-color: #f2f2f2;
@@ -120,6 +129,6 @@ body{
     width: 60%;
     top: 8vh;
     right: 0%;
-    height: 75vh;
+    height: 40vh;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
