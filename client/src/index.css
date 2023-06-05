@@ -91,6 +91,11 @@ body{
     z-index: 1000;
     transform: translate(-50%,-50%);
 }
+.addphoto{
+    top: 30%;
+    left: 30%;
+    transform: translate(-50%,-50%);
+}
 @media screen and (max-width: 760px) {
     .centrale{
         width: 90%;

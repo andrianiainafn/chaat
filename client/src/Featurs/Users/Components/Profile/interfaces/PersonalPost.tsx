@@ -1,0 +1,51 @@
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+import React, { useContext, useEffect, useState } from 'react'
+import ContextOfPost from '../../Home/Context/PostContext'
+import Post from '../../Home/elements/Post'
+import animation from '../../../../../assets/Images/animation.gif'
+
+type Props = {}
+
+const PersonalPost = (props: Props) => {
+  const queryKey = ['personalPost']
+  const {ModifyIdPost} = useContext(ContextOfPost)
+  const [isCreate,setIsCreate] =  useState<boolean>(false)
+  const [isPostView,setIsPostView] = useState<boolean>(false)
+  const getPersonalPost = async()=>{
+      const personalPost = await axios.get('http://localhost:8000/post/getUserPost')
+      return personalPost.data.message
+  }
+  const {isLoading,data} = useQuery(queryKey,getPersonalPost)
+  useEffect(()=>{
+    !isLoading && console.log(data)
+  },[isLoading])
+    const HandleClickPost=(newPostId:any)=>{
+      if(newPostId){
+        console.log(newPostId.actu[0])
+        ModifyIdPost(newPostId.actu[0]._id)
+      }
+      setIsPostView(ancien=>!ancien)
+    }
+  return (
+    <>
+      {
+        isLoading ? (
+          <img src={animation} alt='animation' />
+        ):(
+          <div className="pl-1 pr-2">
+            {
+              data.map((post:any,key:number)=>(
+                  post ? (<Post key={key} post={post} HandleClickPost={()=>HandleClickPost(post)}/>):(
+                    <div key={key}></div>
+                  )
+              ))
+            }
+          </div>
+        )
+      }
+    </>
+  )
+}
+
+export default PersonalPost

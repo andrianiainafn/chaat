@@ -47,7 +47,7 @@ const Home = () => {
   }
   else{
     return (
-      <div className=' flex mx-2 mb-5 md:mx-5 justify-around mt-[8vh]'>
+      <div className=' flex ml-1 mr-2 mb-5 md:mx-5 justify-around mt-[8vh]'>
         {
           isCreate && (
             <CreatePost open={isCreate} HandleClick={HandleClickIsCreate}/>

@@ -1,6 +1,6 @@
 import { Avatar } from '@mui/material'
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import AuthContext from '../Context/GlobalContext'
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -20,6 +20,7 @@ const ResponsiveProfileMenu = (props: Props) => {
   const HandleClickLogout = ()=>{
 
   }
+
   return (
     <div className='menuResponsiveParent' onClick={props.HandleClickMenu}>
         <div className="menuResponsiveChild p-3" onClick={(e)=>e.stopPropagation()}>
@@ -28,7 +29,7 @@ const ResponsiveProfileMenu = (props: Props) => {
                     {
                       profilepicture ? (<Avatar/>):<Avatar/>
                     }
-                    <Link to=''>
+                    <Link to={`/users/profile/${firstname}`}>
                       <div className="flex flex-col ">
                         <h3 className='text-[#f2f2f2] hover:underline'>{firstname}</h3>
                         <h6 className='text-[#f2f2f2] text-sm'>View your profile</h6>

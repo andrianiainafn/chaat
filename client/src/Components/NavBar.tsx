@@ -92,16 +92,16 @@ const NavBar = () => {
                 </NavLink>
             </div>
             <div className="cursor-pointer ">
-                <NavLink to='/users/messages/89898'>              
+                <NavLink className='text-[#efefef]' to='/users/messages/89898'>              
                   <Badge badgeContent={20} color="error">
-                    <MarkChatUnreadOutlinedIcon sx={{color: '#efefef'}}/>
+                    <MarkChatUnreadOutlinedIcon />
                   </Badge>
               </NavLink>
             </div>
             <div className="cursor-pointer">
-              <NavLink to='/users/notifications'>
+              <NavLink className='text-[#efefef]' to='/users/notifications'>
                 <Badge badgeContent={17} color="error">
-                    <NotificationsNoneOutlinedIcon sx={{color: '#efefef'}}/>
+                    <NotificationsNoneOutlinedIcon />
                 </Badge>
               </NavLink>
             </div>
