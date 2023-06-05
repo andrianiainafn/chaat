@@ -14,6 +14,16 @@ exports.deleteUsers = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
+        const deletedUser = await userModel.deleteOne({_id:payload.user._id})
+        if(deletedUser.deletedCount === 1){
+            res
+            .status(200)
+            .json({message:"User deleted successfully"})
+        }else{
+            res
+            .status(403)
+            .json({message:"User not found"})
+        }
     }catch(e){
         res
         .status(500)
@@ -30,6 +40,21 @@ exports.modifyUserInfo = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
+        const{firsname,lastname,email,phone,bio,profilepicture,couverture} = req.body
+        const condition ={_id:payload.user_id}
+        const newInformation = {
+            firsname,
+            lastname,
+            email,
+            phone,
+            bio,
+            profilepicture,
+            couverture
+        }
+        await userModel.updateOne(condition,{$set:newInformation})
+        res
+        .status(200)
+        .json({message: 'User updated successfully'})
     }catch(e){
         res
         .status(500)
@@ -46,6 +71,10 @@ exports.getUserInfo = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
+        const userInformation = await  userModel.findOne({_id: payload.user_id})
+        res 
+        .status(200)
+        .json({message: userInformation})
     }catch(e){
         res
         .status(500)

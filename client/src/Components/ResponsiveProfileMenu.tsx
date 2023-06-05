@@ -1,6 +1,6 @@
 import { Avatar } from '@mui/material'
 import React, { useContext } from 'react'
-import { Link} from 'react-router-dom'
+import { Link, Navigate, useNavigate} from 'react-router-dom'
 import AuthContext from '../Context/GlobalContext'
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -16,9 +16,14 @@ type Props = {
 }
 
 const ResponsiveProfileMenu = (props: Props) => {
+  const navigate = useNavigate()
   const {connected,firstname,profilepicture} = useContext(AuthContext)
   const HandleClickLogout = ()=>{
 
+  }
+  const HandleClickProfile = ()=>{
+    navigate(`/users/profile/${firstname}`)
+    props.HandleClickMenu()
   }
 
   return (
@@ -29,12 +34,11 @@ const ResponsiveProfileMenu = (props: Props) => {
                     {
                       profilepicture ? (<Avatar/>):<Avatar/>
                     }
-                    <Link to={`/users/profile/${firstname}`}>
-                      <div className="flex flex-col ">
-                        <h3 className='text-[#f2f2f2] hover:underline'>{firstname}</h3>
-                        <h6 className='text-[#f2f2f2] text-sm'>View your profile</h6>
-                      </div>
-                    </Link>
+                    <div className="flex flex-col" onClick={HandleClickProfile}>
+                      <h3 className='text-[#f2f2f2] hover:underline'>{firstname}</h3>
+                      <h6 className='text-[#f2f2f2] text-sm'>View your profile</h6>
+                    </div>
+                    
                 </div>
                 <div className='bg-[#2c3a4a] h-[1px] w-[80%] flex justify-center items-center mx-auto ' />
                 <Link to=''>
