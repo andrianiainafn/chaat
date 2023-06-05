@@ -100,6 +100,9 @@ body{
     .centrale{
         width: 90%;
     }
+    .centralePost{
+        width: 90%;
+    }
 }
 .menuParent{
     left: 0;

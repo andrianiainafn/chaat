@@ -1,12 +1,13 @@
 import React, { useContext, useEffect } from 'react'
 import {motion,AnimatePresence} from 'framer-motion'
-import { Avatar } from '@mui/material'
+import { Avatar, IconButton } from '@mui/material'
 import ContextOfPost from '../Context/PostContext';
 import axios from 'axios';
 import { useQuery  } from '@tanstack/react-query';
 import animation from '../../../../../assets/Images/animation.gif'
 import Comments from '../elements/Comments';
 import CommentInput from '../elements/CommentInput';
+import CloseIcon from '@mui/icons-material/Close';
 
 type Props = {
     open: boolean,
@@ -61,17 +62,22 @@ const ViewPost = ({open,HandleClickPost}: Props) => {
                   animate={{opacity:1,y:0}}
                   transition={{duration: 1}}
                   className="overlay rounded-lg" onClick={HandleClickPost}>
-                    <div className='centralePost flex ' data-idpost='idDupost' onClick={(e)=>e.stopPropagation()}>
-                        <img className='w-[50%] h-[100%]' src={`http://localhost:8000/${data?.data.post.media[0]}`} alt='logo' />
-                        <div className='w-[50%] h-[100%] bg-[#17202a] relative  overflow-y-scroll' >
-                          <div className="bg-[#2c3a4a] fixed top-0 h-[7vh] w-[50%] flex justify-center items-center z-20">
+                    <div onClick={(e)=>e.stopPropagation()} className='absolute right-2 top-2 z-50 font-bold cursor-pointer'>
+                      <IconButton onClick={HandleClickPost}>
+                        <CloseIcon sx={{height:'9vh',width:'9vw',color:"#F2f2f2"}}/>
+                      </IconButton>
+                    </div>
+                    <div className='centralePost flex flex-col' data-idpost='idDupost' onClick={(e)=>e.stopPropagation()}>
+                        <img className='w-[100%] md:w-[50%] h-[100%]' src={`http://localhost:8000/${data?.data.post.media[0]}`} alt='logo' />
+                        <div className='w-[100%] md:w-[50%] h-[100%] bg-[#17202a] relative  overflow-y-scroll' >
+                          <div className="bg-[#2c3a4a] md:fixed relative  h-[7vh] w-[100%] md:w-[50%] flex justify-center items-center z-20">
                               <h3 className='text-white'>{data?.data.post.author.lastname}'s post</h3>
                           </div>
-                          <div className="flex mt-[7vh] p-3 items-center space-x-2 ">
+                          <div className="flex mt-0 md:mt-[7vh] p-3 items-center space-x-2 ">
                             <Avatar/>
                             <h3 className='text-white'>{data?.data.post.author.lastname} {data?.data.post.author.firstname} .</h3>
                           </div>
-                          <div className="text-[#f2f2f2] p-3 text-sm">
+                          <div className="text-[#f2f2f2] py-1 px-3 md:p-3 text-sm">
                             {data?.data.post.description}
                            </div>
                            <span className='text-[#777] text-sm p-3' >18 h</span>
@@ -80,7 +86,7 @@ const ViewPost = ({open,HandleClickPost}: Props) => {
                                  <Comments key={key} comment={comment} />
                               ))
                             }
-                          <div className="mb-[14vh]"/>
+                          <div className="mb-[14vh] "/>
                            <CommentInput postId={data?.data.post._id}/>
                         </div>
                     </div>

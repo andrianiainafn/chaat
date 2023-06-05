@@ -1,20 +1,20 @@
 import { Avatar } from '@mui/material'
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
-import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
-import GroupsIcon from '@mui/icons-material/Groups';
-import { useEffect, useState } from 'react';
 import axios from 'axios'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import Reaction from './Reaction';
+import AwesomeSlider from 'react-awesome-slider';
+import 'react-awesome-slider/dist/styles.css';
+
 
 type Props = {
     post: any,
     HandleClickPost: ()=>void
-}
+  }
+  
 const Post = (props: Props) => {
   const queryClient = useQueryClient()
   const HandleClickReaction = async(e: any)=>{
@@ -27,6 +27,7 @@ const Post = (props: Props) => {
         console.log(response,666)
       }
     }
+    
   return (
     <div data-postid={props.post._id}  className="bg-[#17202a] flex flex-col space-y-2 border-[1px]  border-[#2c3a4a] rounded-lg mt-3">
         <div className="p-2 flex w-full justify-between items-center">
@@ -54,7 +55,7 @@ const Post = (props: Props) => {
           </p>
         </div>
         <div className="w-full">
-           <img src={`http://localhost:8000/${props.post.media[0]}`} className='w-full h-[34vh]' alt='example' />
+          <img src={`http://localhost:8000/${props.post.media[0]}`}  className='w-full h-[34vh]' alt='example' />
         </div>
         <div className="w-full p-2 flex justify-between items-center">
           <div data-postid={props.post._id} onClick={HandleClickReaction} className="cursor-pointer flex items-center justify-between  ">

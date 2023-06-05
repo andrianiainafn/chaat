@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import ContextOfPost from '../../Home/Context/PostContext'
 import Post from '../../Home/elements/Post'
 import animation from '../../../../../assets/Images/animation.gif'
+import ViewPost from '../../Home/interfaces/ViewPost'
 
 type Props = {}
 
@@ -22,13 +23,21 @@ const PersonalPost = (props: Props) => {
   },[isLoading])
     const HandleClickPost=(newPostId:any)=>{
       if(newPostId){
-        console.log(newPostId.actu[0])
-        ModifyIdPost(newPostId.actu[0]._id)
+        console.log(newPostId)
+        ModifyIdPost(newPostId._id)
       }
+      setIsPostView(ancien=>!ancien)
+    }
+    const HandleClickPostBool:()=>void = ()=>{
       setIsPostView(ancien=>!ancien)
     }
   return (
     <>
+      {
+        isPostView && (
+          <ViewPost open={isPostView} HandleClickPost={HandleClickPostBool}/>
+        )
+      }
       {
         isLoading ? (
           <img src={animation} alt='animation' />
