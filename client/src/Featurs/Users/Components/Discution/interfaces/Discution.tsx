@@ -31,7 +31,7 @@ const Discution = (props: Props) => {
             </div>
           </div>
         </div>
-        <div onClick={ClickDiscu} className="flex items-center space-x-1 cursor-pointer">
+        <div onClick={ClickDiscu} className="flex md:hidden items-center space-x-1 cursor-pointer">
           <h6 className='text-sm text-[#777] hover:underline'>Discu</h6>
           <ChatIcon sx={{color: '#efefef',cursor: 'pointer'}}/>
         </div>
