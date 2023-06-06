@@ -39,6 +39,7 @@ const Profile = () => {
               </div>
           </div>
       </div>
+      <div className='bg-[#2c3a4a] h-[1px] w-[80%] flex justify-center items-center mx-auto ' />
       <div className="flex justify-between items-center p-3 md:px-6 text-lg">
           <NavLink className='link text-center' to={`/users/profile/${firstname}`}>
              View  your all posts 

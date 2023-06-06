@@ -42,7 +42,7 @@ const PersonalPost = (props: Props) => {
         isLoading ? (
           <img src={animation} alt='animation' />
         ):(
-          <div className="pl-1 pr-2">
+          <div className="pl-1 pr-2 md:w-[50%] md:mx-auto mb-5">
             {
               data.map((post:any,key:number)=>(
                   post ? (<Post key={key} post={post} HandleClickPost={()=>HandleClickPost(post)}/>):(

@@ -12,6 +12,12 @@ const EditProfile = (props: Props) => {
     birth:'',
     bio:''
   })
+  const [isModify,setIsModify] = useState({
+    fname:true,
+    lname:true,
+    birth:true,
+    bio:true
+  })
   const getuserinformation = async()=>{
       const userInformation = await axios.get('http://localhost:8000/user/getUserInfo')
       return userInformation.data.message 
@@ -33,35 +39,38 @@ const EditProfile = (props: Props) => {
     )
   },[isLoading])
   return (
-    <div className='p-3'>
-      <div className="">
-        <div className="flex justify-between items-center">
+    <div className='p-3 md:mx-32'>
+      <div className="flex flex-col space-y-3">
+        <div className="flex justify-between items-center ">
             <div className="">
-              <label htmlFor="fname" className='opacity-90'>Firstname</label>
-              <input onChange={HandleChange} value={information.fname} className='w-[95%]  placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='text' name='fname' placeholder='Your new firstname...'/>
+              <label htmlFor="fname" className='opacity-90'>Firstname:</label>
+              <input onChange={HandleChange} value={information.fname} disabled={isModify.fname} className='w-[95%] font-semibold  placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='text' name='fname' placeholder='Your new firstname...'/>
             </div>
-            <button>Modify</button>
+            <button className='text-[#f2f2f2] opacity-60 hover:opacity-100 font-semibold hover:text-[#4480ce]'>Modify</button>
         </div>
+        {/* <div className='bg-[#2c3a4a] h-[1px] w-[100%] flex justify-center items-center mx-auto ' /> */}
         <div className="flex justify-between items-center">
           <div className="">
-            <label htmlFor="fname"  className='opacity-90'>Lasttname</label>
-            <input onChange={HandleChange} value={information.lname} className='w-[95%]  placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='text' name='fname' placeholder='Your new  lastname...'/>
+            <label htmlFor="fname"  className='opacity-90'>Lasttname:</label>
+            <input onChange={HandleChange} value={information.lname} disabled={isModify.lname} className='w-[95%] font-semibold  placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='text' name='fname' placeholder='Your new  lastname...'/>
           </div>
-          <button>Modify</button>
+          <button className='text-[#f2f2f2] opacity-60 hover:opacity-100 font-semibold hover:text-[#4480ce]'>Modify</button>
         </div>
+        {/* <div className='bg-[#2c3a4a] h-[1px] w-[100%] flex justify-center items-center mx-auto ' /> */}
         <div className="flex justify-between items-center">
           <div className="">
-            <label htmlFor="bio"  className='opacity-90'>Bio</label>
-            <input onChange={HandleChange} value={information.bio} className='w-[95%]  placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='text' name='fname' placeholder='Add Biography...'/>
+            <label htmlFor="bio"  className='opacity-90'>Bio:</label>
+            <input onChange={HandleChange} value={information.bio} disabled={isModify.bio} className='w-[95%] font-semibold placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='text' name='fname' placeholder='Add Biography...'/>
           </div>
-          <button>Modify</button>
+          <button className='text-[#f2f2f2] opacity-60 hover:opacity-100 font-semibold hover:text-[#4480ce]'>Modify</button>
         </div>
+        {/* <div className='bg-[#2c3a4a] h-[1px] w-[100%] flex justify-center items-center mx-auto ' /> */}
         <div className="flex justify-between items-center">
           <div className="">
-            <label htmlFor="birth"  className='opacity-90'>Bio</label>
-            <input onChange={HandleChange} value={information.birth} className='w-[95%]  placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='text' name='fname' placeholder=''/>
+            <label htmlFor="birth"  className='opacity-90'>Birthday:</label>
+            <input onChange={HandleChange} value={information.birth} disabled={isModify.birth} className='w-[95%]  placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef] font-semibold' type='text' name='fname' placeholder=''/>
           </div>
-          <button>Modify</button>
+          <button className='text-[#f2f2f2] opacity-60 hover:opacity-100 font-semibold hover:text-[#4480ce]'>Modify</button>
         </div>
       </div>
     </div>
