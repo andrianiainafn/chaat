@@ -71,7 +71,9 @@ exports.getUserInfo = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
-        const userInformation = await  userModel.findOne({_id: payload.user_id})
+        const userInformation = await  userModel.findOne({_id: payload.user_id}).select(
+            ['firstname','lastname','email','birthday','biographie']
+        )
         res 
         .status(200)
         .json({message: userInformation})

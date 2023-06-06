@@ -7,7 +7,6 @@ import { useQuery } from '@tanstack/react-query';
 
 type Props = {
     friend:any,
-    key:number,
     HandleClcikAdd:(e:any)=>void
 }
 

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import animation from '../../../../../assets/Images/animation.gif'
@@ -8,6 +8,7 @@ import { Avatar, Badge } from '@mui/material';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { Link } from 'react-router-dom';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import AddButton from '../elements/AddButton'
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -40,6 +41,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 function All(){
   const queryKey = ['all']
+  const queryClient = useQueryClient()
   const getAll = async ()=>{
       const all = await axios.get('http://localhost:8000/friend/getAll')
       return all.data.message
@@ -47,8 +49,16 @@ function All(){
   const HandleConfirmRequest = async()=>{
 
   }
-  const HandleClcikAdd = ()=>{
-    console.log('Add friends')
+  const HandleClcikAdd = async(e:any)=>{
+    const userId = e!.currentTarget.getAttribute('data-userid')
+    console.log(userId)
+    const response = await axios.put(`http://localhost:8000/friend/addFriends/${userId}`)
+    if(response.status === 200){
+        console.log(response.data,9696)
+        queryClient.invalidateQueries(['chkeckAddfriend',userId])
+      }else{
+        console.log(response,666)
+      }
  }
  const HandleRemoveRequest = ()=>{
   
@@ -123,14 +133,7 @@ function All(){
                                 <h6 className='text-xs text-[#777]'>20 amis en commun</h6>
                             </div>
                         </div>
-                       <div className="text-[#efefef]">
-                            <button onClick={HandleClcikAdd} data-userId={suggestion._id} className='bg-[#4480ce] border-none py-1 px-3 rounded-lg' >
-                                 <div className="flex space-x-2 items-center">
-                                    <h6>Add</h6>
-                                    <PersonAddAlt1Icon/>
-                                 </div>
-                            </button>
-                       </div>
+                        <AddButton  friend={suggestion} HandleClcikAdd={HandleClcikAdd} />
                     </div>
                 ))   
             )

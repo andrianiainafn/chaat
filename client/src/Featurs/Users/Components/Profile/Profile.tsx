@@ -15,9 +15,9 @@ const Profile = () => {
     }
 }
   return (
-    <div className='flex flex-col w-full mx-auto mt-[5vh] text-[#f2f2f2]'>
+    <div className='flex flex-col w-full mt-[5vh] text-[#f2f2f2] md:mr-[4vw] md:ml-[4vw]'>
       <div className="">
-          <div className="bg-white h-[25vh] relative">
+          <div className="bg-white h-[25vh] md:h-[30vh] relative">
               <div className="absolute addphoto">
                 <div className=" text-[#4480ce]  w-[10%] relative h-full cursor-pointer">
                   <div className="cursor-pointer w-[40vw] absolute  h-full">
@@ -31,12 +31,15 @@ const Profile = () => {
                     </div>
                 </div>
               </div>
-              <div className="absolute left-3 bottom-2 cursor-pointer">
-                <Avatar sx={{height:'10vh',width:'20vw'}}/>
+              <div className="absolute block md:hidden left-3 bottom-2 cursor-pointer">
+                <Avatar  sx={{height:'10vh',width:'20vw'}}/>
+              </div>
+              <div className="hidden md:block absolute left-20  bottom-2 cursor-pointer">
+                <Avatar  sx={{height:'14vh',width:'14vw'}}/>
               </div>
           </div>
       </div>
-      <div className="flex justify-between items-center p-3">
+      <div className="flex justify-between items-center p-3 md:px-6">
           <NavLink className='link text-center' to={`/users/profile/${firstname}`}>
              View  your all posts 
           </NavLink>

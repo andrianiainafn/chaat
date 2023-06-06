@@ -34,7 +34,7 @@ const Request = () => {
             isLoading ? (
                 <img src={animation} alt='animation' />
             ):(
-                 data.friends.map((friend:any,key:number)=>(
+                 data.map((friend:any,key:number)=>(
                     <div key={key} className="flex justify-between items-center flex-wrap space-y-2">
                         <div className="flex space-x-2 items-center">
                             {
