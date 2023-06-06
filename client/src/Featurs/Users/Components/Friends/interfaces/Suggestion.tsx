@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react'
-import { Avatar } from '@mui/material';
-import { Link } from 'react-router-dom';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import animation from '../../../../../assets/Images/animation.gif'
+import AddButton from '../elements/AddButton';
 
 const Suggestion = () => {
  const querykey = ['suggestion']
@@ -14,9 +12,18 @@ const Suggestion = () => {
      const suggestion = await axios.get('http://localhost:8000/friend/getSuggestions')
      return suggestion.data.message
  }
+ const queryClient = useQueryClient()
  const {isLoading,data} = useQuery(querykey,getsuggestion)
- const HandleClcikAdd = ()=>{
-    console.log('Add friends')
+ const HandleClcikAdd = async(e:any)=>{
+    const userId = e!.currentTarget.getAttribute('data-userid')
+    console.log(userId)
+    const response = await axios.put(`http://localhost:8000/friend/addFriends/${userId}`)
+    if(response.status === 200){
+        console.log(response.data,9696)
+        queryClient.invalidateQueries(['chkeckAddfriend',userId])
+      }else{
+        console.log(response,666)
+      }
  }
 
   return (
@@ -38,25 +45,7 @@ const Suggestion = () => {
             isLoading ? (<img src={animation} alt='animation'/>):
             (
                 data.map((friend:any,key:number)=>(
-                    <div key={key} className="flex justify-between items-center">
-                        <div className="flex space-x-2 items-center">
-                            {
-                                friend.profilepic ? (<Avatar src={friend.profilepic}/>):(<Avatar/>) 
-                            }
-                            <div className="flex flex-col">
-                                <Link className='text-[#efefef] hover:underline' to='/users/profile/Nomena'>{friend.firstname} {friend.lastname}</Link>
-                                <h6 className='text-xs text-[#777]'>20 amis en commun</h6>
-                            </div>
-                        </div>
-                       <div className="text-[#efefef]">
-                            <button onClick={HandleClcikAdd} data-userId={friend._id} className='bg-[#4480ce] border-none py-1 px-3 rounded-lg' >
-                                 <div className="flex space-x-2 items-center">
-                                    <h6>Add</h6>
-                                    <PersonAddAlt1Icon/>
-                                 </div>
-                            </button>
-                       </div>
-                    </div>
+                    <AddButton key={key} friend={friend} HandleClcikAdd={HandleClcikAdd} />
                 ))   
             )
         }

@@ -9,6 +9,7 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
+import axios from 'axios';
 
 type Props = {
     showResponsiveMenu:boolean
@@ -18,14 +19,17 @@ type Props = {
 const ResponsiveProfileMenu = (props: Props) => {
   const navigate = useNavigate()
   const {connected,firstname,profilepicture} = useContext(AuthContext)
-  const HandleClickLogout = ()=>{
-
-  }
   const HandleClickProfile = ()=>{
     navigate(`/users/profile/${firstname}`)
     props.HandleClickMenu()
   }
-
+  const HandleClickLogout = async()=>{
+    await axios.get('http://localhost:8000/auth/logout')
+    navigate('/')
+  }
+  const NavigateUsers = (link:string)=>{
+    navigate(link)
+  }
   return (
     <div className='menuResponsiveParent' onClick={props.HandleClickMenu}>
         <div className="menuResponsiveChild p-3" onClick={(e)=>e.stopPropagation()}>
@@ -38,27 +42,20 @@ const ResponsiveProfileMenu = (props: Props) => {
                       <h3 className='text-[#f2f2f2] hover:underline'>{firstname}</h3>
                       <h6 className='text-[#f2f2f2] text-sm'>View your profile</h6>
                     </div>
-                    
                 </div>
                 <div className='bg-[#2c3a4a] h-[1px] w-[80%] flex justify-center items-center mx-auto ' />
-                <Link to=''>
-                  <div className="flex space-x-2 text-[#f2f2f2] hover:underline cursor-pointer ">
+                  <div onClick={()=>NavigateUsers('/users/friends')} className="flex space-x-2 text-[#f2f2f2] hover:underline cursor-pointer ">
                     <PeopleOutlineIcon/>
                     <h6 className='text-sm'>Friends</h6>
                   </div>
-                </Link>
-                <Link to=''>
-                  <div className="flex space-x-2 text-[#f2f2f2] hover:underline cursor-pointer ">
+                  <div onClick={()=>NavigateUsers('community')} className="flex space-x-2 text-[#f2f2f2] hover:underline cursor-pointer ">
                     <LanguageOutlinedIcon/>
                     <h6 className='text-sm'>Community</h6>
                   </div>
-                </Link>
-                <Link to=''>
-                  <div className="flex space-x-2 text-[#f2f2f2] hover:underline cursor-pointer ">
+                  <div onClick={()=>NavigateUsers('saved')} className="flex space-x-2 text-[#f2f2f2] hover:underline cursor-pointer ">
                     <BookmarkBorderOutlinedIcon/>
                     <h6 className='text-sm'>Saved</h6>
                   </div>
-                </Link>
                 <Link to=''>
                   <div className="flex space-x-2 text-[#f2f2f2] hover:underline cursor-pointer ">
                     <SettingsOutlinedIcon/>

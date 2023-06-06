@@ -225,12 +225,13 @@ function Signup() {
                       </div>
                     )                  
                   }
-                  <label htmlFor='day_naissance' className='text-[#efefef] text-sm'>Gender</label>
+                  {/* <label htmlFor='day_naissance' className='text-[#efefef] text-sm'>Gender</label> */}
                   <select onChange={HandleChangeSelect} name='gender' 
                   className={
                     error.gender ? 'outline-none bg-[#17202a] text-[#efefef] border-[1px] rounded-lg px-2 border-red-500'
                     :'outline-none bg-[#17202a] text-[#efefef] border-[1px] rounded-lg px-2 border-[#444]'
                   }>
+                        <option value=''>gender</option>
                         <option value='Femme'>Femme</option>
                         <option value='Homme'>Homme</option>
                   </select>

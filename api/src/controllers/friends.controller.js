@@ -12,9 +12,9 @@ exports.addFriends = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
-        const {friendId} = req.body
+        const friendid = req.params.request
         await userModel.updateOne(
-            {id:friendId},
+            {id:friendid},
             {$push:{request: payload.user_id}}
         )
         res
@@ -86,11 +86,10 @@ exports.checkFriendRequest = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
-        const requestId = req.params.request
-        const userRequest = await userModel.findOne({_id: requestId}).select('request')
+        const userRequest = await userModel.findOne({_id: payload.user_id}).select('request')
         res
         .status(200)
-        .json({message: userRequest})
+        .json({message: userRequest.request})
 
     }catch(e){
         res
@@ -166,7 +165,14 @@ exports.getSuggestions = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
-        const usersuggestions = await userModel.find({_id:{$ne: payload.user_id}}).select(['firstname','lastname','profilepicture'])
+        const usersuggestions = await userModel.find(
+            {
+                $and:[
+                    {_id:{$ne: payload.user_id}},
+                    {request:{$nin:[payload.user_id]}}
+                ]
+            }
+        ).select(['firstname','lastname','profilepicture'])
         console.log(usersuggestions)
         res
         .status(200)

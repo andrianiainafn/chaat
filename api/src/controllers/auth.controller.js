@@ -38,7 +38,6 @@ exports.register = async(req,res)=>{
         const token = jwt.sign({
             user_id: user._id
         },process.env.JWT_SECRET)
-
         const codeverification = speackeasy.totp({
             secret: process.env.JWT_SECRET,
             encoding: 'base32'
@@ -178,5 +177,26 @@ exports.verifyCode = async(req,res)=>{
         res
        .status(500)
        .json({message:'Error when verify code'})
+    }
+}
+exports.logout = async(req,res)=>{
+    try{
+        const token = req.cookies.user
+        if(!token){
+            return res
+                .status(401)
+                .json({connected: false})
+        }
+        jwt.verify(token,process.env.JWT_SECRET)
+        res
+        .cookie("user", "",{
+          httpOnly: true,
+          expires: new Date(0)
+        })
+        .send(200)
+    }catch(e){
+        res
+        .status(500)
+        .json({message:'Error when verify code'})  
     }
 }
