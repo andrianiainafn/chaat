@@ -9,6 +9,7 @@ import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { Link } from 'react-router-dom';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import AddButton from '../elements/AddButton'
+import ConfirmOrRemove from '../elements/ConfirmOrRemove'
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -90,22 +91,7 @@ function All(){
                                 <h6 className='text-xs text-[#777]'>20 amis en commun</h6>
                             </div>
                         </div>
-                        <div className="flex space-x-2">
-                            <div className="text-[#efefef]">
-                                 <button onClick={HandleConfirmRequest} data-userId={request._id} className='bg-[#4480ce] border-none py-1 px-3 rounded-lg' >
-                                      <div className="flex space-x-2 items-center">
-                                         <h6 className='text-sm'>Confirme</h6>
-                                      </div>
-                                 </button>
-                            </div>
-                            <div className="text-[#4480ce]">
-                                 <button onClick={HandleRemoveRequest} data-userId={request._id} className='bg-transparent border-[1px] border-[#4480ce] py-1 px-3 rounded-lg' >
-                                      <div className="flex space-x-2 items-center">
-                                         <h6 className='text-sm'>Remove</h6>
-                                      </div>
-                                 </button>
-                            </div>
-                        </div>
+                        <ConfirmOrRemove friend={request}/>
                     </div>
                 ))
                 )
@@ -123,18 +109,7 @@ function All(){
             isLoading ? (<img src={animation} alt='animation'/>):
             (
                 data[1].map((suggestion:any,key:number)=>(
-                    <div key={key} className="flex justify-between items-center">
-                        <div className="flex space-x-2 items-center">
-                            {
-                                suggestion.profilepic ? (<Avatar src={suggestion.profilepic}/>):(<Avatar/>) 
-                            }
-                            <div className="flex flex-col">
-                                <Link className='text-[#efefef] hover:underline opacity-80' to='/users/profile/Nomena'>{suggestion.firstname} {suggestion.lastname}</Link>
-                                <h6 className='text-xs text-[#777]'>20 amis en commun</h6>
-                            </div>
-                        </div>
-                        <AddButton  friend={suggestion} HandleClcikAdd={HandleClcikAdd} />
-                    </div>
+                    <AddButton key={key} friend={suggestion} HandleClcikAdd={HandleClcikAdd} />
                 ))   
             )
           }

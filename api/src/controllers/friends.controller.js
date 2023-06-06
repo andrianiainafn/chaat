@@ -52,6 +52,26 @@ exports.cancelFriendRequest = async(req,res)=>{
             .json({message:'Internal Server Error'})
     }
 }
+exports.AcceptFriendrequest = async(req,res)=>{
+    try{
+        const token = req.cookies.user
+        if(!token){
+            return res
+            .status(401)
+            .json({message:"Unauthorized"})
+        }
+        jwt.verify(token,process.env.JWT_SECRET)
+        const payload = jwt.decode(token,options={"verify_signature": false})
+        const requestId = req.params.request
+        res
+        .status(200)
+        .json({message: 'Request has accepted successfully'})
+    }catch(e){
+        res
+        .status(500)
+        .json({message:'Internal Server Error'})
+    }
+}
 exports.DeleteFriendRequest = async(req,res)=>{
     try{
         const token = req.cookies.user
@@ -138,7 +158,12 @@ exports.getAll = async(req,res)=>{
             model:'user',
             select:['firstname', 'lastname','profilepicture']
         })
-        const usersuggestions = await userModel.find({_id:{$ne: payload.user_id}})
+        const usersuggestions = await userModel.find({
+            $and:[
+                {_id:{$ne: payload.user_id}},
+                {request:{$nin:[payload.user_id]}}
+            ]
+        })
         const myfriends = await userModel.findOne({_id: payload.user_id}).select('friends').populate({
             path:'friends',
             model:'user',
