@@ -46,7 +46,6 @@ exports.modifyUserInfo = async(req,res)=>{
             firsname,
             lastname,
             email,
-            phone,
             bio,
             profilepicture,
             couverture

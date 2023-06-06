@@ -13,10 +13,10 @@ const posts = require('./src/routes/posts.router')
 const comment = require('./src/routes/comment.router')
 const friend = require('./src/routes/friends.router')
 const notification = require('./src/routes/notification.router')
+const user = require('./src/routes/user.router')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const {create} = require('./src/sockets/posts.socket'); 
-const { text } = require('body-parser');
 
 //session
 const oneDay = 1000 * 60 *60 * 24 
@@ -53,6 +53,7 @@ app.use('/actuality', actuality)
 app.use('/comment',comment)
 app.use('/friend',friend)
 app.use('/notification',notification)
+app.use('/user',profile.array('images',2),user)
 
 const socket = app.listen(process.env.PORT,()=>{
     console.log("listenning on port:" + process.env.PORT)
