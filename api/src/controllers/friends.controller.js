@@ -14,7 +14,7 @@ exports.addFriends = async(req,res)=>{
         const payload = jwt.decode(token,options={"verify_signature": false})
         const friendid = req.params.request
         await userModel.updateOne(
-            {id:friendid},
+            {_id:friendid},
             {$push:{request: payload.user_id}}
         )
         res
@@ -84,7 +84,7 @@ exports.DeleteFriendRequest = async(req,res)=>{
         const payload = jwt.decode(token,options={"verify_signature": false})
         const requestId = req.params.request
         await userModel.updateOne(
-            {id: payload.user_id},
+            {_id: payload.user_id},
             {$pull: {request: requestId}}
         )
         res
@@ -106,10 +106,13 @@ exports.checkFriendRequest = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
-        const userRequest = await userModel.findOne({_id: payload.user_id}).select('request')
+        const requestId = req.params.request
+        console.log(requestId)
+        const requestUserList = await userModel.findOne({_id: requestId}).select('request')
+        const requestTofront = requestUserList.request.map(elem=>{return elem._id})
         res
         .status(200)
-        .json({message: userRequest.request})
+        .json({message: requestTofront})
 
     }catch(e){
         res
@@ -190,14 +193,13 @@ exports.getSuggestions = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
-        const usersuggestions = await userModel.find(
-            {
-                $and:[
-                    {_id:{$ne: payload.user_id}},
-                    {request:{$nin:[payload.user_id]}}
-                ]
-            }
-        ).select(['firstname','lastname','profilepicture'])
+        const request = await userModel.findOne({_id:payload.user_id}).select('request')
+        const usersuggestions = await userModel.find({
+            $and: [
+              { _id: { $ne: payload.user_id } },
+              { request: { $nin: request } }
+            ]
+          }).select(['firstname', 'lastname', 'profilepicture'])
         console.log(usersuggestions)
         res
         .status(200)

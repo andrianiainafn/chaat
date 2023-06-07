@@ -9,7 +9,7 @@ route.get('/getAllFriends',getAllFriends)
 route.get('/getFriendRequest',getFriendRequest)
 route.get('/getSuggestions',getSuggestions)
 route.get('/getAll',getAll)
-route.get('/checkFriendRequest',checkFriendRequest)
+route.get('/checkFriendRequest/:request',checkFriendRequest)
 route.put('/AcceptFriendrequest/:request',AcceptFriendrequest)
 
 module.exports = route

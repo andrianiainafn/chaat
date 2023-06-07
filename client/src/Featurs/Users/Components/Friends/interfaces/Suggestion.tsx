@@ -15,12 +15,11 @@ const Suggestion = () => {
  const queryClient = useQueryClient()
  const {isLoading,data} = useQuery(querykey,getsuggestion)
  const HandleClcikAdd = async(e:any)=>{
-    const userId = e!.currentTarget.getAttribute('data-userid')
-    console.log(userId)
-    const response = await axios.put(`http://localhost:8000/friend/addFriends/${userId}`)
+     const user = e!.currentTarget.getAttribute('data-userid')
+     queryClient.invalidateQueries(['chkeckAddfriend',user])
+    const response = await axios.put(`http://localhost:8000/friend/addFriends/${user}`)
     if(response.status === 200){
         console.log(response.data,9696)
-        queryClient.invalidateQueries(['chkeckAddfriend',userId])
       }else{
         console.log(response,666)
       }

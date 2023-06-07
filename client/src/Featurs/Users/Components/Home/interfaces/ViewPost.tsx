@@ -13,7 +13,6 @@ type Props = {
     open: boolean,
     HandleClickPost:()=> void
 }
-const Commentst = [1,2,3,4,5,6]
 const ViewPost = ({open,HandleClickPost}: Props) => {
   const {idPost} = useContext(ContextOfPost)
   const queryKey = ['post']
@@ -67,7 +66,7 @@ const ViewPost = ({open,HandleClickPost}: Props) => {
                         <CloseIcon sx={{height:'9vh',width:'9vw',color:"#F2f2f2"}}/>
                       </IconButton>
                     </div>
-                    <div className='centralePost flex flex-col' data-idpost='idDupost' onClick={(e)=>e.stopPropagation()}>
+                    <div className='centralePost flex flex-col md:flex-row' data-idpost='idDupost' onClick={(e)=>e.stopPropagation()}>
                         <img className='w-[100%] md:w-[50%] h-[100%]' src={`http://localhost:8000/${data?.data.post.media[0]}`} alt='logo' />
                         <div className='w-[100%] md:w-[50%] h-[100%] bg-[#17202a] relative  overflow-y-scroll' >
                           <div className="bg-[#2c3a4a] md:fixed relative  h-[7vh] w-[100%] md:w-[50%] flex justify-center items-center z-20">
