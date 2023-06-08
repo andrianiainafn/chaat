@@ -17,9 +17,9 @@ const UsersLayout = () => {
                 <Routes>
                     <Route path='' index={true} element={<PostContext><Home/></PostContext> }/>
                     <Route path='profile/' element={<Profile/>} >
-                        <Route path=':name' index={true} element={<PostContext><PersonalPost/></PostContext>} />
-                        <Route path='edit/' element={<EditProfile/>} />
-                        <Route path='media/' element={<Media/>}/>
+                        <Route path=':id' index={true} element={<PostContext><PersonalPost/></PostContext>} />
+                        <Route path='edit/:id' element={<EditProfile/>} />
+                        <Route path='media/:id' element={<Media/>}/>
                     </Route>
                     <Route path='community' element={<Community/>}>
                         <Route path='' index={true} element={<p>List de pub des community dont je suis membre</p>}/>

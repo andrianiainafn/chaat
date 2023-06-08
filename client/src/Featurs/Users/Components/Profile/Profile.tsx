@@ -1,12 +1,14 @@
 import { Avatar } from '@mui/material'
 import React, { ChangeEvent, useContext, useState } from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import PhotoCameraOutlinedIcon from '@mui/icons-material/PhotoCameraOutlined';
 import AuthContext from '../../../../Context/GlobalContext';
 
 const Profile = () => {
   const [images,setImages] = useState<File[]>([])
   const {profilepicture,firstname,lastname} = useContext(AuthContext)
+  const location = useLocation()
+  const user_id = location.pathname.split('/')[3]
   const HandleImageChange = (e:ChangeEvent<HTMLInputElement>)=>{
     const files = e.target.files
     if(files){
@@ -47,13 +49,13 @@ const Profile = () => {
       </div>
       <div className='bg-[#2c3a4a] h-[1px] w-[60vw] flex justify-center items-center mx-auto ' />
       <div className="flex justify-between items-center p-3 md:px-[8vw] text-lg">
-          <NavLink className='link text-center' to={`/users/profile/${firstname}`}>
+          <NavLink className='link text-center' to={`/users/profile/${user_id}`}>
              View  your all posts 
           </NavLink>
-          <NavLink className='link text-center' to='/users/profile/edit' >
+          <NavLink className='link text-center' to={`/users/profile/edit/${user_id}`} >
             Edit your profile
           </NavLink>
-          <NavLink className='link text-center' to='/users/profile/media'>
+          <NavLink className='link text-center' to={`/users/profile/media/${user_id}`}>
             View your all media
          </NavLink>
       </div>

@@ -38,8 +38,8 @@ exports.getmessage = async(req,res)=>{
             .status(401)
             .json({message:"Unauthorized"})
         }
-        const {conversation} = req.body 
-        const allMessages = await messageModel.find(conversation).populate([
+        const conversation = req.params.conversation
+        const allMessages = await messageModel.find({conversation:conversation}).populate([
             {
                 path:'author',
                 model:'user',
@@ -50,10 +50,10 @@ exports.getmessage = async(req,res)=>{
                 select:['firstname', 'lastname','profilepicture']
             }
         ])
-        console.log(allMessages)
+        console.log(allMessages,90909)
         res
         .status(200)
-        .json({message: allMessages})
+        .json({message: []})
     }catch(e){
         res
         .status(500)

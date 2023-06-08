@@ -1,10 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React, { ChangeEvent, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 type Props = {}
 
 const EditProfile = (props: Props) => {
+  const location = useLocation()
+  const user_id = location.pathname.split('/')[3]
   const queryKey = ['getuserinformation']
   const [information,setInformation] = useState({
     fname:'',
@@ -19,7 +22,7 @@ const EditProfile = (props: Props) => {
     bio:true
   })
   const getuserinformation = async()=>{
-      const userInformation = await axios.get('http://localhost:8000/user/getUserInfo')
+      const userInformation = await axios.get(`http://localhost:8000/user/getUserInfo/${user_id}`)
       return userInformation.data.message 
   }
   const {isLoading,data} = useQuery(queryKey,getuserinformation)

@@ -18,9 +18,9 @@ type Props = {
 
 const ResponsiveProfileMenu = (props: Props) => {
   const navigate = useNavigate()
-  const {connected,firstname,profilepicture} = useContext(AuthContext)
+  const {connected,firstname,profilepicture,userId} = useContext(AuthContext)
   const HandleClickProfile = ()=>{
-    navigate(`/users/profile/${firstname}`)
+    navigate(`/users/profile/${userId}`)
     props.HandleClickMenu()
   }
   const HandleClickLogout = async()=>{

@@ -14,10 +14,10 @@ type Props = {
 }
 
 const ProfileMenu = (props: Props) => {
-  const {connected,firstname,profilepicture} = useContext(AuthContext)
+  const {connected,firstname,profilepicture,userId} = useContext(AuthContext)
   const navigate = useNavigate()
   const HandleClickProfile = () =>{
-      navigate(`/users/profile/${firstname}`)
+      navigate(`/users/profile/${userId}`)
       props.HandleClickProfile()
   }
   const HandleClickLogout = async()=>{
