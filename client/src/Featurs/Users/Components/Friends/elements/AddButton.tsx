@@ -8,7 +8,8 @@ import AuthContext from '../../../../../Context/GlobalContext';
 
 type Props = {
     friend:any,
-    HandleClcikAdd:(e:any)=>void
+    HandleClcikAdd:(e:any)=>void,
+    HandleClcikCancel:(e:any)=>void,
 }
 
 const AddButton = (props: Props) => {
@@ -40,7 +41,7 @@ const AddButton = (props: Props) => {
                         <span className='text-sm'>Loading</span>
                     ):(
                        data.includes(userId) ? (
-                            <button onClick={props.HandleClcikAdd} data-userid={props.friend._id} className='bg-transparent border-[1px] border-[#fff] py-1 px-3 rounded-lg' >
+                            <button onClick={props.HandleClcikCancel} data-userid={props.friend._id} className='bg-transparent border-[1px] border-[#fff] py-1 px-3 rounded-lg' >
                                 <div className="flex space-x-2 items-center">
                                    <h6>Cancel</h6>
                                    <PersonAddAlt1Icon/>

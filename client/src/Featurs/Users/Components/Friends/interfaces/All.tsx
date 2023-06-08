@@ -61,6 +61,16 @@ function All(){
         console.log(response,666)
       }
  }
+ const HandleClcikCancel = async(e:any)=>{
+  const user = e!.currentTarget.getAttribute('data-userid')
+  queryClient.invalidateQueries(['chkeckAddfriend',user])
+  const response = await axios.put(`http://localhost:8000/friend/addFriends/${user}`)
+  if(response.status === 200){
+      console.log(response.data,9696)
+    }else{
+      console.log(response,666)
+    }
+}
  const HandleRemoveRequest = ()=>{
   
  }
@@ -109,7 +119,7 @@ function All(){
             isLoading ? (<img src={animation} alt='animation'/>):
             (
                 data[1].map((suggestion:any,key:number)=>(
-                    <AddButton key={key} friend={suggestion} HandleClcikAdd={HandleClcikAdd} />
+                    <AddButton key={key} friend={suggestion} HandleClcikAdd={HandleClcikAdd} HandleClcikCancel={HandleClcikCancel}  />
                 ))   
             )
           }

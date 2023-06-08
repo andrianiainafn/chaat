@@ -24,7 +24,16 @@ const Suggestion = () => {
         console.log(response,666)
       }
  }
-
+    const HandleClcikCancel = async(e:any)=>{
+        const user = e!.currentTarget.getAttribute('data-userid')
+        queryClient.invalidateQueries(['chkeckAddfriend',user])
+        const response = await axios.put(`http://localhost:8000/friend/addFriends/${user}`)
+        if(response.status === 200){
+            console.log(response.data,9696)
+          }else{
+            console.log(response,666)
+          }
+    }
   return (
     <div className='relative flex flex-col space-y-3 space-x-2 m-4 '>
         <div className="fixed flex justify-center mx-auto">
@@ -44,7 +53,7 @@ const Suggestion = () => {
             isLoading ? (<img src={animation} alt='animation'/>):
             (
                 data.map((friend:any,key:number)=>(
-                    <AddButton key={key} friend={friend} HandleClcikAdd={HandleClcikAdd} />
+                    <AddButton key={key} friend={friend} HandleClcikAdd={HandleClcikAdd} HandleClcikCancel={HandleClcikCancel} />
                 ))   
             )
         }

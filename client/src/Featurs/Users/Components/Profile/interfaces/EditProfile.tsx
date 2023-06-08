@@ -39,7 +39,7 @@ const EditProfile = (props: Props) => {
     )
   },[isLoading])
   return (
-    <div className='p-3 md:mx-32'>
+    <div className='p-3 md:mx-[20vw]'>
       <div className="flex flex-col space-y-3">
         <div className="flex justify-between items-center ">
             <div className="">
