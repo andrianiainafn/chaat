@@ -193,17 +193,16 @@ exports.getSuggestions = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
-        const request = await userModel.findOne({_id:payload.user_id}).select('request')
-        const usersuggestions = await userModel.find({
-            $and: [
-              { _id: { $ne: payload.user_id } },
-              { request: { $nin: request } }
+        const users = await userModel.find({
+            $and:[
+                {_id: {$ne: payload.user_id}},
+                { request: { $ne: payload.user_id } }
             ]
-          }).select(['firstname', 'lastname', 'profilepicture'])
-        console.log(usersuggestions)
+        });
+        console.log(users,4545)
         res
         .status(200)
-        .json({message: usersuggestions})
+        .json({message: users})
     }catch(e){
         res
         .status(500)

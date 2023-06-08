@@ -39,7 +39,7 @@ const AddButton = (props: Props) => {
                     isLoading ? (
                         <span className='text-sm'>Loading</span>
                     ):(
-                        data.includes(userId) ? (
+                       data.includes(userId) ? (
                             <button onClick={props.HandleClcikAdd} data-userid={props.friend._id} className='bg-transparent border-[1px] border-[#fff] py-1 px-3 rounded-lg' >
                                 <div className="flex space-x-2 items-center">
                                    <h6>Cancel</h6>
