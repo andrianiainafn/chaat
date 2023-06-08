@@ -63,9 +63,31 @@ exports.AcceptFriendrequest = async(req,res)=>{
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
         const requestId = req.params.request
-        res
-        .status(200)
-        .json({message: 'Request has accepted successfully'})
+        Promise.all([
+            userModel.updateMany(
+                {_id: requestId},
+                {$pull: {request: payload.user_id}}
+            ),
+            userModel.updateMany(
+                {_id: requestId},
+                {$push: {friends: payload.user_id}}
+            ),
+            userModel.updateMany(
+                {_id: payload.user_id},
+                {$pull: {friends: requestId}}
+            )
+        ])
+        .then(()=>{
+            res
+            .status(200)
+            .json({message: 'Request has accepted successfully'})
+        })
+        .catch((err)=>{
+            console.log(err)
+            res
+            .status(400)
+            .json({message:"Request failed"})
+        })
     }catch(e){
         res
         .status(500)
