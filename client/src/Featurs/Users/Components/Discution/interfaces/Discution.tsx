@@ -1,9 +1,10 @@
 import { Avatar, Badge, styled } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SendIcon from '@mui/icons-material/Send';
 import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import ChatIcon from '@mui/icons-material/Chat';
 import ResponsiveSidBar from '../Element/ResponsiveSidBar';
+import { useLocation } from 'react-router-dom';
 
 
 type Props = {}
@@ -13,6 +14,9 @@ const Discution = (props: Props) => {
   const ClickDiscu = () =>{
     setShowDiscu(ancien=>!ancien)
   }
+  const location = useLocation()
+  const idDestination = location.pathname.split('/')[3]
+  console.log(idDestination)
   return (
     <>
     {

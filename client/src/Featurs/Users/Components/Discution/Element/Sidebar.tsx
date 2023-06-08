@@ -49,7 +49,7 @@ function Sidebar(props:Props) {
         <div className='bg-[#2c3a4a] h-[1px] w-[80%] flex justify-center items-center mx-auto ' />
         {
             props.discuList.map((discution:any)=>(
-            <Link to='/users/messages/33436' key={discution}>
+            <Link to={`/users/messages/${discution._id}`} key={discution}>
               <div className="" >
                 <div className="flex space-x-2 ">
                     <StyledBadge
@@ -60,7 +60,7 @@ function Sidebar(props:Props) {
                       <Avatar    />
                     </StyledBadge>
                     <div className="flex flex-col space-y-1">
-                        <h5>Loyd Forger</h5>
+                        <h5>{discution.firstname}</h5>
                         <h6 className='text-xs text-[#777]'>You: Heyy .1h</h6>
                     </div>
                 </div>

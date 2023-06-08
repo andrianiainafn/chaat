@@ -1,6 +1,6 @@
 const conversationModel = require('../models/conversation.model')
 
-exports.get = async(req,res)=>{
+exports.getconversation = async(req,res)=>{
     try{
         const token = req.cookies.user
         if(!token){
@@ -8,11 +8,16 @@ exports.get = async(req,res)=>{
             .status(401)
             .json({message:"Unauthorized"})
         }
-        const allconversation = await conversationModel.find().populate({
+        jwt.verify(token,process.env.JWT_SECRET)
+        const payload = jwt.decode(token,options={"verify_signature": false})
+        const allconversation = await conversationModel.find({author: payload.user_id}).populate({
             path:'destination',
             model:'user',
             select:['firstname', 'lastname','profilepicture']
         })
+        res
+        .status(200)
+        .json({message:allconversation})
     }catch(e){
         res
         .status(500)
@@ -20,7 +25,7 @@ exports.get = async(req,res)=>{
     }
 }
 
-exports.create = async(req,res)=>{
+exports.createconversation = async(req,res)=>{
     try{
         const token = req.cookies.user
         if(!token){
@@ -46,7 +51,7 @@ exports.create = async(req,res)=>{
     }
 }
 
-exports.delete = async(req,res)=>{
+exports.deleteconversation = async(req,res)=>{
     try{
         const token = req.cookies.user
         if(!token){

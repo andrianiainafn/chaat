@@ -11,7 +11,11 @@ const commentresponseSchema = Schema({
         type: Schema.Types.ObjectId,
         ref:'user'
     }],
-    media:String
+    media:String,
+    date: {
+        type: Date,
+        default: new Date()
+    }
     },{
         timeistamp:true
     }

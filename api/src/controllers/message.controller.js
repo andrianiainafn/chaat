@@ -3,7 +3,7 @@ const messageModel = require('../models/message.model')
 const groupemessageModel = require('../models/groupemessage.model')
 const jwt = require('jsonwebtoken')
 
-exports.Add = async(req,res)=>{
+exports.addmessage = async(req,res)=>{
     try{
         const token = req.cookies.user
         if(!token){
@@ -30,7 +30,7 @@ exports.Add = async(req,res)=>{
     }
 } 
 
-exports.get = async(req,res)=>{
+exports.getmessage = async(req,res)=>{
     try{
         const token = req.cookies.user
         if(!token){
@@ -59,7 +59,7 @@ exports.get = async(req,res)=>{
         .json({message:'Internal Server Error'})
     }
 }
-exports.delete = async(req,res)=>{
+exports.deletemessage = async(req,res)=>{
     try{
         const token = req.cookies.user
         if(!token){
@@ -95,7 +95,7 @@ exports.delete = async(req,res)=>{
         .json({message:'Internal Server Error'})
     }
 }
-exports.search = async(req,res)=>{
+exports.searchmessage = async(req,res)=>{
     try{
         const token = req.cookies.user
         if(!token){

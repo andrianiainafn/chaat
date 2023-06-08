@@ -15,10 +15,15 @@ const commentSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'commentresponse'
     }],
-    media:String
+    media:String,
+    date: {
+        type: Date,
+        default: new Date()
+    }
     },{
         timeistamp: true
-    }
+    },
+    
 )
 
 module.exports = mongoose.model('comment',commentSchema)

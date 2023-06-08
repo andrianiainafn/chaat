@@ -8,14 +8,22 @@ const messageSchema = Schema({
     },
     destination: {
         type: Schema.Types.ObjectId,
-        ref: ['user','groupemessage']
+        refPath: 'destinationModel'
+    },
+    destinationModel: {
+        type: String,
+        enum: ['user', 'groupemessage']
     },
     message: String,
+    media:String,
     conversation:{
         type: Schema.Types.ObjectId,
         ref:'conversation'
     },
-    createdAt: Date.now(),
+    date: {
+        type: Date,
+        default: new Date()
+    }
 },
 {
     timeistamp: true
