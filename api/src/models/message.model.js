@@ -14,7 +14,8 @@ const messageSchema = Schema({
     conversation:{
         type: Schema.Types.ObjectId,
         ref:'conversation'
-    }
+    },
+    createdAt: Date.now(),
 },
 {
     timeistamp: true

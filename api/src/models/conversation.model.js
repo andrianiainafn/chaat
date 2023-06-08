@@ -8,7 +8,7 @@ const consversationSchema = Schema({
     },
     destination:{
         type: Schema.Types.ObjectId,
-        ref:['user','groupemessage']
+        ref:'user'
     }
 },{
     timeistamp:true

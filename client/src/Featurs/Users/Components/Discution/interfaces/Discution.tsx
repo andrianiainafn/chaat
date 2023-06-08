@@ -20,7 +20,7 @@ const Discution = (props: Props) => {
           <ResponsiveSidBar open={showDiscu} ClickDiscu={ClickDiscu} />
       )
     }
-    <div className="bg-[#2c3a4a] md:w-[55vw] md:right-4   z-10  h-[8vh]  rounded-t-lg w-full flex justify-between items-center  fixed   ">
+    <div className="bg-[#2c3a4a] md:w-[55vw] md:right-4 overflow-x-hidden overflow-hidden  z-10  h-[8vh]  rounded-t-lg w-full flex justify-between items-center  fixed   ">
         <div className="flex space-x-2 items-center">
           <Avatar/>
           <div className="">
@@ -36,7 +36,7 @@ const Discution = (props: Props) => {
           <ChatIcon sx={{color: '#efefef',cursor: 'pointer'}}/>
         </div>
     </div>
-    <div className='fixed md:right-4  md:h-[85vh]  bg-[#17202a] md:w-[55vw] w-full  overflow-scroll py-2 '>
+    <div className='fixed md:right-4  md:h-[85vh]  bg-[#17202a] md:w-[55vw] w-full  py-2 '>
       <div className="mt-[8vh]"/>
         <div className="flex justify-end">
           <div className="bg-[#0099FF]  rounded-full p-2  ">

@@ -1,5 +1,6 @@
 const userModel = require('../models/user.model')
 const jwt = require('jsonwebtoken')
+const conversationModel = require('../models/conversation.model')
 
 
 exports.addFriends = async(req,res)=>{
@@ -63,31 +64,36 @@ exports.AcceptFriendrequest = async(req,res)=>{
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
         const requestId = req.params.request
+        console.log(requestId)
+        const newConverstion = new conversationModel({
+           author: requestId,
+           destination: payload.user_id      
+        })
         Promise.all([
-            userModel.updateMany(
-                {_id: requestId},
-                {$pull: {request: payload.user_id}}
+            userModel.updateOne(
+                {_id: payload.user_id},
+                {$pull: {request: requestId}}
             ),
-            userModel.updateMany(
+            userModel.updateOne(
                 {_id: requestId},
                 {$push: {friends: payload.user_id}}
             ),
-            userModel.updateMany(
+            userModel.updateOne(
                 {_id: payload.user_id},
-                {$pull: {friends: requestId}}
-            )
+                {$push: {friends: requestId}}
+            ),
         ])
         .then(()=>{
-            res
-            .status(200)
-            .json({message: 'Request has accepted successfully'})
+            console.log("reussi!!!")
         })
         .catch((err)=>{
             console.log(err)
-            res
-            .status(400)
-            .json({message:"Request failed"})
         })
+        const conv = await newConverstion.save()
+        console.log(conv)
+        res
+        .status(200)
+        .json({message:"Ao amzay kosa ranga fa tsss!"})
     }catch(e){
         res
         .status(500)
@@ -194,7 +200,6 @@ exports.getAll = async(req,res)=>{
             model:'user',
             select:['firstname', 'lastname','profilepicture']
         })
-        console.log(request,usersuggestions,myfriends)
         res
         .status(200)
         .json({message: [request.request,usersuggestions,myfriends.friends]})
@@ -221,7 +226,6 @@ exports.getSuggestions = async(req,res)=>{
                 { request: { $ne: payload.user_id } }
             ]
         });
-        console.log(users,4545)
         res
         .status(200)
         .json({message: users})
@@ -248,7 +252,6 @@ exports.getFriendRequest = async(req,res)=>{
                 select:['firstname', 'lastname','profilepicture']
             }
         ) 
-        console.log(friendRequest.request)
         res
         .status(200)
         .json({message: friendRequest.request})

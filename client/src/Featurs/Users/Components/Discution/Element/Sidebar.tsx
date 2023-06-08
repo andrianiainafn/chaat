@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Avatar, Badge, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -32,11 +32,13 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
       },
     },
   }));
-
-function Sidebar() {
+interface Props{
+  discuList:any
+}
+function Sidebar(props:Props) {
   const discution = [1,2,3,4,5,6,7,8,9,10]
   return (
-    <div className=' fixed hidden md:flex flex-col bg-[#17202a]  text-[#f2f2f2] w-[25%] p-4  space-y-4 overflow-scroll h-[85vh] '>
+    <div className=' fixed hidden md:flex flex-col overflow-x-hidden bg-[#17202a]  text-[#f2f2f2] w-[25%] p-4  space-y-4 overflow-scroll h-[85vh] '>
         <div className="flex flex-col space-y-3">
             <h3>Your Discutions</h3>
             <div className="hidden md:flex justify-between items-center border-[1px] rounded-full py-1 px-2 border-[#444]">
@@ -46,8 +48,8 @@ function Sidebar() {
         </div>
         <div className='bg-[#2c3a4a] h-[1px] w-[80%] flex justify-center items-center mx-auto ' />
         {
-            discution.map((message)=>(
-            <Link to='/users/messages/33436' key={message}>
+            props.discuList.map((discution:any)=>(
+            <Link to='/users/messages/33436' key={discution}>
               <div className="" >
                 <div className="flex space-x-2 ">
                     <StyledBadge
@@ -55,7 +57,7 @@ function Sidebar() {
                       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                       variant="dot"
                     >
-                      <Avatar   />
+                      <Avatar    />
                     </StyledBadge>
                     <div className="flex flex-col space-y-1">
                         <h5>Loyd Forger</h5>

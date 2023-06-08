@@ -15,10 +15,11 @@ const ConfirmOrRemove = (props: Props) => {
         const userId = e!.currentTarget.getAttribute('data-userid')
         const request = await axios.put(`http://localhost:8000/friend/AcceptFriendrequest/${userId}`)
         if(request.status === 200){
-            console.log("nadrana voalohany ito")
             queryClient.invalidateQueries(['request'])
+            console.log("andrana voalohany ito")
             setIsConfirm(false)
-
+        }else{
+            console.log(request)
         }
     } 
     const HandleRemoveRequest = async(e:any)=>{
@@ -26,7 +27,7 @@ const ConfirmOrRemove = (props: Props) => {
         const userId = e!.currentTarget.getAttribute('data-userid')
         const request = await axios.put(`http://localhost:8000/friend/deleteFriendRequest/${userId}`)
         if(request.status === 200){
-            console.log("nadrana voalohany ito")
+            console.log("andrana voalohany ito")
             queryClient.invalidateQueries(['request'])
             setIsRemove(false)
         }
