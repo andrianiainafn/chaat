@@ -1,4 +1,5 @@
 const conversationModel = require('../models/conversation.model')
+const jwt = require('jsonwebtoken')
 
 exports.getconversation = async(req,res)=>{
     try{
@@ -10,14 +11,27 @@ exports.getconversation = async(req,res)=>{
         }
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
-        const allconversation = await conversationModel.find({author: payload.user_id}).populate({
-            path:'destination',
-            model:'user',
-            select:['firstname', 'lastname','profilepicture']
-        })
+        const allconversation = await conversationModel.find({
+            $or:[
+                {destination: payload.user_id},
+                {author: payload.user_id}
+            ]
+        }).populate([
+            {
+                path:'destination',
+                model:'user',
+                select:['firstname', 'lastname','profilepicture']
+            },{
+                path:'author',
+                model:'user',
+                select:['firstname', 'lastname','profilepicture']
+            }
+        ])
+        console.log(payload.user_id)
+        console.log(allconversation)
         res
         .status(200)
-        .json({message:allconversation})
+        .json({message: allconversation})
     }catch(e){
         res
         .status(500)

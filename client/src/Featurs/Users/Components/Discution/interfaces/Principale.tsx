@@ -9,8 +9,8 @@ type Props = {}
 const Principale = (props: Props) => {
   const queryKey = ['discu']
   const getMyFriends = async() =>{
-    const friends = await axios.get('http://localhost:8000/friend/getAllFriends')
-    return friends.data.message.friends
+    const friends = await axios.get('http://localhost:8000/conversation/getconversation')
+    return friends.data.message
   }
   const {isLoading,data} = useQuery(queryKey,getMyFriends)
   useEffect(()=>{

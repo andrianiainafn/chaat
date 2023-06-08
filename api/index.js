@@ -72,9 +72,6 @@ io.on('connect', (socket)=>{
     io.emit('welcom','hello this is socekt')
     socket.on('hello',(text)=>console.log(text))
 })
-
-
-
 //function to connect on mongodb
 async function main(){
     await mongoose.connect(process.env.MONGO_URL)

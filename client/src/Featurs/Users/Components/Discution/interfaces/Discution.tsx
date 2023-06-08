@@ -4,19 +4,30 @@ import SendIcon from '@mui/icons-material/Send';
 import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import ChatIcon from '@mui/icons-material/Chat';
 import ResponsiveSidBar from '../Element/ResponsiveSidBar';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 
 
 type Props = {}
 
 const Discution = (props: Props) => {
   const [showDiscu,setShowDiscu] = useState<boolean>(true)
+  const location = useLocation()
+  const idConversation = location.pathname.split('/')[3]
+  const queryKey = ['message',idConversation]
+  const getMessage = async()=>{
+     const  messages = await axios.get(`http://localhost:8000/message/get/${idConversation}`)
+     return messages.data.message
+  }
+  const{isLoading,data} = useQuery(queryKey,getMessage)
   const ClickDiscu = () =>{
     setShowDiscu(ancien=>!ancien)
   }
-  const location = useLocation()
-  const idDestination = location.pathname.split('/')[3]
-  console.log(idDestination)
+  console.log(idConversation)
+  useEffect(()=>{
+    !isLoading && console.log(data)
+  },[isLoading])
   return (
     <>
     {
@@ -41,18 +52,39 @@ const Discution = (props: Props) => {
         </div>
     </div>
     <div className='fixed md:right-4  md:h-[85vh]  bg-[#17202a] md:w-[55vw] w-full  py-2 '>
-      <div className="mt-[8vh]"/>
-        <div className="flex justify-end">
-          <div className="bg-[#0099FF]  rounded-full p-2  ">
-              Heyy
+    {
+      isLoading ? (
+        <h3>Loading</h3>
+      ):(
+        <>
+              {
+      data.length === 0 ? (
+          <div className="mt-[8vh] flex flex-col items-center justify-center space-y-3">
+              <Avatar sx={{height:'14vh',width:'8vw'}}/>
+              <h3 className='text-white text-lg'>Anya Forger</h3>
+              <h6 className='text-white text-base opacity-80'>Say Hello to Anya Forger <span className='animate-spin text-xl'>&#x1F44B;</span></h6>
+              <Link to={``} className='text-base text-[#4480ce] hover:underline hover:text-white' >View profile</Link>
           </div>
-        </div>
-        <div className="flex justify-start space-x-1">
-          <Avatar />
-          <div className=" bg-[#2c3a4a] rounded-full p-2  ">
+      ):(
+        <>
+          <div className="mt-[8vh]"/>
+            <div className="flex justify-end">
+              <div className="bg-[#0099FF]  rounded-full p-2  ">
+                  Heyy
+              </div>
+            </div>
+          <div className="flex justify-start space-x-1">
+            <Avatar />
+            <div className=" bg-[#2c3a4a] rounded-full p-2  ">
               Heyy
+            </div>
           </div>
-        </div>
+        </>
+      )
+    }
+        </>
+      )
+    }
     </div>
     <div className="bottom-20 md:bottom-8   w-full md:w-[30vw] md:space-x-3 md:justify-center fixed flex justify-between">
       <div className=" w-[50%] flex justify-between items-center border-[1px] rounded-full py-1 px-2 border-[#444] overflow-hidden">

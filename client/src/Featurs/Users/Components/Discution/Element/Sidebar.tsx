@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import { Avatar, Badge, styled } from '@mui/material';
+import { Avatar, Badge, styled, useControlled } from '@mui/material';
 import { Link } from 'react-router-dom';
+import AuthContext from '../../../../../Context/GlobalContext';
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -36,7 +37,7 @@ interface Props{
   discuList:any
 }
 function Sidebar(props:Props) {
-  const discution = [1,2,3,4,5,6,7,8,9,10]
+  const {userId} = useContext(AuthContext)
   return (
     <div className=' fixed hidden md:flex flex-col overflow-x-hidden bg-[#17202a]  text-[#f2f2f2] w-[25%] p-4  space-y-4 overflow-scroll h-[85vh] '>
         <div className="flex flex-col space-y-3">
@@ -49,7 +50,7 @@ function Sidebar(props:Props) {
         <div className='bg-[#2c3a4a] h-[1px] w-[80%] flex justify-center items-center mx-auto ' />
         {
             props.discuList.map((discution:any)=>(
-            <Link to={`/users/messages/${discution._id}`} key={discution}>
+            <Link to={`/users/messages/${discution._id}`} key={discution._id}>
               <div className="" >
                 <div className="flex space-x-2 ">
                     <StyledBadge
@@ -60,8 +61,16 @@ function Sidebar(props:Props) {
                       <Avatar    />
                     </StyledBadge>
                     <div className="flex flex-col space-y-1">
-                        <h5>{discution.firstname}</h5>
-                        <h6 className='text-xs text-[#777]'>You: Heyy .1h</h6>
+                        
+                          { 
+                            userId === discution.author._id ? (
+                              <h5>{ discution.destination.firstname} </h5>
+                            ):(
+                              <h5>{ discution.author.firstname} </h5> 
+                            )
+                          
+                          }
+                        <h6 className='text-xs text-[#777]'>Let's start to talk now!!</h6>
                     </div>
                 </div>
               </div>

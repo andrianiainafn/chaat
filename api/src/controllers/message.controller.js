@@ -50,6 +50,7 @@ exports.getmessage = async(req,res)=>{
                 select:['firstname', 'lastname','profilepicture']
             }
         ])
+        console.log(allMessages)
         res
         .status(200)
         .json({message: allMessages})
