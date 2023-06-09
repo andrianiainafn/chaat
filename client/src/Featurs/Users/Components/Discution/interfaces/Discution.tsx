@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import DiscuEntete from '../Element/DiscuEntete';
 import AuthContext from '../../../../../Context/GlobalContext';
+import Message from '../Element/Message';
 
 
 type Props = {}
@@ -55,6 +56,7 @@ const Discution = (props: Props) => {
      if(send.status === 200) {
       queryClient.invalidateQueries(['message',idConversation])
       console.log('message sent successfully')
+      setMessage('')
      }else{
       console.log(send)
      }
@@ -93,17 +95,11 @@ const Discution = (props: Props) => {
       ):(
         <>
           <div className="mt-[8vh]"/>
-            <div className="flex justify-end">
-              <div className="bg-[#0099FF]  rounded-full p-2  ">
-                  Heyy
-              </div>
-            </div>
-          <div className="flex justify-start space-x-1">
-            <Avatar />
-            <div className=" bg-[#2c3a4a] rounded-full p-2  ">
-              Heyy
-            </div>
-          </div>
+          {
+            data.map((mess:any,key:number)=>(
+              <Message mess={mess} key={key} />
+            ))
+          }
         </>
       )
     }
