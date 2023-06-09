@@ -7,7 +7,7 @@ type Props = {}
 
 const EditProfile = (props: Props) => {
   const location = useLocation()
-  const user_id = location.pathname.split('/')[3]
+  const user_id = location.pathname.split('/')[4]
   const queryKey = ['getuserinformation']
   const [information,setInformation] = useState({
     fname:'',

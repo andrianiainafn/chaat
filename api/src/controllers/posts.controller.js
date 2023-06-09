@@ -198,8 +198,8 @@ exports.getUserPost = async(req,res)=>{
             .json({message:"Unauthorized"})
         }
         jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
-        const post = await postModel.find({author: payload.user_id}).populate({
+        const user_id = req.params.userid
+        const post = await postModel.find({author: user_id}).populate({
             path:'author',
             model:'user',
             select:['firstname', 'lastname','profilepicture']

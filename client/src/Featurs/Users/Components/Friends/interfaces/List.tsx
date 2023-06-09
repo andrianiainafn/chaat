@@ -75,7 +75,7 @@ const List = () => {
                                  {friend.profilepicture ? (<Avatar src={friend.profilepicture}/>):(<Avatar/>)}
                       </StyledBadge>
                       <div className="flex flex-col">
-                          <Link className='text-[#efefef] hover:underline' to='/users/profile/Nomena'>{friend.firstname} {friend.lastname}</Link>
+                          <Link className='text-[#efefef] hover:underline' to={`/users/profile/home/${friend._id}`}>{friend.firstname} {friend.lastname}</Link>
                           <h6 className='text-xs text-[#777]'>20 amis en commun</h6>
                       </div>
                   </div>

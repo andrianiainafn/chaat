@@ -5,6 +5,7 @@ import ContextOfPost from '../../Home/Context/PostContext'
 import Post from '../../Home/elements/Post'
 import animation from '../../../../../assets/Images/animation.gif'
 import ViewPost from '../../Home/interfaces/ViewPost'
+import { useLocation } from 'react-router-dom'
 
 type Props = {}
 
@@ -13,8 +14,10 @@ const PersonalPost = (props: Props) => {
   const {ModifyIdPost} = useContext(ContextOfPost)
   const [isCreate,setIsCreate] =  useState<boolean>(false)
   const [isPostView,setIsPostView] = useState<boolean>(false)
+  const location = useLocation()
+  const user_id = location.pathname.split('/')[4]
   const getPersonalPost = async()=>{
-      const personalPost = await axios.get('http://localhost:8000/post/getUserPost')
+      const personalPost = await axios.get(`http://localhost:8000/post/getUserPost/${user_id}`)
       return personalPost.data.message
   }
   const {isLoading,data} = useQuery(queryKey,getPersonalPost)

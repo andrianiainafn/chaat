@@ -20,7 +20,7 @@ const ResponsiveProfileMenu = (props: Props) => {
   const navigate = useNavigate()
   const {connected,firstname,profilepicture,userId} = useContext(AuthContext)
   const HandleClickProfile = ()=>{
-    navigate(`/users/profile/${userId}`)
+    navigate(`/users/profile/home/${userId}`)
     props.HandleClickMenu()
   }
   const HandleClickLogout = async()=>{
