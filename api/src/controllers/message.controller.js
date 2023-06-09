@@ -11,13 +11,16 @@ exports.addmessage = async(req,res)=>{
             .status(401)
             .json({message:"Unauthorized"})
         }
-        const {destination,conversation} = req.body
+        const {destination,message} = req.body
+        const conversation = req.params.conversation
+        console.log(78787,conversation,78787)
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
         const newMessage = new messageModel({
             author: payload.user_id,
             destination,
-            conversation
+            conversation,
+            message
         })
         await newMessage.save()
         res 
@@ -50,10 +53,9 @@ exports.getmessage = async(req,res)=>{
                 select:['firstname', 'lastname','profilepicture']
             }
         ])
-        console.log(allMessages,90909)
         res
         .status(200)
-        .json({message: []})
+        .json({message:allMessages})
     }catch(e){
         res
         .status(500)

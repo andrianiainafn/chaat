@@ -4,18 +4,19 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import PhotoCameraOutlinedIcon from '@mui/icons-material/PhotoCameraOutlined';
 import AuthContext from '../../../../Context/GlobalContext';
 import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 const Profile = () => {
   const [images,setImages] = useState<File[]>([])
   const queryKey = ['userinfo']
-  const {profilepicture,firstname,lastname} = useContext(AuthContext)
+  const {profilepicture,firstname,lastname,userId} = useContext(AuthContext)
   const location = useLocation()
   const user_id = location.pathname.split('/')[4]
   const getUserInfo = async()=>{
     const userinfo = await axios.get(`http://localhost:8000/user/getUserInfo/${user_id}`)
     return userinfo.data.message
   }
+  const queryClient = useQueryClient()
   const {isLoading,data} = useQuery(queryKey,getUserInfo)
   const HandleImageChange = (e:ChangeEvent<HTMLInputElement>)=>{
     const files = e.target.files
@@ -25,8 +26,8 @@ const Profile = () => {
     }
   }
   useEffect(()=>{
-    !isLoading && console.log(data)
-  },[isLoading])
+    queryClient.invalidateQueries(['userinfo'])
+  },[user_id])
   return (
     <>
     {
@@ -66,13 +67,29 @@ const Profile = () => {
         <div className='bg-[#2c3a4a] h-[1px] w-[60vw] flex justify-center items-center mx-auto ' />
         <div className="flex justify-between items-center p-3 md:px-[8vw] text-lg">
             <NavLink className='link text-center' to={`/users/profile/home/${data._id}`}>
-               View  your all posts 
+               {
+                (userId === user_id) ? (
+                  <span>View  your all posts</span>
+                ):(
+                  <span>View {data.firstname} posts</span>
+                )
+               } 
             </NavLink>
-            <NavLink className='link text-center' to={`/users/profile/edit/${data._id}`} >
-              Edit your profile
-            </NavLink>
+            {
+              (userId === user_id) && (
+              <NavLink className='link text-center' to={`/users/profile/edit/${data._id}`} >
+                Edit your profile
+              </NavLink>
+              )
+            }
             <NavLink className='link text-center' to={`/users/profile/media/${data._id}`}>
-              View your all media
+              {
+                (userId === user_id) ? (
+                  <span>View  your media</span>
+                ):(
+                  <span>View {data.firstname} photos and vidos</span>
+                )
+               } 
            </NavLink>
         </div>
         <div className="">

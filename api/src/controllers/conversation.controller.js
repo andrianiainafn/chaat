@@ -38,6 +38,36 @@ exports.getconversation = async(req,res)=>{
         .json({message:'Internal Server Error'})
     }
 }
+exports.getconversationinformation = async(req,res)=>{
+    try{
+        const token = req.cookies.user
+        if(!token){
+            return res
+            .status(401)
+            .json({message:"Unauthorized"})
+        }
+        jwt.verify(token,process.env.JWT_SECRET)
+        const conversationId = req.params.conversationid
+        const conversation = await conversationModel.findOne({_id:conversationId}).populate([
+            {
+                path:'destination',
+                model:'user',
+                select:['firstname', 'lastname','profilepicture']
+            },{
+                path:'author',
+                model:'user',
+                select:['firstname', 'lastname','profilepicture']
+            }
+        ])
+        res
+        .status(200)
+        .json({message: conversation})
+    }catch(e){
+        res
+        .status(500)
+        .json({message:'Internal Server Error'})
+    }
+}
 
 exports.createconversation = async(req,res)=>{
     try{
