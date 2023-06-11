@@ -17,7 +17,7 @@ const Discution = (props: Props) => {
   const [showDiscu,setShowDiscu] = useState<boolean>(true)
   const [destination,setDestination] = useState<string>()
   const [message,setMessage] = useState<string>('')
-  const userId = useContext(AuthContext)
+  const {userId} = useContext(AuthContext)
   const location = useLocation()
   const queryClient = useQueryClient()
   const idConversation = location.pathname.split('/')[3]
@@ -75,11 +75,8 @@ const Discution = (props: Props) => {
     scrollref.current?.scrollIntoView({behavior: "smooth"})
   },[data])
   useEffect(()=>{
-    socket.on('resend', (data)=>{
-      console.log(data)
-    })
-    socket.emit('send','Hello world')
-  },[])
+    socket.emit("addUser", userId)
+  },[userId])
   return (
     <>
     {
