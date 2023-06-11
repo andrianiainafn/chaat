@@ -20,7 +20,8 @@ const user = require('./src/routes/user.router')
 const conversation = require('./src/routes/conversation.router')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
-const {create} = require('./src/sockets/posts.socket'); 
+const postsocket = require('./src/sockets/posts.socket');
+const messagesocket = require('./src/sockets/messsage.socket')
 
 //session
 const oneDay = 1000 * 60 *60 * 24 
@@ -68,10 +69,12 @@ const io = socketio(socket,{cors:{
     origin:['http://localhost:3000'],
     credentials: true
 }});
-io.on('connect', (socket)=>{
-    io.emit('welcom','hello this is socekt')
-    socket.on('hello',(text)=>console.log(text))
-})
+
+//socket
+postsocket(io)
+messagesocket(io)
+
+
 //function to connect on mongodb
 async function main(){
     await mongoose.connect(process.env.MONGO_URL)

@@ -1,5 +1,5 @@
 import { Avatar, Badge, styled } from '@mui/material'
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import React, { ChangeEvent, useContext, useEffect, useRef, useState } from 'react'
 import SendIcon from '@mui/icons-material/Send';
 import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import ResponsiveSidBar from '../Element/ResponsiveSidBar';
@@ -9,7 +9,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import DiscuEntete from '../Element/DiscuEntete';
 import AuthContext from '../../../../../Context/GlobalContext';
 import Message from '../Element/Message';
-
+import {io} from 'socket.io-client'
 
 type Props = {}
 
@@ -23,6 +23,13 @@ const Discution = (props: Props) => {
   const idConversation = location.pathname.split('/')[3]
   const queryKey = ['message',idConversation]
   const queryInfoKey = ['inforamtion', idConversation]
+  const scrollref = useRef<HTMLDivElement | null>(null)
+  const socket = io('http://localhost:8000', {
+    withCredentials: true,
+    extraHeaders: {
+        "my-custom-header": "abcd"
+    }
+  });
 
   const getConversationInfo = async()=>{
     const info = await axios.get(`http://localhost:8000/conversation/getconversationinformation/${idConversation}`)
@@ -64,6 +71,15 @@ const Discution = (props: Props) => {
   const ClickDiscu = () =>{
     setShowDiscu(ancien=>!ancien)
   }
+  useEffect(()=>{
+    scrollref.current?.scrollIntoView({behavior: "smooth"})
+  },[data])
+  useEffect(()=>{
+    socket.on('resend', (data)=>{
+      console.log(data)
+    })
+    socket.emit('send','Hello world')
+  },[])
   return (
     <>
     {
@@ -97,7 +113,9 @@ const Discution = (props: Props) => {
           <div className="mt-[8vh]"/>
           {
             data.map((mess:any,key:number)=>(
-              <Message mess={mess} key={key} />
+              <div className="" key={key} ref={scrollref}>
+                <Message mess={mess}  />
+              </div>
             ))
           }
         </>
