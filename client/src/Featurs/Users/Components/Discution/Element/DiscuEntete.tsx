@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import ChatIcon from '@mui/icons-material/Chat';
 import { Avatar } from '@mui/material';
 import AuthContext from '../../../../../Context/GlobalContext';
-import { info } from 'console';
 
 type Props = {
     information:any,
@@ -10,7 +9,7 @@ type Props = {
 }
 
 const DiscuEntete = (props: Props) => {
-  const userId = useContext(AuthContext)
+  const {userId} = useContext(AuthContext)
   const [destination,setDestination] = useState({
     id:'',
     firstname:'',

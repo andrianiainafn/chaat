@@ -192,7 +192,8 @@ exports.getAll = async(req,res)=>{
         const usersuggestions = await userModel.find({
             $and:[
                 {_id:{$ne: payload.user_id}},
-                {request:{$nin:[payload.user_id]}}
+                {request:{$nin:[payload.user_id]}},
+                {friends:{$nin:[payload.user_id]}},
             ]
         })
         const myfriends = await userModel.findOne({_id: payload.user_id}).select('friends').populate({
@@ -222,8 +223,9 @@ exports.getSuggestions = async(req,res)=>{
         const payload = jwt.decode(token,options={"verify_signature": false})
         const users = await userModel.find({
             $and:[
-                {_id: {$ne: payload.user_id}},
-                { request: { $ne: payload.user_id } }
+                {_id:{$ne: payload.user_id}},
+                {request:{$nin:[payload.user_id]}},
+                {friends:{$nin:[payload.user_id]}},
             ]
         });
         res

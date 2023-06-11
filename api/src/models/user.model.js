@@ -53,7 +53,11 @@ const userSchema = mongoose.Schema(
         verified: {
             type:Boolean,
             default: false
-        }
+        },
+        saved:[{
+            type: Schema.Types.ObjectId,
+            ref:'post'
+        }]
         
     },{
         timeistamp: true

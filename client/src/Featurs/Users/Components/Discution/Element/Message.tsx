@@ -18,7 +18,7 @@ const Message = (props: Props) => {
             </div>
         </div>
         ) : (
-        <div className="flex justify-start space-x-1">
+        <div className="flex justify-start space-x-1 mt-2">
             <Avatar />
             <div className=" bg-[#2c3a4a] rounded-full p-2  ">
                 {props.mess.message}
