@@ -120,3 +120,37 @@ exports.searchmessage = async(req,res)=>{
         .json({message:'Internal Server Error'})  
     }
 }
+
+exports.getLastMessage = async(req,res)=>{
+    try{
+        const token = req.cookies.user
+        if(!token){
+            return res
+            .status(401)
+            .json({message:"Unauthorized"})
+        }
+        jwt.verify(token,process.env.JWT_SECRET)
+        const payload = jwt.decode(token,options={"verify_signature": false})
+        const lastmessage = await messageModel.aggregate([
+            {$match: 
+                {
+                    $or:[
+                        {destination: payload.user_id},
+                        {author: payload.user_id}
+                    ]
+                }
+            },
+            {$sort:{date: 1}},
+            {$group: {_id: "$conversation",message:{$first: "$$ROOT"}}},
+            {$replaceRoot: {newRoot: "$message"}}
+        ])
+        console.log(lastmessage,90909)
+        res
+        .status(200)
+        .json({message: "message alll"})
+    }catch(e){
+        res
+        .status(500)
+        .json({message:'Internal Server Error'})  
+    }
+}

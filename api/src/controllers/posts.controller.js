@@ -238,7 +238,7 @@ exports.savePost = async(req,res)=>{
         .json({message:'Internal Server Error'})
     }   
 }
-exports.unsavedPost = async(req,res)=>{
+exports.unsavePost = async(req,res)=>{
     try{
         const token = req.cookies.user
         if(!token){

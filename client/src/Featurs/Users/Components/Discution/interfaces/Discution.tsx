@@ -24,13 +24,13 @@ const Discution = (props: Props) => {
   const queryKey = ['message',idConversation]
   const queryInfoKey = ['inforamtion', idConversation]
   const scrollref = useRef<HTMLDivElement | null>(null)
-  const socket = io('http://localhost:8000', {
+  const socket = useRef(io('http://localhost:8000', {
     withCredentials: true,
     extraHeaders: {
         "my-custom-header": "abcd"
     }
-  });
-
+  }))
+  
   const getConversationInfo = async()=>{
     const info = await axios.get(`http://localhost:8000/conversation/getconversationinformation/${idConversation}`)
     return info.data.message
@@ -75,7 +75,8 @@ const Discution = (props: Props) => {
     scrollref.current?.scrollIntoView({behavior: "smooth"})
   },[data])
   useEffect(()=>{
-    socket.emit("addUser", userId)
+    socket.current.emit("addUser", userId)
+    userId && socket.current.on('getuser',(users)=>console.log(users))
   },[userId])
   return (
     <>
