@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const actualityModel = require('../models/actuality.model')
-const postsModel = require('../models/post.model')
 
 exports.actuality = async(req,res)=>{
     try{

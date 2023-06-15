@@ -20,7 +20,8 @@ exports.addmessage = async(req,res)=>{
             author: payload.user_id,
             destination,
             conversation,
-            message
+            message,
+            destinationModel:'user'
         })
         await newMessage.save()
         res 
