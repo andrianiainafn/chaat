@@ -133,22 +133,15 @@ exports.getLastMessage = async(req,res)=>{
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
         const lastmessage = await messageModel.aggregate([
-            {$match: 
-                {
-                    $or:[
-                        {destination: payload.user_id},
-                        {author: payload.user_id}
-                    ]
-                }
-            },
-            {$sort:{date: 1}},
+            {$sort:{date: -1}},
             {$group: {_id: "$conversation",message:{$first: "$$ROOT"}}},
-            {$replaceRoot: {newRoot: "$message"}}
+            {$replaceRoot: {newRoot: "$message"}},
+
         ])
         console.log(lastmessage,90909)
         res
         .status(200)
-        .json({message: "message alll"})
+        .json({message: lastmessage})
     }catch(e){
         res
         .status(500)

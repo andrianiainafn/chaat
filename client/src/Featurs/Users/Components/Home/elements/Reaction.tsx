@@ -39,7 +39,7 @@ const Reaction = ({id}: Props) => {
                     )
                 )
             }
-            <p className='text-[#efefef] text-xs hidden md:flex'>{data.length} love</p>
+            <p className='text-[#efefef] text-xs '>{data.length} love</p>
         </>
         )
     }      

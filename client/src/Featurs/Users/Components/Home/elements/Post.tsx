@@ -63,11 +63,11 @@ const Post = (props: Props) => {
           </div>
           <div onClick={props.HandleClickPost} className="cursor-pointer flex items-center justify-between ">
             <ModeCommentOutlinedIcon  sx={{color:"#efefef" ,marginRight:'0.4rem'}}/>
-            <p className='text-[#efefef] text-xs hidden md:flex'>{props.post.comments.length} comments</p>
+            <p className='text-[#efefef] text-xs '>{props.post.comments.length} comments</p>
           </div>
           <div className=" cursor-pointer flex items-center justify-between ">
             <ShareOutlinedIcon sx={{color:"#efefef" ,marginRight:'0.4rem'}}/>
-            <p className='text-[#efefef] text-xs hidden md:flex'>7 shares</p>
+            <p className='text-[#efefef] text-xs '>7 shares</p>
           </div>
         </div>
     </div>

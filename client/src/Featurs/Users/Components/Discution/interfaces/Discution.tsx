@@ -39,6 +39,12 @@ const Discution = (props: Props) => {
     const  messages = await axios.get(`http://localhost:8000/message/get/${idConversation}`)
     return messages.data.message
   }
+  const queryDiscu=['discutions']
+  const getdiscution = async ()=>{
+    const discution  = await axios.get("http://localhost:8000/message/discu")
+    return discution.data.message
+  }
+
   const {isLoading,data} = useQuery(queryKey,getMessage)
   const {isLoading:infoLoading,data:information} = useQuery(queryInfoKey,getConversationInfo)
   const getDestination = ()=>{
@@ -48,6 +54,12 @@ const Discution = (props: Props) => {
       setDestination(information.author._id)
     }
   }
+  const {isLoading: discuLoad,data: dataDiscu} = useQuery(queryDiscu,getdiscution)
+  useEffect(()=>{
+    !discuLoad && console.log(dataDiscu)
+  },[dataDiscu])
+
+
   useEffect(()=>{
     !infoLoading && getDestination()
   },[infoLoading])
@@ -82,7 +94,7 @@ const Discution = (props: Props) => {
     <>
     {
       showDiscu && (
-          <ResponsiveSidBar open={showDiscu} ClickDiscu={ClickDiscu} />
+          <ResponsiveSidBar open={showDiscu} ClickDiscu={ClickDiscu} dicu={dataDiscu} />
       )
     }
     {
@@ -92,7 +104,7 @@ const Discution = (props: Props) => {
         <DiscuEntete ClickDiscu={ClickDiscu} information={information}/>
       )
     }
-    <div className='fixed md:right-4  md:h-[85vh]  bg-[#17202a] md:w-[55vw] w-full  py-2 '>
+    <div className='fixed md:right-4  md:h-[85vh] overflow-y-scroll bg-[#17202a] md:w-[55vw] w-full  py-2 '>
     {
       isLoading ? (
         <h3>Loading</h3>
@@ -108,7 +120,7 @@ const Discution = (props: Props) => {
           </div>
       ):(
         <>
-          <div className="mt-[8vh]"/>
+          <div className="mt-[8vh] "/>
           {
             data.map((mess:any,key:number)=>(
               <div className="" key={key} ref={scrollref}>
@@ -122,8 +134,9 @@ const Discution = (props: Props) => {
         </>
       )
     }
+    <div className='mt-[9vh]'/>
     </div>
-    <div className="bottom-20 md:bottom-8   w-full md:w-[30vw] md:space-x-3 md:justify-center fixed flex justify-between">
+    <div className="bottom-20 md:bottom-8 h-[8vh]  w-full md:w-[30vw] md:space-x-3 md:justify-center fixed flex justify-between">
       <div className=" w-[50%] flex justify-between items-center border-[1px] rounded-full py-1 px-2 border-[#444] overflow-hidden">
               <input onChange={HandleMessageChange} value={message} type='text' className='outline-none text-[#f2f2f2] border-none bg-transparent' placeholder='Your message..' />
               <AddReactionOutlinedIcon className='text-[#fefefe]'/>

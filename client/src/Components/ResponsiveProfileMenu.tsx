@@ -32,7 +32,7 @@ const ResponsiveProfileMenu = (props: Props) => {
   }
   return (
     <div className='menuResponsiveParent' onClick={props.HandleClickMenu}>
-        <div className="menuResponsiveChild p-3" onClick={(e)=>e.stopPropagation()}>
+        <div className="menuResponsiveChild h-[50vh] md:w-[40vh] p-3" onClick={(e)=>e.stopPropagation()}>
             <div className="flex flex-col space-y-3">
                 <div className="flex space-x-2 cursor-pointer ">
                     {

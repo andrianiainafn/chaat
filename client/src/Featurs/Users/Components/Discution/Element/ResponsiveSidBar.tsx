@@ -3,8 +3,6 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Avatar, Badge, IconButton, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
-import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -36,21 +34,14 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 type Props = {
+     dicu: any,
     open: boolean,
     ClickDiscu:()=>void
 }
 
 const ResponsiveSidBar = (props: Props) => {
   const discution = [1,2,3,4,5,6,7,8,9,10]
-  const queryKey=['discutions']
-  const getdiscution = async ()=>{
-    const discution  = await axios.get("http://localhost:8000/message/discutions")
-    return discution
-  }
-  const {isLoading,data} = useQuery(queryKey,getdiscution)
-  useEffect(()=>{
-    !isLoading && console.log(data)
-  },[isLoading])
+
   return (
   <div onClick={(e)=>e.stopPropagation()} className='overlayDiscu block md:hidden   bg-[#17202a] w-[100vw]  text-[#f2f2f2]   overflow-scroll h-[100vh] '>
     <div className="flex flex-col space-y-3 ">
