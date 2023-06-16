@@ -45,13 +45,13 @@ const Comments = (props: Props) => {
                  <div className='text-[#777] flex items-center space-x-3 text-sm'>
                     <span className='cursor-pointer' >{moment(props.comment.date).fromNow()}</span>
                     {
-                      data.includes(userId) ? (
+                      data?.includes(userId) ? (
                         <span  className='font-semibold cursor-pointer hover:underline text-[#ec6b60]'>{
-                          data.length
+                          data?.length
                         } loves </span>
                       ):(
                         <span  className='font-semibold cursor-pointer hover:underline'>{
-                          data.length
+                          data?.length
                         } loves </span>
                       )
                     }
@@ -61,7 +61,7 @@ const Comments = (props: Props) => {
         </div>
         {
           isLoading ? (<></>):(
-            data.includes(userId) ? (
+            data?.includes(userId) ? (
               <FavoriteOutlinedIcon onClick={HandleClickReaction} className='text-[#ec6b60] cursor-pointer '/>
             ):
             <FavoriteBorderOutlinedIcon onClick={HandleClickReaction} className='text-[#efefef] cursor-pointer '/>

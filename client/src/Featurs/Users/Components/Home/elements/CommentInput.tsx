@@ -37,12 +37,13 @@ const CommentInput = (props: Props) => {
         console.log(response,666)
       }
     }
-  const addCommments = async()=>{
-    console.log('test test test test')
-    const data = await axios.post('http://localhost:8000/comment/add',info)
-    if(data.status === 200){
-      console.log('comment created')
-      queryClient.invalidateQueries( ['comment',props.postId])
+    const addCommments = async()=>{
+      console.log('test test test test')
+      const data = await axios.post('http://localhost:8000/comment/add',info)
+      if(data.status === 200){
+        console.log('comment created')
+        setComment('')
+        queryClient.invalidateQueries( ['comment',props.postId])
     }else{
       console.log('error when comment creation')
     }
