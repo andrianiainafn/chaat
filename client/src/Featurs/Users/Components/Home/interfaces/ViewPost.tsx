@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect,useRef } from 'react'
 import {motion,AnimatePresence} from 'framer-motion'
 import { Avatar, IconButton } from '@mui/material'
 import ContextOfPost from '../Context/PostContext';
@@ -17,6 +17,12 @@ const ViewPost = ({open,HandleClickPost}: Props) => {
   const {idPost} = useContext(ContextOfPost)
   const queryKey = ['post']
   const commentqueryKey = ['comment',idPost]
+  const inputRef = useRef<HTMLTextAreaElement>(null)
+  const HandleClickRepondre = ()=>{
+    if(inputRef.current){
+      inputRef.current.focus()
+    }
+  }
   const getPost = async()=>{
     const pub = await axios.get(`http://localhost:8000/post/getpost/${idPost}`)
     return pub
@@ -82,11 +88,11 @@ const ViewPost = ({open,HandleClickPost}: Props) => {
                            <span className='text-[#777] text-sm p-3' >18 h</span>
                             {
                               comments?.map((comment:object,key:number) =>(
-                                 <Comments key={key} comment={comment} />
+                                 <Comments key={key} comment={comment} HandleClickRepondre={HandleClickRepondre} />
                               ))
                             }
                           <div className="mb-[14vh] "/>
-                           <CommentInput postId={data?.data.post._id}/>
+                           <CommentInput inputRef={inputRef}  postId={data?.data.post._id}/>
                         </div>
                     </div>
                   </motion.div>

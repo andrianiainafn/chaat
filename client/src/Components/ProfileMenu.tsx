@@ -30,7 +30,7 @@ const ProfileMenu = (props: Props) => {
           <div className="flex flex-col space-y-3">
             <div onClick={HandleClickProfile} className="flex space-x-2 cursor-pointer ">
               <Avatar/>
-              <Link to='' >
+              <Link to={`/users/profile/home/${userId}`} >
                 <div className="flex flex-col " >
                   <h3 className='text-[#f2f2f2] hover:underline'>{firstname}</h3>
                   <h6 className='text-[#f2f2f2] text-sm'>View your profile</h6>

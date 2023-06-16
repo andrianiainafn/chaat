@@ -7,7 +7,8 @@ import axios from 'axios'
 import { useQueryClient } from '@tanstack/react-query';
 
 type Props = {
-  postId: String
+  postId: String,
+  inputRef: any
 }
 
 const CommentInput = (props: Props) => {
@@ -45,7 +46,7 @@ const CommentInput = (props: Props) => {
         </div>
         <AddReactionOutlinedIcon className='text-[#f2f2f2]'/>
         <div className="overflow-hidden border-[2px] rounded-3xl h-[9vh] relative  border-[#444] flex justify-center items-center p-2">
-          <textarea onChange={HandleChange} className='bg-transparent w-[35vw] outline-none md:w-[14vw] p-2 text-[#f2f2f2] ' value={comment}  placeholder='Add comments...'/>
+          <textarea onChange={HandleChange} ref={props.inputRef} className='bg-transparent w-[35vw] outline-none md:w-[14vw] p-2 text-[#f2f2f2] ' value={comment}  placeholder='Add comments...'/>
         </div>
         <button onClick={addCommments} className="border-[2px] text-[#f2f2f2] rounded-3xl h-[9vh] px-2 border-[#444] flex justify-center items-center space-x-1">
           <span className='text-base'>Publier</span>

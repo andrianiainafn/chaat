@@ -95,7 +95,6 @@ exports.get = async(req,res)=>{
                 select:['firstname', 'lastname','profilepicture']
             }
         })
-        console.log(allComments.comments)
         res
         .status(200)
         .json({comments:allComments.comments})
@@ -118,7 +117,7 @@ exports.reaction = async(req,res)=>{
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
         const commentId = req.params.comment
-        const comments =  await postsModel.findOne({_id: commentId}).select('love').populate({
+        const comments =  await commentModel.findOne({_id: commentId}).select('love').populate({
             path:'love',
             select: '_id'
         })
@@ -135,7 +134,11 @@ exports.reaction = async(req,res)=>{
                 {$push: {love: payload.user_id }}
             )
         }
+        res
+        .status(200)
+        .json({message: "Reaction sent successfuly!!!"})
     }catch(e){
+        console.log(e)
         res
         .status(500)
         .json({message: e.message})  
@@ -152,7 +155,7 @@ exports.checkreaction = async(req,res)=>{
         jwt.verify(token,process.env.JWT_SECRET)
         const payload = jwt.decode(token,options={"verify_signature": false})
         const commentId = req.params['comment']
-        const post = await postsModel.findOne({_id: commentId}).select('love').populate({
+        const post = await commentModel.findOne({_id: commentId}).select('love').populate({
             path:'love',
             select: '_id'
         })

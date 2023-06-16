@@ -8,6 +8,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import Reaction from './Reaction';
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
+import moment from 'moment';
 
 
 type Props = {
@@ -41,7 +42,7 @@ const Post = (props: Props) => {
             }
             <div className="">
                 <h6 className='text-xs text-[#efefef]'>{props.post.author.lastname}</h6>
-                <h6 className='text-xs text-[#777]'>3000 members</h6>
+                <h6 className='text-xs text-[#777]'>{moment(props.post.date).fromNow()}</h6>
             </div>
           </div>
           <div className="flex items-center space-x-2">

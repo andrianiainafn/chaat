@@ -3,6 +3,7 @@ const postsModel = require('../models/post.model')
 const actualityModel = require('../models/actuality.model')
 const jwt = require('jsonwebtoken')
 const postModel = require('../models/post.model')
+const userModel = require('../models/user.model')
 
 //creating a new posts
 exports.create = async(req,res)=>{
@@ -26,6 +27,10 @@ exports.create = async(req,res)=>{
             media: imagesUrl,
         })
         const newPosts = await post.save()
+        await userModel.updateOne(
+            {_id: payload.user_id},
+            {$push: {media: {$each: imagesUrl}}}
+        )
         const actuality = new actualityModel({
             actu: newPosts._id
         })

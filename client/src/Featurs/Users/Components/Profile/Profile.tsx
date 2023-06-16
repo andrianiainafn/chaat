@@ -40,10 +40,16 @@ const Profile = () => {
                 <div className="absolute addphoto">
                   <div className=" text-[#4480ce]  w-[10%] relative h-full cursor-pointer">
                     <div className="cursor-pointer w-[40vw] absolute  h-full">
-                      <div className="flex  flex-col cursor-pointer  items-center h-full">
-                        <h5 className='cursor-pointer text-orange-600'><PhotoCameraOutlinedIcon/></h5>
-                        <h5 className='cursor-pointer '> Add cover Photo</h5>
-                      </div>
+                    {
+                      (userId === user_id) ? (
+                        <div className="flex  flex-col cursor-pointer  items-center h-full">
+                          <h5 className='cursor-pointer text-orange-600'><PhotoCameraOutlinedIcon/></h5>
+                          <h5 className='cursor-pointer '> Add cover Photo</h5>
+                        </div>
+                      ):(
+                        <div className="flex  flex-col cursor-pointer  items-center h-full"/>
+                      )
+                    }
                     </div>
                       <div className="absolute w-[40%]  h-[8vh] cursor-pointer ">
                         <input onChange={HandleImageChange} type='file'   className='cursor-pointer h-full w-[40vw] input  opacity-0' name='images' />

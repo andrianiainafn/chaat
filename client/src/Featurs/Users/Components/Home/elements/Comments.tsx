@@ -1,16 +1,39 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { Avatar } from '@mui/material';
-import {useEffect} from 'react'
+import {useEffect } from 'react'
+import moment from 'moment';
+import axios from 'axios';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import AuthContext from '../../../../../Context/GlobalContext';
 
 type Props = {
-    comment: any
+    comment: any,
+    HandleClickRepondre:()=>void
 }
 
 const Comments = (props: Props) => {
+  const {userId} = useContext(AuthContext)
+  const queryKey = ['commentReaction',props.comment._id]
+  const queryClient = useQueryClient()
+  const CheckReaction = async ( )=>{
+         const allreaction = await axios.get(`http://localhost:8000/comment/checkreaction/${props.comment._id}`)
+         return allreaction.data.message
+  }
+  const {isLoading,data} = useQuery(queryKey,CheckReaction)
+  const HandleClickReaction = async()=>{
+    const reaction = await axios.put(`http://localhost:8000/comment/reaction/${props.comment._id}`)
+    if(reaction.status === 200){
+        queryClient.invalidateQueries(['commentReaction',props.comment._id])
+        console.log("reaction successfully received")
+    }else{
+      console.log("error when sending reaction")
+    }
+  }
   useEffect(()=>{
-    console.log(props.comment)
-  },[])
+    !isLoading && console.log(data)
+  },[isLoading])
   return (
       <div data-idcomment='idcomment' className="flex justify-between items-center  pr-3">
         <div className="text-[#f2f2f2] p-3 flex items-center space-x-2">
@@ -20,13 +43,20 @@ const Comments = (props: Props) => {
                     <span className='font-semibold hover:underline'>{props.comment?.author.firstname}</span> {props.comment?.description}
                  </div>
                  <div className='text-[#777] flex items-center space-x-3 text-sm'>
-                    <span className='cursor-pointer' >18 h</span>
-                    <span className='font-semibold cursor-pointer hover:underline'> 25 j'aime</span>
-                    <span className='cursor-pointer hover:underline'>repondre</span>
+                    <span className='cursor-pointer' >{moment(props.comment.date).fromNow()}</span>
+                    <span  className='font-semibold cursor-pointer hover:underline'> 25 j'aime</span>
+                    <span className='cursor-pointer hover:underline' onClick={props.HandleClickRepondre}>repondre</span>
                  </div>
             </div>
         </div>
-        <FavoriteOutlinedIcon className='text-[#ec6b60] cursor-pointer '/>
+        {
+          isLoading ? (<></>):(
+            data.includes(userId) ? (
+              <FavoriteOutlinedIcon onClick={HandleClickReaction} className='text-[#ec6b60] cursor-pointer '/>
+            ):
+            <FavoriteBorderOutlinedIcon onClick={HandleClickReaction} className='text-[#efefef] cursor-pointer '/>
+          )
+        }
     </div>
   )
 }
