@@ -44,7 +44,17 @@ const Comments = (props: Props) => {
                  </div>
                  <div className='text-[#777] flex items-center space-x-3 text-sm'>
                     <span className='cursor-pointer' >{moment(props.comment.date).fromNow()}</span>
-                    <span  className='font-semibold cursor-pointer hover:underline'> 25 j'aime</span>
+                    {
+                      data.includes(userId) ? (
+                        <span  className='font-semibold cursor-pointer hover:underline text-[#ec6b60]'>{
+                          data.length
+                        } loves </span>
+                      ):(
+                        <span  className='font-semibold cursor-pointer hover:underline'>{
+                          data.length
+                        } loves </span>
+                      )
+                    }
                     <span className='cursor-pointer hover:underline' onClick={props.HandleClickRepondre}>repondre</span>
                  </div>
             </div>

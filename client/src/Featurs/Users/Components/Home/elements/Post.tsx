@@ -18,6 +18,7 @@ type Props = {
   
 const Post = (props: Props) => {
   const queryClient = useQueryClient()
+  const queryKey = ['checksave',props.post._id]
   const HandleClickReaction = async(e: any)=>{
     const postId = e!.currentTarget.getAttribute('data-postid')
     const response = await axios.put(`http://localhost:8000/post/reaction/${postId}`)
@@ -27,6 +28,9 @@ const Post = (props: Props) => {
       }else{
         console.log(response,666)
       }
+    }
+    const HandleClickSave = async() => {
+        const sendSave = await axios.post('')
     }
     
   return (
@@ -46,7 +50,7 @@ const Post = (props: Props) => {
             </div>
           </div>
           <div className="flex items-center space-x-2">
-               <BookmarkBorderOutlinedIcon className='cursor-pointer' sx={{color:"#efefef"}}/>
+               <BookmarkBorderOutlinedIcon onClick={HandleClickSave} className='cursor-pointer' sx={{color:"#efefef"}}/>
                <MoreVertOutlinedIcon className='cursor-pointer' sx={{color:"#efefef"}}/>
           </div>
         </div>

@@ -3,7 +3,7 @@ import {motion,AnimatePresence} from 'framer-motion'
 import { Avatar, IconButton } from '@mui/material'
 import ContextOfPost from '../Context/PostContext';
 import axios from 'axios';
-import { useQuery  } from '@tanstack/react-query';
+import { useQuery} from '@tanstack/react-query';
 import animation from '../../../../../assets/Images/animation.gif'
 import Comments from '../elements/Comments';
 import CommentInput from '../elements/CommentInput';
