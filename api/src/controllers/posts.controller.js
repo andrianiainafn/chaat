@@ -267,3 +267,50 @@ exports.unsavePost = async(req,res)=>{
         .json({message:'Internal Server Error'})
     }
 }
+
+exports.getSavedPost = async(req,res)=>{
+    try{
+        const token = req.cookies.user
+        if(!token){
+            return res
+            .status(401)
+            .json({message:"Unauthorized"})
+        }
+        jwt.verify(token,process.env.JWT_SECRET)
+        const payload = jwt.decode(token,options={"verify_signature": false})
+        const savedPost = await userModel.findOne({_id: payload.user_id}).select('saved').populate({
+            path: 'saved',
+            model:'post'
+        })
+        res
+        .status(200)
+        .json({message: savedPost.saved})
+    }catch(e){
+        console.log(e)
+        res
+        .status(500)
+        .json({message:'Internal Server Error'})
+    }
+}
+exports.checkSaved = async(req,res)=>{
+    try{
+        const token = req.cookies.user
+        if(!token){
+            return res
+            .status(401)
+            .json({message:"Unauthorized"})
+        }
+        jwt.verify(token,process.env.JWT_SECRET)
+        const payload = jwt.decode(token,options={"verify_signature": false})
+        const savedPost = await userModel.findOne({_id: payload.user_id}).select('saved')
+        console.log(savedPost)
+        res
+        .status(200)
+        .json({message: savedPost.saved})
+    }catch(e){
+        console.log(e)
+        res
+        .status(500)
+        .json({message:'Internal Server Error'})
+    }
+}

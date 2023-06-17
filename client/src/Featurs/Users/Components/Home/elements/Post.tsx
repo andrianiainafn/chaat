@@ -4,12 +4,12 @@ import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import axios from 'axios'
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Reaction from './Reaction';
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
 import moment from 'moment';
-
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 type Props = {
     post: any,
@@ -19,6 +19,11 @@ type Props = {
 const Post = (props: Props) => {
   const queryClient = useQueryClient()
   const queryKey = ['checksave',props.post._id]
+  const checkSaved = async()=>{
+      const saved = await axios.get('http://localhost:8000/post/checkSaved')
+      return saved.data.message
+  }
+  const {isLoading,data} = useQuery(queryKey,checkSaved) 
   const HandleClickReaction = async(e: any)=>{
     const postId = e!.currentTarget.getAttribute('data-postid')
     const response = await axios.put(`http://localhost:8000/post/reaction/${postId}`)
@@ -29,10 +34,26 @@ const Post = (props: Props) => {
         console.log(response,666)
       }
     }
-    const HandleClickSave = async() => {
-        const sendSave = await axios.post('')
+    const HandleClickSave = async(e: any) => {
+        const postId = e!.currentTarget.getAttribute('data-postid')
+        const sendSave = await axios.put(`http://localhost:8000/post/save/${postId}`)
+        if(sendSave.status === 200){
+          queryClient.invalidateQueries(['checksave',postId])
+          console.log('post saved successfuly')
+        }else{
+          console.log('error when saving postss')
+        }
     }
-    
+    const HandleClickUnsaved = async(e:any)=>{
+      const postId = e!.currentTarget.getAttribute('data-postid')
+      const sendSave = await axios.put(`http://localhost:8000/post/unsave/${postId}`)
+      if(sendSave.status === 200){
+        queryClient.invalidateQueries(['checksave',postId])
+        console.log('post saved successfuly')
+      }else{
+        console.log('error when saving postss')
+      }
+    }
   return (
     <div data-postid={props.post._id}  className="bg-[#17202a] flex flex-col space-y-2 border-[1px]  border-[#2c3a4a] rounded-lg mt-3">
         <div className="p-2 flex w-full justify-between items-center">
@@ -50,7 +71,13 @@ const Post = (props: Props) => {
             </div>
           </div>
           <div className="flex items-center space-x-2">
-               <BookmarkBorderOutlinedIcon onClick={HandleClickSave} className='cursor-pointer' sx={{color:"#efefef"}}/>
+               {
+                isLoading ? <></> : (
+                  data?.includes(props.post._id) ? (<BookmarkIcon data-postid={props.post._id} onClick={HandleClickUnsaved} className='cursor-pointer' sx={{color:"#efefef"}} />) : (
+                    <BookmarkBorderOutlinedIcon data-postid={props.post._id} onClick={HandleClickSave} className='cursor-pointer' sx={{color:"#efefef"}}/>
+                  )
+                )
+               }
                <MoreVertOutlinedIcon className='cursor-pointer' sx={{color:"#efefef"}}/>
           </div>
         </div>
