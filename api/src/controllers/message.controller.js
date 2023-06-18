@@ -136,13 +136,18 @@ exports.getLastMessage = async(req,res)=>{
             {$sort:{date: -1}},
             {$group: {_id: "$conversation",message:{$first: "$$ROOT"}}},
             {$replaceRoot: {newRoot: "$message"}},
-
-        ])
+        ]).lookup({
+            from: 'user',
+            localField: 'destination',
+            foreignField: '_id',
+            as: 'destinationInfo'
+        })
         console.log(lastmessage,90909)
         res
         .status(200)
         .json({message: lastmessage})
     }catch(e){
+        console.log(e)
         res
         .status(500)
         .json({message:'Internal Server Error'})  

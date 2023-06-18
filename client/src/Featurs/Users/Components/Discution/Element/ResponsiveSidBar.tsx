@@ -1,37 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import { Avatar, Badge, IconButton, styled } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
-const StyledBadge = styled(Badge)(({ theme }) => ({
-    '& .MuiBadge-badge': {
-        backgroundColor: '#44b700',
-        color: '#44b700',
-      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-      '&::after': {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        borderRadius: '50%',
-        animation: 'ripple 1.2s infinite ease-in-out',
-        border: '1px solid currentColor',
-        content: '""',
-      },
-    },
-    '@keyframes ripple': {
-      '0%': {
-        transform: 'scale(.8)',
-        opacity: 1,
-    },
-    '100%': {
-        transform: 'scale(2.4)',
-        opacity: 0,
-      },
-    },
-}));
+import Conversation from './Conversation';
 
 type Props = {
      dicu: any,
@@ -41,7 +12,6 @@ type Props = {
 
 const ResponsiveSidBar = (props: Props) => {
   const discution = [1,2,3,4,5,6,7,8,9,10]
-
   return (
   <div onClick={(e)=>e.stopPropagation()} className='overlayDiscu block md:hidden   bg-[#17202a] w-[100vw]  text-[#f2f2f2]   overflow-scroll h-[100vh] '>
     <div className="flex flex-col space-y-3 ">
@@ -60,23 +30,7 @@ const ResponsiveSidBar = (props: Props) => {
     <div className="mt-10"/>
     {
         discution.map((message)=>(
-        <Link to='/users/messages/33436' className='mt-5 pt-5' key={message}>
-          <div className="mt-5" >
-            <div className="flex space-x-2 ">
-                <StyledBadge
-                  overlap="circular"
-                  anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                  variant="dot"
-                  >
-                  <Avatar   />
-                </StyledBadge>
-                <div className="flex flex-col space-y-1">
-                    <h5 className='text-[#444]'>Loyd Forger</h5>
-                    <h6 className='text-xs text-[#777]'>You: Heyy .1h</h6>
-                </div>
-            </div>
-          </div>
-        </Link>
+            <Conversation key={message}/>
         ))
     }
     </div>
