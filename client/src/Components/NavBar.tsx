@@ -16,6 +16,8 @@ import AuthContext from '../Context/GlobalContext';
 import ProfileMenu from './ProfileMenu';
 import ResponsiveProfileMenu from './ResponsiveProfileMenu';
 import CloseIcon from '@mui/icons-material/Close';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -49,12 +51,21 @@ const NavBar = () => {
   const {connected,firstname,profilepicture} = useContext(AuthContext)
   const [showMenu,setShowMenu] = useState<boolean>(false)
   const [showResponsiveMenu,setShowResponsiveMenu] = useState<boolean>(false)
+  const queryKey = ['getConversationLink']
+  const getConversationLink = async() =>{
+    const conversationLink = await axios.get('http://localhost:8000/conversation/getDefaultConversation')
+    return conversationLink.data.message
+  }
+  const {isLoading,data} = useQuery(queryKey,getConversationLink)
   const HandleClickProfile = ()=>{
     setShowMenu(ancien=>!ancien)
   }
   const HandleClickMenu = () =>{
     setShowResponsiveMenu(ancien=>!ancien)
   }
+  useEffect(()=>{
+    !isLoading && console.log(data)
+  },[isLoading])
   return (
     <>
     {
@@ -92,11 +103,16 @@ const NavBar = () => {
                 </NavLink>
             </div>
             <div className="cursor-pointer ">
-                <NavLink className='text-[#efefef]' to='/users/messages/89898'>              
-                  <Badge badgeContent={20} color="error">
-                    <MarkChatUnreadOutlinedIcon />
-                  </Badge>
-              </NavLink>
+                {
+                    isLoading ? (<></>)
+                  :(
+                    <NavLink className='text-[#efefef]' to={`/users/messages/${data}`}>              
+                      <Badge badgeContent={20} color="error">
+                        <MarkChatUnreadOutlinedIcon />
+                      </Badge>
+                    </NavLink>
+                  )
+                }
             </div>
             <div className="cursor-pointer">
               <NavLink className='text-[#efefef]' to='/users/notifications'>

@@ -1,4 +1,5 @@
 const conversationModel = require('../models/conversation.model')
+const messageModel = require('../models/message.model')
 const jwt = require('jsonwebtoken')
 
 exports.getconversation = async(req,res)=>{
@@ -117,6 +118,35 @@ exports.deleteconversation = async(req,res)=>{
         }
     }
     catch(e){
+        res
+        .status(500)
+        .json({message:'Internal Server Error'})
+    }
+}
+
+exports.getDefaultConversation = async(req,res)=>{
+    try{
+        const token = req.cookies.user
+        if(!token){
+            return res
+            .status(401)
+            .json({message:"Unauthorized"})
+        }
+        jwt.verify(token,process.env.JWT_SECRET)
+        const payload = jwt.decode(token,options={"verify_signature": false})
+        const getDefaultConversation = await messageModel.find({
+            $or:[
+                {author: payload.user_id},
+                {destination: payload.user_id}
+            ]
+        })
+        .sort({date:-1})
+        .limit(1)
+        res
+        .status(200)
+        .json({message:getDefaultConversation[0].conversation})
+    }catch(e){
+        console.log(e)
         res
         .status(500)
         .json({message:'Internal Server Error'})
