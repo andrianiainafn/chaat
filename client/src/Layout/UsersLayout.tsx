@@ -34,7 +34,7 @@ const UsersLayout = () => {
                     <Route path='messages/' element={<Principale/>} >
                         <Route path=':id' index={true} element={<Discution/>}/>
                     </Route>
-                    <Route path='saves' element={<Saved/>}/>
+                    <Route path='saved' element={<PostContext><Saved/></PostContext>}/>
                     <Route path='notifications' element={<Notification/>}/>
                     <Route path='search' element={<Recherche/>}/>
                 </Routes>    
