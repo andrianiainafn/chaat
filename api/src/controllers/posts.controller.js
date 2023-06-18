@@ -280,7 +280,11 @@ exports.getSavedPost = async(req,res)=>{
         const payload = jwt.decode(token,options={"verify_signature": false})
         const savedPost = await userModel.findOne({_id: payload.user_id}).select('saved').populate({
             path: 'saved',
-            model:'post'
+            model:'post',
+            populate:{
+                path:'author',
+                select:['firstname', 'lastname','profilepicture']
+            }
         })
         res
         .status(200)
