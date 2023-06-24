@@ -49,10 +49,13 @@ const List = () => {
  }
   return (
     <div className='relative flex flex-col space-y-3 space-x-2 m-4 '>
-        <div className="fixed flex justify-center mx-auto">
+        <div className="fixed flex justufy-center md:justify-between space-x-4 mx-auto items-center">
             <div className=" md:flex  z-10 justify-between items-center border-[1px] rounded-full py-1 px-2 border-[#444]">
                 <input className='outline-none text-[#f2f2f2] border-none bg-transparent' placeholder='Retrouver des amis..' type='text' />
                 <SearchOutlinedIcon sx={{color: '#efefef'}}/>
+            </div>
+            <div className="text-[#efefef] cursor-pointer flex md:hidden">
+              <MoreVertOutlinedIcon />
             </div>
         </div>
         <div className="flex justify-between items-center text-[#efefef] pt-10">

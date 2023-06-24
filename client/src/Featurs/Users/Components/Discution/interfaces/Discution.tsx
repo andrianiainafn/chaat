@@ -17,6 +17,7 @@ const Discution = (props: Props) => {
   const [showDiscu,setShowDiscu] = useState<boolean>(true)
   const [destination,setDestination] = useState<string>()
   const [message,setMessage] = useState<string>('')
+  const [arrivalMessage,setArrivlMessage] = useState<any>(null)
   const {userId} = useContext(AuthContext)
   const location = useLocation()
   const queryClient = useQueryClient()
@@ -30,6 +31,7 @@ const Discution = (props: Props) => {
         "my-custom-header": "abcd"
     }
   }))
+  
   
   const getConversationInfo = async()=>{
     const info = await axios.get(`http://localhost:8000/conversation/getconversationinformation/${idConversation}`)
@@ -71,14 +73,19 @@ const Discution = (props: Props) => {
       message,
       destination
     }
+    socket.current.emit("sendMessage",{
+      sender_id: userId,
+      receive_id: destination,
+      text: message
+    })
      const send = await axios.post(`http://localhost:8000/message/add/${idConversation}`,info)
-     if(send.status === 200) {
+     if(send.status === 200) { 
       queryClient.invalidateQueries(['message',idConversation])
       console.log('message sent successfully')
       setMessage('')
-     }else{
+    }else{
       console.log(send)
-     }
+    }
   }
   const ClickDiscu = () =>{
     setShowDiscu(ancien=>!ancien)
@@ -90,6 +97,19 @@ const Discution = (props: Props) => {
     socket.current.emit("addUser", userId)
     userId && socket.current.on('getuser',(users)=>console.log(users))
   },[userId])
+  useEffect(()=>{
+    socket.current.on("getMessage",(newMessage)=>{
+        setArrivlMessage({
+          sender_id: newMessage.userId,
+          text: newMessage.text,
+          createdAt: Date.now()
+
+        })
+    })
+  },[])
+  useEffect(()=>{
+    queryClient.invalidateQueries(['message',idConversation])
+  },[arrivalMessage])
   return (
     <>
     {
@@ -136,7 +156,7 @@ const Discution = (props: Props) => {
     }
     <div className='mt-[9vh]'/>
     </div>
-    <div className="bottom-20 md:bottom-8 h-[8vh]  w-full md:w-[30vw] md:space-x-3 md:justify-center fixed flex justify-between">
+    <div className="bottom-20 md:bottom-8 h-[8vh] bg-[#17202a]  w-full md:w-[30vw] md:space-x-3 md:justify-center fixed flex justify-between">
       <div className=" w-[50%] flex justify-between items-center border-[1px] rounded-full py-1 px-2 border-[#444] overflow-hidden">
               <input onChange={HandleMessageChange} value={message} type='text' className='outline-none text-[#f2f2f2] border-none bg-transparent' placeholder='Your message..' />
               <AddReactionOutlinedIcon className='text-[#fefefe]'/>
