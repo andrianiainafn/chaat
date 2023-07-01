@@ -143,8 +143,8 @@ function Signup() {
                 <input onChange={HandleChange} className='placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='emai' name='email' placeholder='Your email address...'/>
               </div>
             </div>
-            <div className="flex items-center justify-between flex-wrap">
-              <div className="w-60% flex flex-col space-y-1">
+            <div className="flex items-center justify-between flex-wrap ">
+              <div className="w-60% flex flex-col space-y-1 py-3 md:py-1">
                 <span className='text-[#efefef] text-sm'>Birth</span>
                 <div className=" flex items-center space-x-2">
                   <div className="  flex flex-col space-y-1">
@@ -215,7 +215,7 @@ function Signup() {
                   </div>
                 </div>
               </div>
-              <div className="w-[25%]">
+              <div className="w-[35%]">
                 <div className="flex flex-col space-y-1">
                   {
                     error.gender && (
