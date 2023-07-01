@@ -59,8 +59,8 @@ function Login() {
                   </div>
                 )
               }
-              <div className= {erroremail ? "flex items-center border-[1px]  bg-[#17202a]   rounded-full py-2 px-2 border-red-500"
-              :"flex items-center border-[1px]  bg-[#17202a]   rounded-full py-2 px-2 border-[#444]"}>
+              <div className= {erroremail ? "flex items-center border-[1px]  bg-[#17202a] h-[6vh]  rounded-full py-2 px-2 border-red-500"
+              :"flex items-center border-[1px]  bg-[#17202a]   rounded-full h-[6vh] py-2 px-2 border-[#444]"}>
                 <MailOutlineIcon className='w-[10%] text-[#efefef]'/>
                 <input onFocus={()=>setErrorEmail(false)} onChange={HandleChange} className='w-[90%] placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' name='email' type='emai' placeholder='Your email address...'/>
               </div>
