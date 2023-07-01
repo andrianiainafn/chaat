@@ -1,12 +1,14 @@
 import React from 'react'
+import Hero from './Components/Hero/Hero'
+
+
 
 type Props = {}
 
 const Acceuille = (props: Props) => {
   return (
-    <div className='flex justify-center items-center text-white text-2xl mx-20'>
-        <a href='/auth/login'> Login</a>
-        <a href='/auth/signup'> Signup</a>
+    <div>
+      <Hero/>
     </div>
   )
 }
