@@ -3,18 +3,21 @@ import {AnimatePresence, motion} from 'framer-motion'
 import TextInput from '../elements/TextInput'
 import axios from 'axios'
 import {io} from 'socket.io-client'
+import { useQueryClient } from '@tanstack/react-query'
 
 type Props = {
     open: boolean,
     HandleClick:()=> void
 }
 function CreatePost({open,HandleClick}:Props) {    
-    const socket = io('http://localhost:8000', {
+    const [arrivalPosts,setArrivalPosts] =useState<any>(null)
+    const queryClient = useQueryClient()
+    const socket = useRef(io('http://localhost:8000', {
         withCredentials: true,
         extraHeaders: {
             "my-custom-header": "abcd"
         }
-    });
+      }))
     const [description,setDescription] = useState<string>('')
     const [images,setImages] = useState<File[]>([])
     const HandleTextChange = (e:ChangeEvent<HTMLTextAreaElement>)=>{
@@ -22,10 +25,10 @@ function CreatePost({open,HandleClick}:Props) {
         setDescription(e.target.value)
     }
     useEffect(()=>{
-        socket.on('welcom', (data)=>{
+        socket.current.on('welcom', (data)=>{
             console.log(data)
         })
-        socket.emit('hello','Hello world')
+        socket.current.emit('hello','Hello world')
     },[])
     const HandleImageChange = (e:ChangeEvent<HTMLInputElement>)=>{
         const files = e.target.files
@@ -43,9 +46,26 @@ function CreatePost({open,HandleClick}:Props) {
         console.log(formData)
         const createPost = await axios.post('http://localhost:8000/post/create',formData)
         if(createPost.status === 200){
+            queryClient.invalidateQueries(['posts'])
             HandleClick()
+            socket.current.emit("sendPosts",{
+                description,
+                images
+            })
         }
     }
+
+    socket.current.on("getPosts",(posts)=>{
+        setArrivalPosts({
+            description: posts.description,
+            images: posts.images,
+            createdAt: Date.now()
+        })
+    })
+    useEffect(()=>{
+        queryClient.invalidateQueries(['posts'])
+        console.log(arrivalPosts,90909)
+    },[arrivalPosts])
   return (
     <>
     {
