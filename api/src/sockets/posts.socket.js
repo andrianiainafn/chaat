@@ -9,6 +9,11 @@ const HandlepostChange = (io)=>{
       socket.on("disconnect", ()=>{
         console.log('user disconnected')
       });
+      socket.on('addReaction',(reaction)=>{
+        io.emit('getReaction',{
+          reaction
+        })
+      })
   })
 }
 
