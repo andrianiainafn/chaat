@@ -46,7 +46,7 @@ main()
 
 //authorization
 app.use(cors({
-    origin:['http://localhost:3000'],
+    origin:['http://localhost:3000','https://chaat-df6x.onrender.com'],
     credentials: true
 }))
 app.use(cookieParser())
@@ -66,7 +66,7 @@ const socket = app.listen(process.env.PORT,()=>{
     console.log("listenning on port:" + process.env.PORT)
 })
 const io = socketio(socket,{cors:{
-    origin:['http://localhost:3000'],
+    origin:['http://localhost:3000','https://chaat-df6x.onrender.com'],
     credentials: true
 }});
 
