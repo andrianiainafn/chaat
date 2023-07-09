@@ -7,6 +7,7 @@ import moment from 'moment';
 import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import AuthContext from '../../../../../Context/GlobalContext';
+import { BASEURL } from '../../../../../Components/BaseLink';
 
 type Props = {
     comment: any,
@@ -18,12 +19,12 @@ const Comments = (props: Props) => {
   const queryKey = ['commentReaction',props.comment._id]
   const queryClient = useQueryClient()
   const CheckReaction = async ( )=>{
-         const allreaction = await axios.get(`http://localhost:8000/comment/checkreaction/${props.comment._id}`)
+         const allreaction = await axios.get(`${BASEURL}/comment/checkreaction/${props.comment._id}`)
          return allreaction.data.message
   }
   const {isLoading,data} = useQuery(queryKey,CheckReaction)
   const HandleClickReaction = async()=>{
-    const reaction = await axios.put(`http://localhost:8000/comment/reaction/${props.comment._id}`)
+    const reaction = await axios.put(`${BASEURL}/comment/reaction/${props.comment._id}`)
     if(reaction.status === 200){
         queryClient.invalidateQueries(['commentReaction',props.comment._id])
         console.log("reaction successfully received")

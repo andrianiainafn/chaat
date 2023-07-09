@@ -6,6 +6,7 @@ import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import AuthContext from '../../../../../Context/GlobalContext';
+import { BASEURL } from '../../../../../Components/BaseLink';
 
 interface Props {
     HandleClick: () => void
@@ -17,7 +18,7 @@ const ClickCreatePost:React.FC<Props> =({HandleClick}) => {
         <div onClick={HandleClick} className="flex w-[90%] m-2 items-center">
           {
             profilepicture ? (
-              <Avatar src={`http://localhost:8000/${profilepicture}`} sx={{height:'2em', width: '2em', marginRight:'1rem'}} />
+              <Avatar src={`${BASEURL}/${profilepicture}`} sx={{height:'2em', width: '2em', marginRight:'1rem'}} />
             ):(
               <Avatar  sx={{height:'2em', width: '2em', marginRight:'1rem'}} />
             )

@@ -10,6 +10,7 @@ import DiscuEntete from '../Element/DiscuEntete';
 import AuthContext from '../../../../../Context/GlobalContext';
 import Message from '../Element/Message';
 import {io} from 'socket.io-client'
+import { BASEURL } from '../../../../../Components/BaseLink';
 
 type Props = {}
 
@@ -25,7 +26,7 @@ const Discution = (props: Props) => {
   const queryKey = ['message',idConversation]
   const queryInfoKey = ['inforamtion', idConversation]
   const scrollref = useRef<HTMLDivElement | null>(null)
-  const socket = useRef(io('http://localhost:8000', {
+  const socket = useRef(io( BASEURL, {
     withCredentials: true,
     extraHeaders: {
         "my-custom-header": "abcd"
@@ -34,16 +35,16 @@ const Discution = (props: Props) => {
   
   
   const getConversationInfo = async()=>{
-    const info = await axios.get(`http://localhost:8000/conversation/getconversationinformation/${idConversation}`)
+    const info = await axios.get(`${BASEURL}/conversation/getconversationinformation/${idConversation}`)
     return info.data.message
   }
   const getMessage = async()=>{
-    const  messages = await axios.get(`http://localhost:8000/message/get/${idConversation}`)
+    const  messages = await axios.get(`${BASEURL}/message/get/${idConversation}`)
     return messages.data.message
   }
   const queryDiscu=['discutions']
   const getdiscution = async ()=>{
-    const discution  = await axios.get("http://localhost:8000/message/discu")
+    const discution  = await axios.get(`${BASEURL}/message/discu`)
     return discution.data.message
   }
 
@@ -78,7 +79,7 @@ const Discution = (props: Props) => {
       receive_id: destination,
       text: message
     })
-     const send = await axios.post(`http://localhost:8000/message/add/${idConversation}`,info)
+     const send = await axios.post(`${BASEURL}/message/add/${idConversation}`,info)
      if(send.status === 200) { 
       queryClient.invalidateQueries(['message',idConversation])
       console.log('message sent successfully')

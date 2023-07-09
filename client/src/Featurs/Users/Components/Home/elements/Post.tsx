@@ -11,6 +11,7 @@ import 'react-awesome-slider/dist/styles.css';
 import moment from 'moment';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import {useState,useEffect} from 'react'
+import { BASEURL } from '../../../../../Components/BaseLink';
 
 type Props = {
     post: any,
@@ -22,13 +23,13 @@ const Post = (props: Props) => {
   const queryKey = ['checksave',props.post._id]
   const [hasnewReaction, setHasNewReaction] = useState<any>([])
   const checkSaved = async()=>{
-      const saved = await axios.get('http://localhost:8000/post/checkSaved')
+      const saved = await axios.get(`${BASEURL}/post/checkSaved`)
       return saved.data.message
   }
   const {isLoading,data} = useQuery(queryKey,checkSaved) 
   const HandleClickReaction = async(e: any)=>{
     const postId = e!.currentTarget.getAttribute('data-postid')
-    const response = await axios.put(`http://localhost:8000/post/reaction/${postId}`)
+    const response = await axios.put(`${BASEURL}/post/reaction/${postId}`)
     if(response.status === 200){
         console.log(response.data,9696)
         setHasNewReaction((reaction:any)=>[...reaction,response.data])
@@ -39,7 +40,7 @@ const Post = (props: Props) => {
     }
     const HandleClickSave = async(e: any) => {
         const postId = e!.currentTarget.getAttribute('data-postid')
-        const sendSave = await axios.put(`http://localhost:8000/post/save/${postId}`)
+        const sendSave = await axios.put(`${BASEURL}/post/save/${postId}`)
         if(sendSave.status === 200){
           queryClient.invalidateQueries(['checksave',postId])
           console.log('post saved successfuly')
@@ -49,7 +50,7 @@ const Post = (props: Props) => {
     }
     const HandleClickUnsaved = async(e:any)=>{
       const postId = e!.currentTarget.getAttribute('data-postid')
-      const sendSave = await axios.put(`http://localhost:8000/post/unsave/${postId}`)
+      const sendSave = await axios.put(`${BASEURL}/post/unsave/${postId}`)
       if(sendSave.status === 200){
         queryClient.invalidateQueries(['checksave',postId])
         console.log('post saved successfuly')
@@ -66,7 +67,7 @@ const Post = (props: Props) => {
           <div className="flex items-center ">
             {
               props.post.profilepicture ? (
-                <Avatar src={`http://localhost:8000/${props.post.profilepicture}`} sx={{height:'2em', width: '2em', marginRight:'1rem'}}/>
+                <Avatar src={`${BASEURL}/${props.post.profilepicture}`} sx={{height:'2em', width: '2em', marginRight:'1rem'}}/>
               ):(
                 <Avatar  sx={{height:'2em', width: '2em', marginRight:'1rem'}}/>
               )
@@ -93,7 +94,7 @@ const Post = (props: Props) => {
           </p>
         </div>
         <div className="w-full">
-          <img src={`http://localhost:8000/${props.post.media[0]}`}  className='w-full h-[34vh]' alt='example' />
+          <img src={`${BASEURL}/${props.post.media[0]}`}  className='w-full h-[34vh]' alt='example' />
         </div>
         <div className="w-full p-2 flex justify-between items-center">
           <div data-postid={props.post._id} onClick={HandleClickReaction} className="cursor-pointer flex items-center justify-between  ">

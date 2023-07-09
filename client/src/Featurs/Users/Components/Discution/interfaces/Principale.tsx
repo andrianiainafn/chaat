@@ -3,13 +3,14 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../Element/Sidebar'
+import { BASEURL } from '../../../../../Components/BaseLink'
 
 type Props = {}
   
 const Principale = (props: Props) => {
   const queryKey = ['discu']
   const getMyFriends = async() =>{
-    const friends = await axios.get('http://localhost:8000/conversation/getconversation')
+    const friends = await axios.get(`${BASEURL}/conversation/getconversation`)
     return friends.data.message
   }
   const {isLoading,data} = useQuery(queryKey,getMyFriends)

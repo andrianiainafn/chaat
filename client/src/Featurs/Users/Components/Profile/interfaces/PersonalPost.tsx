@@ -6,6 +6,7 @@ import Post from '../../Home/elements/Post'
 import animation from '../../../../../assets/Images/animation.gif'
 import ViewPost from '../../Home/interfaces/ViewPost'
 import { useLocation } from 'react-router-dom'
+import { BASEURL } from '../../../../../Components/BaseLink'
 
 type Props = {}
 
@@ -17,7 +18,7 @@ const PersonalPost = (props: Props) => {
   const location = useLocation()
   const user_id = location.pathname.split('/')[4]
   const getPersonalPost = async()=>{
-      const personalPost = await axios.get(`http://localhost:8000/post/getUserPost/${user_id}`)
+      const personalPost = await axios.get(`${BASEURL}/post/getUserPost/${user_id}`)
       return personalPost.data.message
   }
   const {isLoading,data} = useQuery(queryKey,getPersonalPost)

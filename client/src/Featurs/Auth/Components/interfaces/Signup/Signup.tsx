@@ -13,6 +13,7 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import {yearInput,months,dateInput} from '../../Elements/data'
 import axios from 'axios';
 import AuthContext from '../../../../../Context/GlobalContext';
+import {BASEURL} from '../../../../../Components/BaseLink'
 
 
 function Signup() {
@@ -79,7 +80,7 @@ function Signup() {
         email: information.email
        }
        console.log(userinformation)
-       const register = await axios.post('http://localhost:8000/auth/register',userinformation)
+       const register = await axios.post(`${BASEURL}/auth/register`,userinformation)
        if(register.status === 200){
         getConnection()
          navigate('/auth/confirmation')

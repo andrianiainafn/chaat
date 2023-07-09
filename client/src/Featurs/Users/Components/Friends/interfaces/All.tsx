@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import AddButton from '../elements/AddButton'
 import ConfirmOrRemove from '../elements/ConfirmOrRemove'
+import { BASEURL } from '../../../../../Components/BaseLink'
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -44,7 +45,7 @@ function All(){
   const queryKey = ['all']
   const queryClient = useQueryClient()
   const getAll = async ()=>{
-      const all = await axios.get('http://localhost:8000/friend/getAll')
+      const all = await axios.get(`${BASEURL}/friend/getAll`)
       return all.data.message
   }
   const HandleConfirmRequest = async()=>{
@@ -53,7 +54,7 @@ function All(){
   const HandleClcikAdd = async(e:any)=>{
     const userId = e!.currentTarget.getAttribute('data-userid')
     console.log(userId)
-    const response = await axios.put(`http://localhost:8000/friend/addFriends/${userId}`)
+    const response = await axios.put(`${BASEURL}/friend/addFriends/${userId}`)
     if(response.status === 200){
         console.log(response.data,9696)
         queryClient.invalidateQueries(['chkeckAddfriend',userId])
@@ -64,7 +65,7 @@ function All(){
  const HandleClcikCancel = async(e:any)=>{
   const user = e!.currentTarget.getAttribute('data-userid')
   queryClient.invalidateQueries(['chkeckAddfriend',user])
-  const response = await axios.put(`http://localhost:8000/friend/addFriends/${user}`)
+  const response = await axios.put(`${BASEURL}/friend/addFriends/${user}`)
   if(response.status === 200){
       console.log(response.data,9696)
     }else{

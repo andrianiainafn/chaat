@@ -8,6 +8,7 @@ import animation from '../../../../../assets/Images/animation.gif'
 import Comments from '../elements/Comments';
 import CommentInput from '../elements/CommentInput';
 import CloseIcon from '@mui/icons-material/Close';
+import { BASEURL } from '../../../../../Components/BaseLink';
 
 type Props = {
     open: boolean,
@@ -24,11 +25,11 @@ const ViewPost = ({open,HandleClickPost}: Props) => {
     }
   }
   const getPost = async()=>{
-    const pub = await axios.get(`http://localhost:8000/post/getpost/${idPost}`)
+    const pub = await axios.get(`${BASEURL}/post/getpost/${idPost}`)
     return pub
   }
   const getComment = async()=>{
-    const comment = await axios.get(`http://localhost:8000/comment/get/${idPost}`)
+    const comment = await axios.get(`${BASEURL}/comment/get/${idPost}`)
     return comment.data.comments
   }
   const {isLoading :commentLoading, data :comments} = useQuery(commentqueryKey,getComment)
@@ -73,7 +74,7 @@ const ViewPost = ({open,HandleClickPost}: Props) => {
                       </IconButton>
                     </div>
                     <div className='centralePost flex flex-col md:flex-row' data-idpost='idDupost' onClick={(e)=>e.stopPropagation()}>
-                        <img className='w-[100%] md:w-[50%] h-[100%]' src={`http://localhost:8000/${data?.data.post.media[0]}`} alt='logo' />
+                        <img className='w-[100%] md:w-[50%] h-[100%]' src={`${BASEURL}/${data?.data.post.media[0]}`} alt='logo' />
                         <div className='w-[100%] md:w-[50%] h-[100%] bg-[#17202a] relative  overflow-y-scroll' >
                           <div className="bg-[#2c3a4a] md:fixed relative  h-[7vh] w-[100%] md:w-[50%] flex justify-center items-center z-20">
                               <h3 className='text-white'>{data?.data.post.author.lastname}'s post</h3>

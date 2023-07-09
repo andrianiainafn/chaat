@@ -8,6 +8,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import animation from '../../../../../assets/Images/animation.gif'
+import { BASEURL } from '../../../../../Components/BaseLink';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -40,7 +41,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 const List = () => {
  const queryKey = ['friend']
  const getMyFriends = async() =>{
-   const friends = await axios.get('http://localhost:8000/friend/getAllFriends')
+   const friends = await axios.get(`${BASEURL}/friend/getAllFriends`)
    return friends.data.message
  }
  const {isLoading,data} = useQuery(queryKey,getMyFriends)

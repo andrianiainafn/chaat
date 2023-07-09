@@ -7,6 +7,7 @@ import ViewPost from './ViewPost';
 import Post from '../elements/Post';
 import animation from '../../../../../assets/Images/animation.gif'
 import ContextOfPost from '../Context/PostContext';
+import { BASEURL } from '../../../../../Components/BaseLink';
 
 const Home = () => {
   const [isCreate,setIsCreate] =  useState<boolean>(false)
@@ -28,7 +29,7 @@ const Home = () => {
   }
   const queryKey = ['posts']
   const getPost = async()=>{
-    const pub = await axios.get('https://chaat-df6x.onrender.com/actuality')
+    const pub = await axios.get(`${BASEURL}/actuality`)
     return pub
   }
   const {isLoading,data } = useQuery(queryKey, getPost)

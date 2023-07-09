@@ -4,6 +4,7 @@ import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import AuthContext from '../../../../../Context/GlobalContext';
+import { BASEURL } from '../../../../../Components/BaseLink';
 type Props = {
     id: string
 }
@@ -12,7 +13,7 @@ const Reaction = ({id}: Props) => {
     const{userId} = useContext(AuthContext)
     const queryKey = ['reaction',id]
     const check = async()=>{
-        const react = await axios.get(`http://localhost:8000/post/checkReaction/${id}`)
+        const react = await axios.get(`${BASEURL}/post/checkReaction/${id}`)
         return react.data.message
     }
     const {isLoading,data}= useQuery(queryKey,check)

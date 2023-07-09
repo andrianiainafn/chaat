@@ -5,11 +5,12 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import animation from '../../../../../assets/Images/animation.gif'
 import AddButton from '../elements/AddButton';
+import { BASEURL } from '../../../../../Components/BaseLink';
 
 const Suggestion = () => {
  const querykey = ['suggestion']
  const getsuggestion = async()=>{
-     const suggestion = await axios.get('http://localhost:8000/friend/getSuggestions')
+     const suggestion = await axios.get(`${BASEURL}/friend/getSuggestions`)
      return suggestion.data.message
  }
  const queryClient = useQueryClient()
@@ -17,7 +18,7 @@ const Suggestion = () => {
  const HandleClcikAdd = async(e:any)=>{
      const user = e!.currentTarget.getAttribute('data-userid')
      queryClient.invalidateQueries(['chkeckAddfriend',user])
-    const response = await axios.put(`http://localhost:8000/friend/addFriends/${user}`)
+    const response = await axios.put(`${BASEURL}/friend/addFriends/${user}`)
     if(response.status === 200){
         console.log(response.data,9696)
       }else{
@@ -27,7 +28,7 @@ const Suggestion = () => {
     const HandleClcikCancel = async(e:any)=>{
         const user = e!.currentTarget.getAttribute('data-userid')
         queryClient.invalidateQueries(['chkeckAddfriend',user])
-        const response = await axios.put(`http://localhost:8000/friend/addFriends/${user}`)
+        const response = await axios.put(`${BASEURL}/friend/addFriends/${user}`)
         if(response.status === 200){
             console.log(response.data,9696)
           }else{

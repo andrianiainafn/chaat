@@ -5,6 +5,7 @@ import PhotoCameraOutlinedIcon from '@mui/icons-material/PhotoCameraOutlined';
 import AuthContext from '../../../../Context/GlobalContext';
 import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { BASEURL } from '../../../../Components/BaseLink';
 
 const Profile = () => {
   const [images,setImages] = useState<File[]>([])
@@ -13,7 +14,7 @@ const Profile = () => {
   const location = useLocation()
   const user_id = location.pathname.split('/')[4]
   const getUserInfo = async()=>{
-    const userinfo = await axios.get(`http://localhost:8000/user/getUserInfo/${user_id}`)
+    const userinfo = await axios.get(`${BASEURL}/user/getUserInfo/${user_id}`)
     return userinfo.data.message
   }
   const queryClient = useQueryClient()

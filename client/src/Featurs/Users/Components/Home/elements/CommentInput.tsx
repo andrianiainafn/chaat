@@ -8,6 +8,7 @@ import axios from 'axios'
 import { useQueryClient } from '@tanstack/react-query';
 import AuthContext from '../../../../../Context/GlobalContext';
 import { IconButton } from '@mui/material';
+import { BASEURL } from '../../../../../Components/BaseLink';
 
 type Props = {
   postId: String,
@@ -29,7 +30,7 @@ const CommentInput = (props: Props) => {
   const HandleClickReaction = async(e: any)=>{
     const postId = e!.currentTarget.getAttribute('data-postid')
     console.log(postId,9077)
-    const response = await axios.put(`http://localhost:8000/post/reaction/${postId}`)
+    const response = await axios.put(`${BASEURL}/post/reaction/${postId}`)
     if(response.status === 200){
         console.log(response.data,9696)
         queryClient.invalidateQueries(['reaction',postId])
@@ -39,7 +40,7 @@ const CommentInput = (props: Props) => {
     }
     const addCommments = async()=>{
       console.log('test test test test')
-      const data = await axios.post('http://localhost:8000/comment/add',info)
+      const data = await axios.post(`${BASEURL}/comment/add`,info)
       if(data.status === 200){
         console.log('comment created')
         setComment('')

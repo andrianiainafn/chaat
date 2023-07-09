@@ -8,11 +8,12 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import animation from '../../../../../assets/Images/animation.gif'
 import ConfirmOrRemove from '../elements/ConfirmOrRemove';
+import { BASEURL } from '../../../../../Components/BaseLink';
 
 const Request = () => {
   const queryKey = ['request']
   const getRequest = async()=>{
-    const request = await axios.get('http://localhost:8000/friend/getFriendRequest')
+    const request = await axios.get(`${BASEURL}/friend/getFriendRequest`)
     return request.data.message
   } 
   const {isLoading,data} = useQuery(queryKey,getRequest)

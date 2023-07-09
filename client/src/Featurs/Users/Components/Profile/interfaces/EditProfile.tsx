@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { BASEURL } from '../../../../../Components/BaseLink'
 
 type Props = {}
 
@@ -22,7 +23,7 @@ const EditProfile = (props: Props) => {
     bio:true
   })
   const getuserinformation = async()=>{
-      const userInformation = await axios.get(`http://localhost:8000/user/getUserInfo/${user_id}`)
+      const userInformation = await axios.get(`${BASEURL}/user/getUserInfo/${user_id}`)
       return userInformation.data.message 
   }
   const {isLoading,data} = useQuery(queryKey,getuserinformation)

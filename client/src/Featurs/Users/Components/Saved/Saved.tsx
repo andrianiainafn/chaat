@@ -5,13 +5,14 @@ import animation from '../../../../assets/Images/animation.gif'
 import ContextOfPost from '../Home/Context/PostContext'
 import Post from '../Home/elements/Post'
 import ViewPost from '../Home/interfaces/ViewPost'
+import { BASEURL } from '../../../../Components/BaseLink'
 
 const Saved = () => {
   const queryKey = ['postSaved']
   const {ModifyIdPost} = useContext(ContextOfPost)
   const [isPostView,setIsPostView] = useState<boolean>(false)
   const getPostSaved = async  () => {
-    const postSaved = await axios.get('http://localhost:8000/post/getSavedPost')
+    const postSaved = await axios.get(`${BASEURL}/post/getSavedPost`)
     return postSaved.data.message
   }
   const {isLoading,data} = useQuery(queryKey,getPostSaved)

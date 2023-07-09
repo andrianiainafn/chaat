@@ -34,11 +34,7 @@ function Login() {
       setErrorPassword(true)
     }
    if(information.password && information.email){
-     const login = await axios.post('https://chaat-df6x.onrender.com/auth/login',information,{
-      headers: {
-        'Access-Control-Allow-Origin': 'https://chaat-df6x.onrender.com'
-      }
-     })
+     const login = await axios.post(`${BASEURL}/auth/login`,information,)
      if(login.status === 200){
         getConnection()
         navigate('/users/') 

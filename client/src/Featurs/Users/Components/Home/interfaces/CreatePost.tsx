@@ -4,6 +4,7 @@ import TextInput from '../elements/TextInput'
 import axios from 'axios'
 import {io} from 'socket.io-client'
 import { useQueryClient } from '@tanstack/react-query'
+import { BASEURL } from '../../../../../Components/BaseLink'
 
 type Props = {
     open: boolean,
@@ -12,7 +13,7 @@ type Props = {
 function CreatePost({open,HandleClick}:Props) {    
     const [arrivalPosts,setArrivalPosts] =useState<any>(null)
     const queryClient = useQueryClient()
-    const socket = useRef(io('http://localhost:8000', {
+    const socket = useRef(io(BASEURL, {
         withCredentials: true,
         extraHeaders: {
             "my-custom-header": "abcd"
@@ -44,7 +45,7 @@ function CreatePost({open,HandleClick}:Props) {
             formData.append('images',image)
         ))
         console.log(formData)
-        const createPost = await axios.post('http://localhost:8000/post/create',formData)
+        const createPost = await axios.post(`${BASEURL}/post/create`,formData)
         if(createPost.status === 200){
             queryClient.invalidateQueries(['posts'])
             HandleClick()
