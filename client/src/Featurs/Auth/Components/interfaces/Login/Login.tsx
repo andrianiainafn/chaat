@@ -36,7 +36,7 @@ function Login() {
    if(information.password && information.email){
      const login = await axios.post('https://chaat-df6x.onrender.com/auth/login',information,{
       headers: {
-        'Access-Control-Allow-Origin': 'https://chaat-df6x.onrender.com/auth/login'
+        'Access-Control-Allow-Origin': 'https://chaat-df6x.onrender.com'
       }
      })
      if(login.status === 200){
