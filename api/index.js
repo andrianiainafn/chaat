@@ -46,7 +46,7 @@ main()
 
 //authorization
 app.use(cors({
-    origin:['http://localhost:3000','https://chaat-df6x.onrender.com'],
+    origin:['http://localhost:3000','https://chaat-afn.netlify.app'],
     credentials: true
 }))
 app.use(cookieParser())
@@ -66,8 +66,8 @@ const socket = app.listen(process.env.PORT,()=>{
     console.log("listenning on port:" + process.env.PORT)
 })
 const io = socketio(socket,{cors:{
-    origin:['http://localhost:3000','https://chaat-df6x.onrender.com'],
-    credentials: true
+    origin:['http://localhost:3000','https://chaat-afn.netlify.app'],
+    credentials: true,  
 }});
 
 //socket
