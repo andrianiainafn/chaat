@@ -28,7 +28,7 @@ const Home = () => {
   }
   const queryKey = ['posts']
   const getPost = async()=>{
-    const pub = await axios.get('http://localhost:8000/actuality')
+    const pub = await axios.get('https://chaat-df6x.onrender.com/actuality')
     return pub
   }
   const {isLoading,data } = useQuery(queryKey, getPost)

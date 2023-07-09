@@ -26,7 +26,7 @@ function GlobalContext({children}:PropsWithChildren) {
   const [lastname,setLastname] = useState('')
   const [userId,setUserId] = useState('')
   const getConnection = async()=>{
-    const connection = await axios.get('http://localhost:8000/auth/verify')
+    const connection = await axios.get('https://chaat-df6x.onrender.com/auth/verify')
     if(connection.status === 200){
       console.log('testConnection')
       setConnected(connection.data.connected)
