@@ -7,6 +7,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import axios from 'axios';
+import { BASEURL } from './BaseLink';
 
 type Props = {
     showMenu: boolean,
@@ -21,7 +22,7 @@ const ProfileMenu = (props: Props) => {
       props.HandleClickProfile()
   }
   const HandleClickLogout = async()=>{
-    await axios.get('http://localhost:8000/auth/logout')
+    await axios.get(`${BASEURL}/auth/logout`)
     navigate('/')
   }
   return (

@@ -18,6 +18,7 @@ import ResponsiveProfileMenu from './ResponsiveProfileMenu';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
+import { BASEURL } from './BaseLink';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -53,7 +54,7 @@ const NavBar = () => {
   const [showResponsiveMenu,setShowResponsiveMenu] = useState<boolean>(false)
   const queryKey = ['getConversationLink']
   const getConversationLink = async() =>{
-    const conversationLink = await axios.get('http://localhost:8000/conversation/getDefaultConversation')
+    const conversationLink = await axios.get(`${BASEURL}/conversation/getDefaultConversation`)
     return conversationLink.data.message
   }
   const {isLoading,data} = useQuery(queryKey,getConversationLink)

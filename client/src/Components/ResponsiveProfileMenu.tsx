@@ -10,6 +10,7 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import axios from 'axios';
+import { BASEURL } from './BaseLink';
 
 type Props = {
     showResponsiveMenu:boolean
@@ -24,7 +25,7 @@ const ResponsiveProfileMenu = (props: Props) => {
     props.HandleClickMenu()
   }
   const HandleClickLogout = async()=>{
-    await axios.get('http://localhost:8000/auth/logout')
+    await axios.get(`${BASEURL}/auth/logout`)
     navigate('/')
   }
   const NavigateUsers = (link:string)=>{
