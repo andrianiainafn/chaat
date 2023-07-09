@@ -9,6 +9,11 @@ import AuthContext from "../Context/GlobalContext";
 
 function AppRouter(){
   const {connected} = useContext(AuthContext)
+  useEffect(() => {
+      if(!connected){
+        redirect("/")
+      }
+    }, [connected])
   return (
     <Routes>
         {
