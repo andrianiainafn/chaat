@@ -11,6 +11,7 @@ import { ChangeEvent } from 'react';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import axios from 'axios';
 import AuthContext from '../../../../../Context/GlobalContext';
+import {BASEURL} from '../../../../../Components/BaseLink'
 
 function Login() {
   const {getConnection} = useContext(AuthContext)
@@ -33,7 +34,7 @@ function Login() {
       setErrorPassword(true)
     }
    if(information.password && information.email){
-     const login = await axios.post('http://localhost:8000/auth/login',information)
+     const login = await axios.post(`${BASEURL}/auth/login`,information)
      if(login.status === 200){
         getConnection()
         navigate('/users/') 
