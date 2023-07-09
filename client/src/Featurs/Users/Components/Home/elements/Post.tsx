@@ -10,6 +10,7 @@ import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
 import moment from 'moment';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import {useState,useEffect} from 'react'
 
 type Props = {
     post: any,
@@ -19,6 +20,7 @@ type Props = {
 const Post = (props: Props) => {
   const queryClient = useQueryClient()
   const queryKey = ['checksave',props.post._id]
+  const [hasnewReaction, setHasNewReaction] = useState<any>([])
   const checkSaved = async()=>{
       const saved = await axios.get('http://localhost:8000/post/checkSaved')
       return saved.data.message
@@ -29,6 +31,7 @@ const Post = (props: Props) => {
     const response = await axios.put(`http://localhost:8000/post/reaction/${postId}`)
     if(response.status === 200){
         console.log(response.data,9696)
+        setHasNewReaction((reaction:any)=>[...reaction,response.data])
         queryClient.invalidateQueries(['reaction',postId])
       }else{
         console.log(response,666)
@@ -54,6 +57,9 @@ const Post = (props: Props) => {
         console.log('error when saving postss')
       }
     }
+    useEffect(()=>{
+
+    },[])
   return (
     <div data-postid={props.post._id}  className="bg-[#17202a] flex flex-col space-y-2 border-[1px]  border-[#2c3a4a] rounded-lg mt-3">
         <div className="p-2 flex w-full justify-between items-center">
