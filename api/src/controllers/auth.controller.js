@@ -78,7 +78,7 @@ exports.register = async(req,res)=>{
             expires: new Date(Date.now() +  2592000000),
             httpOnly: true, 
             secure: true, 
-            sameSite: 'strict' 
+            sameSite: 'Strict' 
         })
         .status(200)
         .json({message:"Registers successfully"})
@@ -120,7 +120,7 @@ exports.login = async(req,res)=>{
             expires: new Date(Date.now() +  2592000000),
             httpOnly: true, 
             secure: true, 
-            sameSite: 'strict' 
+            sameSite: 'Strict' 
         })
         .status(200)
         .json({message:"login successfully!!"})
@@ -196,11 +196,11 @@ exports.logout = async(req,res)=>{
         jwt.verify(token,process.env.JWT_SECRET)
         res
         .cookie("user", "",{
-          domain:'www.www.https://chaat-df6x.onrender.com',
+          domain:'www.https://chaat-df6x.onrender.com',
           httpOnly: true,
           expires: new Date(0),
           secure: true, 
-          sameSite: 'strict' 
+          sameSite: 'Strict' 
         })
         .send(200)
     }catch(e){
