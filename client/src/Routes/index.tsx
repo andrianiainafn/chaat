@@ -15,6 +15,9 @@ function AppRouter(){
       if( (!connected && location.pathname !== "/auth/login")  ){
         navigate('/')
       }
+      if (!connected && location.pathname !== "/auth/signup"){
+        navigate('/')
+      }
     }, [connected])
   return (
     <Routes>
