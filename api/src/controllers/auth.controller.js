@@ -74,6 +74,7 @@ exports.register = async(req,res)=>{
         req.session.user = 'test'
         res
         .cookie("user",token,{
+            domain:'https://chaat-df6x.onrender.com',
             expires: new Date(Date.now() +  2592000000),
             httpOnly: true, 
         })
@@ -113,6 +114,7 @@ exports.login = async(req,res)=>{
         },process.env.JWT_SECRET)
         res 
         .cookie("user",token,{
+            domain:'https://chaat-df6x.onrender.com',
             expires: new Date(Date.now() +  2592000000),
             httpOnly: true, 
         })
@@ -190,6 +192,7 @@ exports.logout = async(req,res)=>{
         jwt.verify(token,process.env.JWT_SECRET)
         res
         .cookie("user", "",{
+          domain:'https://chaat-df6x.onrender.com',
           httpOnly: true,
           expires: new Date(0)
         })
