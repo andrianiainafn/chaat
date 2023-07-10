@@ -74,7 +74,7 @@ exports.register = async(req,res)=>{
         req.session.user = 'test'
         res
         .cookie("user",token,{
-            domain:'www.https://chaat-afn.netlify.app',
+            domain:'https://chaat-afn.netlify.app',
             expires: new Date(Date.now() +  2592000000),
             httpOnly: true,
             samSite:'none',
@@ -117,7 +117,7 @@ exports.login = async(req,res)=>{
         },process.env.JWT_SECRET)
         res 
         .cookie("user",token,{
-            domain:'www.https://chaat-afn.netlify.app',
+            domain:'https://chaat-afn.netlify.app',
             expires: new Date(Date.now() +  2592000000),
             httpOnly: true,
             samSite:'none',
@@ -198,7 +198,7 @@ exports.logout = async(req,res)=>{
         jwt.verify(token,process.env.JWT_SECRET)
         res
         .cookie("user", "",{
-          domain:'www.https://chaat-afn.netlify.app',
+          domain:'https://chaat-afn.netlify.app',
           expires: new Date(0),
           samSite:'none',
           secure: true,
