@@ -78,7 +78,7 @@ exports.register = async(req,res)=>{
             expires: new Date(Date.now() +  2592000000),
             httpOnly: true, 
             secure: true, 
-            sameSite: 'Strict' 
+            sameSite: 'strict' 
         })
         .status(200)
         .json({message:"Registers successfully"})
@@ -120,7 +120,7 @@ exports.login = async(req,res)=>{
             expires: new Date(Date.now() +  2592000000),
             httpOnly: true, 
             secure: true, 
-            sameSite: 'Strict' 
+            sameSite: 'strict' 
         })
         .status(200)
         .json({message:"login successfully!!"})
@@ -200,7 +200,7 @@ exports.logout = async(req,res)=>{
           httpOnly: true,
           expires: new Date(0),
           secure: true, 
-          sameSite: 'Strict' 
+          sameSite: 'strict' 
         })
         .send(200)
     }catch(e){
