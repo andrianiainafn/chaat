@@ -78,7 +78,8 @@ exports.register = async(req,res)=>{
             expires: new Date(Date.now() +  2592000000),
             httpOnly: true,
             samSite:'none',
-            secure: true
+            secure: true,
+            withcredentials:true
         })
         .status(200)
         .json({message:"Registers successfully"})
@@ -120,7 +121,8 @@ exports.login = async(req,res)=>{
             expires: new Date(Date.now() +  2592000000),
             httpOnly: true,
             samSite:'none',
-            secure: true
+            secure: true,
+            withcredentials:true
         })
         .status(200)
         .json({message:"login successfully!!"})
@@ -199,7 +201,8 @@ exports.logout = async(req,res)=>{
           domain:'www.https://chaat-afn.netlify.app',
           expires: new Date(0),
           samSite:'none',
-          secure: true
+          secure: true,
+          withcredentials:true
         })
         .send(200)
     }catch(e){
