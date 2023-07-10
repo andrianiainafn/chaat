@@ -12,10 +12,7 @@ function AppRouter(){
   const navigate = useNavigate()
   const location = useLocation()
   useEffect(() => {
-      if( (!connected && location.pathname !== "/auth/login")  ){
-        navigate('/')
-      }
-      else if (!connected && location.pathname !== "/auth/signup"){
+      if( (!connected && (location.pathname !== "/auth/login" || (location.pathname !== "/auth/login")))  ){
         navigate('/')
       }
     }, [connected])
