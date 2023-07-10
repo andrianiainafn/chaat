@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Route, Routes, redirect, useNavigate } from "react-router-dom";
+import { Route, Routes, redirect, useLocation, useNavigate } from "react-router-dom";
 import Acceuille from "../Featurs/Index/Acceuille";
 import AdminLayout from "../Layout/AdminLayout";
 import AuthLayout from "../Layout/AuthLayout";
@@ -10,8 +10,9 @@ import AuthContext from "../Context/GlobalContext";
 function AppRouter(){
   const {connected} = useContext(AuthContext)
   const navigate = useNavigate()
+  const location = useLocation()
   useEffect(() => {
-      if(!connected){
+      if(!connected && location.pathname !== "/auth/login"){
         navigate('/')
       }
     }, [connected])
