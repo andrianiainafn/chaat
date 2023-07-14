@@ -6,13 +6,21 @@ import ContextOfPost from '../Home/Context/PostContext'
 import Post from '../Home/elements/Post'
 import ViewPost from '../Home/interfaces/ViewPost'
 import { BASEURL } from '../../../../Components/BaseLink'
+import { useCookies } from 'react-cookie'
 
 const Saved = () => {
   const queryKey = ['postSaved']
   const {ModifyIdPost} = useContext(ContextOfPost)
+  const [cookie] = useCookies()
   const [isPostView,setIsPostView] = useState<boolean>(false)
   const getPostSaved = async  () => {
-    const postSaved = await axios.get(`${BASEURL}/post/getSavedPost`)
+    const postSaved = await axios.get(`${BASEURL}/post/getSavedPost`,{
+      headers:
+      {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookie.name}`
+      }
+    })
     return postSaved.data.message
   }
   const {isLoading,data} = useQuery(queryKey,getPostSaved)

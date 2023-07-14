@@ -31,7 +31,13 @@ const Post = (props: Props) => {
   const {isLoading,data} = useQuery(queryKey,checkSaved) 
   const HandleClickReaction = async(e: any)=>{
     const postId = e!.currentTarget.getAttribute('data-postid')
-    const response = await axios.put(`${BASEURL}/post/reaction/${postId}`)
+    const response = await axios.put(`${BASEURL}/post/reaction/${postId}`,{
+      headers:
+      {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookie.name}`
+      }
+    })
     if(response.status === 200){
         console.log(response.data,9696)
         setHasNewReaction((reaction:any)=>[...reaction,response.data])
@@ -42,7 +48,13 @@ const Post = (props: Props) => {
     }
     const HandleClickSave = async(e: any) => {
         const postId = e!.currentTarget.getAttribute('data-postid')
-        const sendSave = await axios.put(`${BASEURL}/post/save/${postId}`)
+        const sendSave = await axios.put(`${BASEURL}/post/save/${postId}`,{
+          headers:
+          {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${cookie.name}`
+          }
+        })
         if(sendSave.status === 200){
           queryClient.invalidateQueries(['checksave',postId])
           console.log('post saved successfuly')
