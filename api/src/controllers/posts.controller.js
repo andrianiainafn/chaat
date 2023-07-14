@@ -133,12 +133,6 @@ exports.modify = async function(req, res){
 
 exports.reaction = async (req,res) =>{
   try{
-    // const token = req.cookies.user
-    // if(!token){
-    //     return res
-    //     .status(401)
-    //     .json({message:"Unauthorized"})
-    // }
     const user_id = req.userId
     const postId = req.params.post
     const post = await postsModel.findOne({_id: postId}).select('love').populate({
@@ -146,8 +140,6 @@ exports.reaction = async (req,res) =>{
         select: '_id'
     })
     const love =  post.love
-    // jwt.verify(token,process.env.JWT_SECRET)
-    // const payload = jwt.decode(token,options={"verify_signature": false})
     console.log(postId)
     const idLove = love.filter(elem => JSON.stringify(elem._id) == JSON.stringify(user_id))
     if(idLove.length > 0){
@@ -311,7 +303,7 @@ exports.checkSaved = async(req,res)=>{
         //     .status(401)
         //     .json({message:"Unauthorized"})
         // }
-        jwt.verify(token,process.env.JWT_SECRET)
+        // jwt.verify(token,process.env.JWT_SECRET)
         // const payload = jwt.decode(token,options={"verify_signature": false})
         const user_id = req.userId
         const savedPost = await userModel.findOne({_id: user_id}).select('saved')
