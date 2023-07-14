@@ -36,6 +36,7 @@ function GlobalContext({children}:PropsWithChildren) {
     })
     if(connection.status === 200){
       console.log('testConnection')
+      console.log(connection.data)
       setConnected(connection.data.connected)
       setFirstname(connection.data.firstname)
       setLastname(connection.data.lastname)
