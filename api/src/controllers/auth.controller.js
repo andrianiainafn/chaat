@@ -73,16 +73,19 @@ exports.register = async(req,res)=>{
         console.log(test)
         req.session.user = 'test'
         res
-        .cookie("user",token,{
-            domain:'chaat-afn.netlify.app',
-            expires: new Date(Date.now() +  2592000000),
-            httpOnly: true,
-            samSite:'none',
-            secure: true,
-            withcredentials:true
-        })
+        // .cookie("user",token,{
+        //     domain:'chaat-afn.netlify.app',
+        //     expires: new Date(Date.now() +  2592000000),
+        //     httpOnly: true,
+        //     samSite:'none',
+        //     secure: true,
+        //     withcredentials:true
+        // })
         .status(200)
-        .json({message:"Registers successfully"})
+        .json({
+            token,
+            message:"Registers successfully"
+        })
     }catch(e){
         console.error(e)
         res
@@ -172,12 +175,13 @@ exports.verifySession = async(req,res)=>{
 exports.verifyCode = async(req,res)=>{
     try{
         const {code} = req.body
-        const token = req.cookies.user
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
-        const codeFromDb = await logevent.findOne({author: payload.user_id})
+        // const token = req.cookies.user
+        // jwt.verify(token,process.env.JWT_SECRET)
+        // const payload = jwt.decode(token,options={"verify_signature": false})
+        const user_id = req.userId
+        const codeFromDb = await logevent.findOne({author: user_id})
         if(code === codeFromDb.code){
-            await logevent.deleteMany({author: payload.user_id})
+            await logevent.deleteMany({author: user_id})
             return res
             .status(200)
             .json({message: "Correcte code"})
