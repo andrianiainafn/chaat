@@ -154,7 +154,7 @@ exports.verifySession = async(req,res)=>{
         if(userInfo){
             return res
             .status(200)
-            .json({userid:payload.user_id,connected: true,profilepicture: userInfo.profilepicture,firstname: userInfo.firstname,lastname: userInfo.lastname})
+            .json({userid: user_id,connected: true,profilepicture: userInfo.profilepicture,firstname: userInfo.firstname,lastname: userInfo.lastname})
 
         }
         return res
