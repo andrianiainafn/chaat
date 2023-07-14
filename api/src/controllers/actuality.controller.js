@@ -3,12 +3,13 @@ const actualityModel = require('../models/actuality.model')
 
 exports.actuality = async(req,res)=>{
     try{
-     const token = req.cookies.user
-     if(!token){
-        return res
-        .status(403)
-        .json({message: 'Unauthorized'})
-     }        
+    //  const token = req.cookies.user
+    //  if(!token){
+    //     return res
+    //     .status(403)
+    //     .json({message: 'Unauthorized'})
+    //  }   
+    // const user_id = req.userId     
      const actuality = await actualityModel.find().populate({
         path:'actu',
         model:'post',
