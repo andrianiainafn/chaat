@@ -23,6 +23,7 @@ const Post = (props: Props) => {
   const queryClient = useQueryClient()
   const queryKey = ['checksave',props.post._id]
   const [hasnewReaction, setHasNewReaction] = useState<any>([])
+  const [test,setTest]= useState(false)
   const [cookie] = useCookies()
   const checkSaved = async()=>{
       const saved = await axios.get(`${BASEURL}/post/checkSaved`)
@@ -30,6 +31,7 @@ const Post = (props: Props) => {
   }
   const {isLoading,data} = useQuery(queryKey,checkSaved) 
   const HandleClickReaction = async(e: any)=>{
+    setTest(an=>!an)
     const postId = e!.currentTarget.getAttribute('data-postid')
     const response = await axios.put(`${BASEURL}/post/reaction/${postId}`,{
       headers:
@@ -125,10 +127,14 @@ const Post = (props: Props) => {
             <ModeCommentOutlinedIcon  sx={{color:"#efefef" ,marginRight:'0.4rem'}}/>
             <p className='text-[#efefef] text-xs '>{props.post.comments.length} comments</p>
           </div>
-          <div className=" cursor-pointer flex items-center justify-between ">
-            <ShareOutlinedIcon sx={{color:"#efefef" ,marginRight:'0.4rem'}}/>
-            <p className='text-[#efefef] text-xs '>7 shares</p>
-          </div>
+            {
+              test && (
+              <div className=" cursor-pointer flex items-center justify-between ">
+                <ShareOutlinedIcon sx={{color:"#efefef" ,marginRight:'0.4rem'}}/>
+                <p className='text-[#efefef] text-xs '>7 shares</p>
+              </div>
+              )
+            }
         </div>
     </div>
   )
