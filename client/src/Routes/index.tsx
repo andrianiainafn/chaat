@@ -11,15 +11,15 @@ function AppRouter(){
   const {connected} = useContext(AuthContext)
   const navigate = useNavigate()
   const location = useLocation()
-  useEffect(() => {
-      if( (!connected && (location.pathname !== "/auth/login" || (location.pathname !== "/auth/login")))  ){
-        navigate('/')
-      }
-    }, [connected])
+  // useEffect(() => {
+  //     if( (!connected && (location.pathname !== "/auth/login" || (location.pathname !== "/auth/login")))  ){
+  //       navigate('/')
+  //     }
+  //   }, [connected])
   return (
     <Routes>
       <>
-        <Route path="/" element={<Acceuille/>} />
+        <Route path="/" element={connected ? <UsersLayout/> : <Acceuille/>} />
         <Route path="auth/*" element={<AuthLayout/>}/></>
         <Route path="admin/*" element={<AdminLayout/>}/>
         {
