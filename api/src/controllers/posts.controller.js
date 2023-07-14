@@ -135,6 +135,8 @@ exports.reaction = async (req,res) =>{
   try{
     const user_id = req.userId
     const postId = req.params.post
+    console.log(user_id)
+    console.log(postId)
     const post = await postsModel.findOne({_id: postId}).select('love').populate({
         path:'love',
         select: '_id'
