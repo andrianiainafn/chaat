@@ -133,7 +133,15 @@ exports.modify = async function(req, res){
 
 exports.reaction = async (req,res) =>{
   try{
-    const user_id = req.userId
+    const token = req.cookies.user
+    if(!token){
+        return res
+        .status(401)    
+        .json({message:"Unauthorized"})
+    }
+    jwt.verify(token,process.env.JWT_SECRET)
+    const payload = jwt.decode(token,options={"verify_signature": false})
+    const user_id = payload.user_id
     const postId = req.params.post
     console.log(user_id)
     console.log(postId)
