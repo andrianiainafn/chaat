@@ -5,7 +5,7 @@ const authMiddelware = require('../middelwares/auth.middelware');
 route.post('/register', register);
 route.get('/verify', authMiddelware,verifySession)
 route.post('/login',login)
-route.post('/confirmation',verifyCode)
+route.post('/confirmation',authMiddelware,verifyCode)
 route.get('/logout',logout)
 
 module.exports = route;

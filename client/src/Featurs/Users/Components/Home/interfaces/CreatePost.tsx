@@ -5,6 +5,7 @@ import axios from 'axios'
 import {io} from 'socket.io-client'
 import { useQueryClient } from '@tanstack/react-query'
 import { BASEURL } from '../../../../../Components/BaseLink'
+import { useCookies } from 'react-cookie'
 
 type Props = {
     open: boolean,
@@ -13,6 +14,7 @@ type Props = {
 function CreatePost({open,HandleClick}:Props) {    
     const [arrivalPosts,setArrivalPosts] =useState<any>(null)
     const queryClient = useQueryClient()
+    const [cookie]= useCookies()
     const socket = useRef(io(BASEURL, {
         withCredentials: true,
         extraHeaders: {
@@ -45,7 +47,13 @@ function CreatePost({open,HandleClick}:Props) {
             formData.append('images',image)
         ))
         console.log(formData)
-        const createPost = await axios.post(`${BASEURL}/post/create`,formData)
+        const createPost = await axios.post(`${BASEURL}/post/create`,formData,{
+            headers:
+            {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${cookie.name}`
+            }
+        })
         if(createPost.status === 200){
             queryClient.invalidateQueries(['posts'])
             HandleClick()

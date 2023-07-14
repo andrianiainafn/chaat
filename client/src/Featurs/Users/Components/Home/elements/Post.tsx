@@ -12,6 +12,7 @@ import moment from 'moment';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import {useState,useEffect} from 'react'
 import { BASEURL } from '../../../../../Components/BaseLink';
+import { useCookies } from 'react-cookie';
 
 type Props = {
     post: any,
@@ -22,6 +23,7 @@ const Post = (props: Props) => {
   const queryClient = useQueryClient()
   const queryKey = ['checksave',props.post._id]
   const [hasnewReaction, setHasNewReaction] = useState<any>([])
+  const [cookie] = useCookies()
   const checkSaved = async()=>{
       const saved = await axios.get(`${BASEURL}/post/checkSaved`)
       return saved.data.message
@@ -50,7 +52,13 @@ const Post = (props: Props) => {
     }
     const HandleClickUnsaved = async(e:any)=>{
       const postId = e!.currentTarget.getAttribute('data-postid')
-      const sendSave = await axios.put(`${BASEURL}/post/unsave/${postId}`)
+      const sendSave = await axios.put(`${BASEURL}/post/unsave/${postId}`,{
+        headers:
+        {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${cookie.name}`
+        }
+      })
       if(sendSave.status === 200){
         queryClient.invalidateQueries(['checksave',postId])
         console.log('post saved successfuly')
