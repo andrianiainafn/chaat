@@ -116,16 +116,19 @@ exports.login = async(req,res)=>{
             user_id: userInfo._id
         },process.env.JWT_SECRET)
         res 
-        .cookie("user",token,{
-            domain:'chaat-afn.netlify.app',
-            expires: new Date(Date.now() +  2592000000),
-            httpOnly: true,
-            samSite:'none',
-            secure: true,
-            withcredentials:true
-        })
+        // .cookie("user",token,{
+        //     domain:'chaat-afn.netlify.app',
+        //     expires: new Date(Date.now() +  2592000000),
+        //     httpOnly: true,
+        //     samSite:'none',
+        //     secure: true,
+        //     withcredentials:true
+        // })
         .status(200)
-        .json({message:"login successfully!!"})
+        .json({
+            token,
+            message: "login successful"
+        })
 
     }catch(e){
         res

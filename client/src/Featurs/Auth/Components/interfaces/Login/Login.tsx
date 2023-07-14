@@ -36,11 +36,11 @@ function Login() {
       setErrorPassword(true)
     }
    if(information.password && information.email){
-     const login = await axios.post(`${BASEURL}/auth/login`,information,)
+     const login = await axios.post(`${BASEURL}/auth/login`,information)
      if(login.status === 200){
-        getConnection()
-        setCookie('name', "test", { path: '/' });
-        navigate('/users/') 
+       setCookie('name', "test", { path: '/' });
+       getConnection()
+        navigate('/users/')
      }
   }
   }
