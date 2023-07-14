@@ -28,6 +28,7 @@ function GlobalContext({children}:PropsWithChildren) {
   const [userId,setUserId] = useState('')
   const [cookie] = useCookies()
   const getConnection = async()=>{
+    console.log(cookie.name)
     const connection = await axios.get('https://chaat-df6x.onrender.com/auth/verify',{
       headers: {
        "Authorization": `Bearer ${cookie.test}`,
