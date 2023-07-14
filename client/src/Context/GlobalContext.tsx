@@ -30,9 +30,10 @@ function GlobalContext({children}:PropsWithChildren) {
   const getConnection = async()=>{
     console.log(cookie.name)
     const connection = await axios.get('https://chaat-df6x.onrender.com/auth/verify',{
-      headers: {
-       "Authorization": `Bearer ${cookie.test}`,
-        "Content-Type": "application/json"
+      headers:
+      {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookie.name}`
       }
     })
     if(connection.status === 200){

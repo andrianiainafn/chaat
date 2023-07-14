@@ -116,14 +116,14 @@ exports.login = async(req,res)=>{
             user_id: userInfo._id
         },process.env.JWT_SECRET)
         res 
-        .cookie("user",token,{
-            domain:'.onrender.com',
-            expires: new Date(Date.now() +  2592000000),
-            httpOnly: true,
-            samSite:'none',
-            secure: true,
-            withcredentials:true
-        })
+        // .cookie("user",token,{
+        //     domain:'.onrender.com',
+        //     expires: new Date(Date.now() +  2592000000),
+        //     httpOnly: true,
+        //     samSite:'none',
+        //     secure: true,
+        //     withcredentials:true
+        // })
         .status(200)
         .json({
             token,
