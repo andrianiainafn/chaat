@@ -40,12 +40,12 @@ const Post = (props: Props) => {
       }
     })
     if(response.status === 200){
+      setTest(an=>!an)
       console.log("Fa aona no tsy mety kosa eee")
         console.log(response.data,9696)
         setHasNewReaction((reaction:any)=>[...reaction,response.data])
         queryClient.invalidateQueries(['reaction',postId])
       }else{
-        setTest(an=>!an)
         console.log(response,666)
       }
     }
