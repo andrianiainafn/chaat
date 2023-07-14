@@ -12,9 +12,11 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import axios from 'axios';
 import AuthContext from '../../../../../Context/GlobalContext';
 import {BASEURL} from '../../../../../Components/BaseLink'
+import { useCookies } from 'react-cookie';
 
 function Login() {
   const {getConnection} = useContext(AuthContext)
+  const [cookies, setCookie] = useCookies(['name']);
   const [visibility,setVisibility] = useState(false)
   const [errorpassword,setErrorPassword] = useState(false)
   const [erroremail,setErrorEmail] = useState(false)
@@ -37,6 +39,7 @@ function Login() {
      const login = await axios.post(`${BASEURL}/auth/login`,information,)
      if(login.status === 200){
         getConnection()
+        setCookie('name', "test", { path: '/' });
         navigate('/users/') 
      }
   }
