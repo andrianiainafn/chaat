@@ -31,7 +31,6 @@ const Post = (props: Props) => {
   }
   const {isLoading,data} = useQuery(queryKey,checkSaved) 
   const HandleClickReaction = async(e: any)=>{
-    setTest(an=>!an)
     const postId = e!.currentTarget.getAttribute('data-postid')
     const response = await axios.put(`${BASEURL}/post/reaction/${postId}`,{
       headers:
@@ -46,6 +45,7 @@ const Post = (props: Props) => {
         setHasNewReaction((reaction:any)=>[...reaction,response.data])
         queryClient.invalidateQueries(['reaction',postId])
       }else{
+        setTest(an=>!an)
         console.log(response,666)
       }
     }
