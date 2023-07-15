@@ -41,17 +41,17 @@ app.use(express.json())
 dotenv.config();
 mongoose.set('strictQuery', true)
 //function to connect on mongodb
-async function main(){
-    await mongoose.connect(process.env.MONGO_URL)
-}
-try{
-    main()
-}catch(err){
-    console.log(err)
-}
-// main()
-// .then(()=>{console.log('DB connected successfully');})
-// .catch(err => console.log(err));
+// async function main(){
+//     await mongoose.connect(process.env.MONGO_URL)
+// }
+// try{
+//     main()
+// }catch(err){
+//     console.log(err)
+// }
+main()
+.then(()=>{console.log('DB connected successfully');})
+.catch(err => console.log(err));
 
 //authorization
 app.use(cors({
@@ -83,4 +83,7 @@ const io = socketio(socket,{cors:{
 postsocket(io)
 messagesocket(io)
 
+async function main(){
+    await mongoose.connect(process.env.MONGO_URL)
+}
 
