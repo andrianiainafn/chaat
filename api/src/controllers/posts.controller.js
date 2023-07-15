@@ -125,6 +125,7 @@ exports.modify = async function(req, res){
             .json({message: "This posts is not yours"})
         }
     }catch(e){
+        console.log("ity no olana: ",e)
         res
         .status(500)
         json({message: e.message})
@@ -164,7 +165,7 @@ exports.reaction = async (req, res) => {
     //         res.status(500).json({ message: 'Internal Server Error' });
     //     }
     //   }
-  
+        console.log("Fa ahoana eeee")
       res.status(200).json({ message: 'OK' });
     } catch (e) {
     //   console.log(e);
