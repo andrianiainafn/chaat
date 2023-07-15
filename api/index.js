@@ -40,15 +40,6 @@ app.use(express.json())
 //Connection avec La BD
 dotenv.config();
 mongoose.set('strictQuery', true)
-//function to connect on mongodb
-// async function main(){
-//     await mongoose.connect(process.env.MONGO_URL)
-// }
-// try{
-//     main()
-// }catch(err){
-//     console.log(err)
-// }
 main()
 .then(()=>{console.log('DB connected successfully');})
 .catch(err => console.log(err));
