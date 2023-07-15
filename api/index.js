@@ -76,6 +76,10 @@ messagesocket(io)
 
 
 //function to connect on mongodb
-async function main(){
-    await mongoose.connect(process.env.MONGO_URL)
+try{
+    async function main(){
+        await mongoose.connect(process.env.MONGO_URL)
+    }
+}catch(err){
+    console.log(err)
 }
