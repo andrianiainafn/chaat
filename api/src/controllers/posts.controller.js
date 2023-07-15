@@ -169,6 +169,7 @@ exports.reaction = async (req, res) => {
       res.status(200).json({ message: 'OK' });
     } catch (e) {
     //   console.log(e);
+    console.log("errrorrrrr")
       res.status(500).json({ message: 'Internal Server Error' });
     }
   };
