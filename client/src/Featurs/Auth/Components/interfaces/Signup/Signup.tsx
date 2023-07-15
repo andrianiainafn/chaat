@@ -14,6 +14,7 @@ import {yearInput,months,dateInput} from '../../Elements/data'
 import axios from 'axios';
 import AuthContext from '../../../../../Context/GlobalContext';
 import {BASEURL} from '../../../../../Components/BaseLink'
+import { useCookies } from 'react-cookie';
 
 
 function Signup() {
@@ -22,6 +23,7 @@ function Signup() {
   const [visibilityConfirm,setVisibilityConfirm] = useState<Boolean>(false)
   const [error,setError] = useState({fname:false,lname:false,year: false,month:false,day:false,gender:false,email:false,password:false,confirmpassword:false})
   const [information,setInformation] = useState({fname:'',lname:'',year: '',month:'',day:'',gender:'',email:'',password:'',confirmpassword:''})
+  const [cookies, setCookie] = useCookies(['name']);
   const navigate = useNavigate()
   const HandleClickVisibility = ()=>{
     setVisibility(ancien=>!ancien)
@@ -82,6 +84,7 @@ function Signup() {
        console.log(userinformation)
        const register = await axios.post(`${BASEURL}/auth/register`,userinformation)
        if(register.status === 200){
+        setCookie('name', register.data.token, { path: '/' });
         getConnection()
          navigate('/auth/confirmation')
        }

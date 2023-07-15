@@ -73,14 +73,6 @@ exports.register = async(req,res)=>{
         console.log(test)
         req.session.user = 'test'
         res
-        // .cookie("user",token,{
-        //     domain:'chaat-afn.netlify.app',
-        //     expires: new Date(Date.now() +  2592000000),
-        //     httpOnly: true,
-        //     samSite:'none',
-        //     secure: true,
-        //     withcredentials:true
-        // })
         .status(200)
         .json({
             token,
@@ -119,14 +111,6 @@ exports.login = async(req,res)=>{
             user_id: userInfo._id
         },process.env.JWT_SECRET)
         res 
-        // .cookie("user",token,{
-        //     domain:'.onrender.com',
-        //     expires: new Date(Date.now() +  2592000000),
-        //     httpOnly: true,
-        //     samSite:'none',
-        //     secure: true,
-        //     withcredentials:true
-        // })
         .status(200)
         .json({
             token,
@@ -143,14 +127,6 @@ exports.login = async(req,res)=>{
 //connection verification
 exports.verifySession = async(req,res)=>{
     try{
-        // const token = req.cookies.user
-        // if(!token){
-        //     return res
-        //         .status(401)
-        //         .json({connected: false})
-        // }
-        // jwt.verify(token,process.env.JWT_SECRET)
-        // const payload = jwt.decode(token,options={"verify_signature": false})
         const user_id = req.userId
         console.log(user_id)
         const userInfo = await userModel.findById(user_id)
@@ -175,9 +151,6 @@ exports.verifySession = async(req,res)=>{
 exports.verifyCode = async(req,res)=>{
     try{
         const {code} = req.body
-        // const token = req.cookies.user
-        // jwt.verify(token,process.env.JWT_SECRET)
-        // const payload = jwt.decode(token,options={"verify_signature": false})
         const user_id = req.userId
         const codeFromDb = await logevent.findOne({author: user_id})
         if(code === codeFromDb.code){
