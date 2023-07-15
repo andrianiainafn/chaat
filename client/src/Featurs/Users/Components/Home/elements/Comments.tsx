@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import AuthContext from '../../../../../Context/GlobalContext';
 import { BASEURL } from '../../../../../Components/BaseLink';
+import { useCookies } from 'react-cookie';
 
 type Props = {
     comment: any,
@@ -17,14 +18,27 @@ type Props = {
 const Comments = (props: Props) => {
   const {userId} = useContext(AuthContext)
   const queryKey = ['commentReaction',props.comment._id]
+  const [cookie] = useCookies()
   const queryClient = useQueryClient()
   const CheckReaction = async ( )=>{
-         const allreaction = await axios.get(`${BASEURL}/comment/checkreaction/${props.comment._id}`)
+         const allreaction = await axios.get(`${BASEURL}/comment/checkreaction/${props.comment._id}`,{
+          headers:
+          {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${cookie.name}`
+          }
+         })
          return allreaction.data.message
   }
   const {isLoading,data} = useQuery(queryKey,CheckReaction)
   const HandleClickReaction = async()=>{
-    const reaction = await axios.put(`${BASEURL}/comment/reaction/${props.comment._id}`)
+    const reaction = await axios.put(`${BASEURL}/comment/reaction/${props.comment._id}`,{
+      headers:
+      {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookie.name}`
+      }
+    })
     if(reaction.status === 200){
         queryClient.invalidateQueries(['commentReaction',props.comment._id])
         console.log("reaction successfully received")

@@ -5,18 +5,19 @@ const conversationModel = require('../models/conversation.model')
 
 exports.addFriends = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
+        // const token = req.cookies.user
+        // if(!token){
+        //     return res
+        //     .status(401)
+        //     .json({message:"Unauthorized"})
+        // }
+        // jwt.verify(token,process.env.JWT_SECRET)
+        // const payload = jwt.decode(token,options={"verify_signature": false})
+        const user_id = req.userId
         const friendid = req.params.request
         await userModel.updateOne(
             {_id:friendid},
-            {$push:{request: payload.user_id}}
+            {$push:{request: user_id}}
         )
         res
         .status(200)
@@ -31,18 +32,19 @@ exports.addFriends = async(req,res)=>{
 
 exports.cancelFriendRequest = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
+        // const token = req.cookies.user
+        // if(!token){
+        //     return res
+        //     .status(401)
+        //     .json({message:"Unauthorized"})
+        // }
+        // jwt.verify(token,process.env.JWT_SECRET)
+        // const payload = jwt.decode(token,options={"verify_signature": false})
+        const user_id = req.userId
         const requestId = req.params.request
         await userModel.updateOne(
             {_id: requestId},
-            {$pull: {request: payload.user_id}}
+            {$pull: {request: user_id}}
         )
         res
         .status(200)
@@ -55,19 +57,20 @@ exports.cancelFriendRequest = async(req,res)=>{
 }
 exports.AcceptFriendrequest = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
+        // const token = req.cookies.user
+        // if(!token){
+        //     return res
+        //     .status(401)
+        //     .json({message:"Unauthorized"})
+        // }
+        // jwt.verify(token,process.env.JWT_SECRET)
+        // const payload = jwt.decode(token,options={"verify_signature": false})
+        const user_id = req.userId
         const requestId = req.params.request
         console.log(requestId)
         const newConverstion = new conversationModel({
            author: requestId,
-           destination: payload.user_id      
+           destination: user_id      
         })
         Promise.all([
             userModel.updateOne(
@@ -76,7 +79,7 @@ exports.AcceptFriendrequest = async(req,res)=>{
             ),
             userModel.updateOne(
                 {_id: requestId},
-                {$push: {friends: payload.user_id}}
+                {$push: {friends: user_id}}
             ),
             userModel.updateOne(
                 {_id: payload.user_id},
@@ -102,17 +105,18 @@ exports.AcceptFriendrequest = async(req,res)=>{
 }
 exports.DeleteFriendRequest = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
+        // const token = req.cookies.user
+        // if(!token){
+        //     return res
+        //     .status(401)
+        //     .json({message:"Unauthorized"})
+        // }
+        // jwt.verify(token,process.env.JWT_SECRET)
+        // const payload = jwt.decode(token,options={"verify_signature": false})
+        const user_id = req.userId
         const requestId = req.params.request
         await userModel.updateOne(
-            {_id: payload.user_id},
+            {_id: user_id},
             {$pull: {request: requestId}}
         )
         res
@@ -126,14 +130,15 @@ exports.DeleteFriendRequest = async(req,res)=>{
 }
 exports.checkFriendRequest = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
+        // const token = req.cookies.user
+        // if(!token){
+        //     return res
+        //     .status(401)
+        //     .json({message:"Unauthorized"})
+        // }
+        // jwt.verify(token,process.env.JWT_SECRET)
+        // const payload = jwt.decode(token,options={"verify_signature": false})
+        // const user_id = req.userId
         const requestId = req.params.request
         console.log(requestId)
         const requestUserList = await userModel.findOne({_id: requestId}).select('request')
@@ -151,15 +156,16 @@ exports.checkFriendRequest = async(req,res)=>{
 exports.getAllFriends = async(req,res)=>{
     try{
 
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
-        const allfriends = await userModel.findOne({_id: payload.user_id}).select('friends').populate({
+        // const token = req.cookies.user
+        // if(!token){
+        //     return res
+        //     .status(401)
+        //     .json({message:"Unauthorized"})
+        // }
+        // jwt.verify(token,process.env.JWT_SECRET)
+        // const payload = jwt.decode(token,options={"verify_signature": false})
+        const user_id = req.userId
+        const allfriends = await userModel.findOne({_id: user_id}).select('friends').populate({
             path:'friends',
             model:'user',
             select:['firstname', 'lastname','profilepicture']
@@ -176,27 +182,28 @@ exports.getAllFriends = async(req,res)=>{
 
 exports.getAll = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
-        const request = await userModel.findOne({_id: payload.user_id}).select('request').populate({
+        // const token = req.cookies.user
+        // if(!token){
+        //     return res
+        //     .status(401)
+        //     .json({message:"Unauthorized"})
+        // }
+        // jwt.verify(token,process.env.JWT_SECRET)
+        // const payload = jwt.decode(token,options={"verify_signature": false})
+        const user_id = req.userId
+        const request = await userModel.findOne({_id: user_id}).select('request').populate({
             path:'request',
             model:'user',
             select:['firstname', 'lastname','profilepicture']
         })
         const usersuggestions = await userModel.find({
             $and:[
-                {_id:{$ne: payload.user_id}},
+                {_id:{$ne: user_id}},
                 {request:{$nin:[payload.user_id]}},
                 {friends:{$nin:[payload.user_id]}},
             ]
         })
-        const myfriends = await userModel.findOne({_id: payload.user_id}).select('friends').populate({
+        const myfriends = await userModel.findOne({_id: user_id}).select('friends').populate({
             path:'friends',
             model:'user',
             select:['firstname', 'lastname','profilepicture']
@@ -213,19 +220,20 @@ exports.getAll = async(req,res)=>{
 } 
 exports.getSuggestions = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
+        // const token = req.cookies.user
+        // if(!token){
+        //     return res
+        //     .status(401)
+        //     .json({message:"Unauthorized"})
+        // }
+        // jwt.verify(token,process.env.JWT_SECRET)
+        // const payload = jwt.decode(token,options={"verify_signature": false})
+        const user_id = req.userId
         const users = await userModel.find({
             $and:[
-                {_id:{$ne: payload.user_id}},
-                {request:{$nin:[payload.user_id]}},
-                {friends:{$nin:[payload.user_id]}},
+                {_id:{$ne: user_id}},
+                {request:{$nin:[user_id]}},
+                {friends:{$nin:[user_id]}},
             ]
         });
         res
@@ -239,15 +247,16 @@ exports.getSuggestions = async(req,res)=>{
 }
 exports.getFriendRequest = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
-        const friendRequest = await userModel.findOne({_id: payload.user_id}).select('request').populate(
+        // const token = req.cookies.user
+        // if(!token){
+        //     return res
+        //     .status(401)
+        //     .json({message:"Unauthorized"})
+        // }
+        // jwt.verify(token,process.env.JWT_SECRET)
+        // const payload = jwt.decode(token,options={"verify_signature": false})
+        const user_id = req.userId
+        const friendRequest = await userModel.findOne({_id: user_id}).select('request').populate(
             {
                 path:'request',
                 model:'user',

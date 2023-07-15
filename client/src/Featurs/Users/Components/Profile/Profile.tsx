@@ -6,15 +6,23 @@ import AuthContext from '../../../../Context/GlobalContext';
 import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { BASEURL } from '../../../../Components/BaseLink';
+import { useCookies } from 'react-cookie';
 
 const Profile = () => {
   const [images,setImages] = useState<File[]>([])
   const queryKey = ['userinfo']
   const {profilepicture,firstname,lastname,userId} = useContext(AuthContext)
+  const [cookie] = useCookies()
   const location = useLocation()
   const user_id = location.pathname.split('/')[4]
   const getUserInfo = async()=>{
-    const userinfo = await axios.get(`${BASEURL}/user/getUserInfo/${user_id}`)
+    const userinfo = await axios.get(`${BASEURL}/user/getUserInfo/${user_id}`,{
+      headers:
+      {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookie.name}`
+      }
+    })
     return userinfo.data.message
   }
   const queryClient = useQueryClient()

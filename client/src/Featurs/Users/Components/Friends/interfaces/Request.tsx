@@ -9,11 +9,19 @@ import { useQuery } from '@tanstack/react-query';
 import animation from '../../../../../assets/Images/animation.gif'
 import ConfirmOrRemove from '../elements/ConfirmOrRemove';
 import { BASEURL } from '../../../../../Components/BaseLink';
+import { useCookies } from 'react-cookie';
 
 const Request = () => {
   const queryKey = ['request']
+  const [cookie] = useCookies()
   const getRequest = async()=>{
-    const request = await axios.get(`${BASEURL}/friend/getFriendRequest`)
+    const request = await axios.get(`${BASEURL}/friend/getFriendRequest`,{
+        headers:
+        {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${cookie.name}`
+        }
+    })
     return request.data.message
   } 
   const {isLoading,data} = useQuery(queryKey,getRequest)

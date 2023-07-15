@@ -4,10 +4,10 @@ const {create,get, reaction, checkReaction
 const authMiddleware = require('../middelwares/auth.middelware');
         
 route.post('/create',authMiddleware, create)
-route.get('/getpost/:id',get)
+route.get('/getpost/:id',authMiddleware,get)
 route.put('/reaction/:post',authMiddleware,reaction)
-route.get('/checkReaction/:post',checkReaction)
-route.get('/getUserPost/:userid',getUserPost)
+route.get('/checkReaction/:post',authMiddleware,checkReaction)
+route.get('/getUserPost/:userid',authMiddleware,getUserPost)
 route.put('/save/:post',authMiddleware,savePost)
 route.put('/unsave/:post',authMiddleware,unsavePost)
 route.get('/getSavedPost',authMiddleware, getSavedPost)

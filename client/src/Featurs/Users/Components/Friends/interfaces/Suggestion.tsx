@@ -6,6 +6,7 @@ import axios from 'axios';
 import animation from '../../../../../assets/Images/animation.gif'
 import AddButton from '../elements/AddButton';
 import { BASEURL } from '../../../../../Components/BaseLink';
+import { useCookies } from 'react-cookie';
 
 const Suggestion = () => {
  const querykey = ['suggestion']
@@ -15,10 +16,17 @@ const Suggestion = () => {
  }
  const queryClient = useQueryClient()
  const {isLoading,data} = useQuery(querykey,getsuggestion)
+ const [cookie] = useCookies()
  const HandleClcikAdd = async(e:any)=>{
      const user = e!.currentTarget.getAttribute('data-userid')
      queryClient.invalidateQueries(['chkeckAddfriend',user])
-    const response = await axios.put(`${BASEURL}/friend/addFriends/${user}`)
+    const response = await axios.put(`${BASEURL}/friend/addFriends/${user}`,{
+        headers:
+        {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${cookie.name}`
+        }
+    })
     if(response.status === 200){
         console.log(response.data,9696)
       }else{
@@ -28,7 +36,13 @@ const Suggestion = () => {
     const HandleClcikCancel = async(e:any)=>{
         const user = e!.currentTarget.getAttribute('data-userid')
         queryClient.invalidateQueries(['chkeckAddfriend',user])
-        const response = await axios.put(`${BASEURL}/friend/addFriends/${user}`)
+        const response = await axios.put(`${BASEURL}/friend/addFriends/${user}`,{
+            headers:
+            {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${cookie.name}`
+            }
+        })
         if(response.status === 200){
             console.log(response.data,9696)
           }else{

@@ -4,17 +4,18 @@ const postsModel = require('../models/post.model')
 
 exports.add = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
+        // const token = req.cookies.user
+        // if(!token){
+        //     return res
+        //     .status(401)
+        //     .json({message:"Unauthorized"})
+        // }
+        // jwt.verify(token,process.env.JWT_SECRET)
+        // const payload = jwt.decode(token,options={"verify_signature": false})
+        const user_id = req.userId
         const {description,post} = req.body
         const newComment = new commentModel({
-            author: payload.user_id,
+            author: user_id,
             description,
             post
         })
@@ -37,14 +38,14 @@ exports.add = async(req,res)=>{
 exports.modify = async(req,res)=>{
     try{
         const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
-
+        // if(!token){
+        //     return res
+        //     .status(401)
+        //     .json({message:"Unauthorized"})
+        // }
+        // jwt.verify(token,process.env.JWT_SECRET)
+        // const payload = jwt.decode(token,options={"verify_signature": false})
+        res.send()
     }catch(e){
         res
         .status(500)
@@ -54,14 +55,15 @@ exports.modify = async(req,res)=>{
 
 exports.remove = async(req,res)=>{
         try{
-            const token = req.cookies.user
-            if(!token){
-                return res
-                .status(401)
-                .json({message:"Unauthorized"})
-            }
-            jwt.verify(token,process.env.JWT_SECRET)
-            const payload = jwt.decode(token,options={"verify_signature": false})
+            // const token = req.cookies.user
+            // if(!token){
+            //     return res
+            //     .status(401)
+            //     .json({message:"Unauthorized"})
+            // }
+            // jwt.verify(token,process.env.JWT_SECRET)
+            // const payload = jwt.decode(token,options={"verify_signature": false})
+
             const comentId = req.params.comment
             const deletedComments = await commentModel.deleteOne({_id:comentId})
             if(deletedComments.deletedCount === 1){
@@ -81,12 +83,12 @@ exports.remove = async(req,res)=>{
 
 exports.get = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
+        // const token = req.cookies.user
+        // if(!token){
+        //     return res
+        //     .status(401)
+        //     .json({message:"Unauthorized"})
+        // }
         const postId = req.params.post
         const allComments = await postsModel.findOne({_id: postId}).select('comments').populate({
             path:'comments',
@@ -108,14 +110,15 @@ exports.get = async(req,res)=>{
 }
 exports.reaction = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
+        // const token = req.cookies.user
+        // if(!token){
+        //     return res
+        //     .status(401)
+        //     .json({message:"Unauthorized"})
+        // }
+        // jwt.verify(token,process.env.JWT_SECRET)
+        // const payload = jwt.decode(token,options={"verify_signature": false})
+        const user_id = req.userId
         const commentId = req.params.comment
         const comments =  await commentModel.findOne({_id: commentId}).select('love').populate({
             path:'love',
@@ -126,12 +129,12 @@ exports.reaction = async(req,res)=>{
         if(idLove.length > 0){
             await commentModel.updateOne(
                 {_id: commentId},
-                {$pull: {love: payload.user_id }}
+                {$pull: {love: user_id }}
             )
         }else{
             await commentModel.updateOne(
                 {_id: commentId},
-                {$push: {love: payload.user_id }}
+                {$push: {love: user_id }}
             )
         }
         res
@@ -146,14 +149,14 @@ exports.reaction = async(req,res)=>{
 }
 exports.checkreaction = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
+        // const token = req.cookies.user
+        // if(!token){
+        //     return res
+        //     .status(401)
+        //     .json({message:"Unauthorized"})
+        // }
+        // jwt.verify(token,process.env.JWT_SECRET)
+        // const payload = jwt.decode(token,options={"verify_signature": false})
         const commentId = req.params['comment']
         const post = await commentModel.findOne({_id: commentId}).select('love').populate({
             path:'love',

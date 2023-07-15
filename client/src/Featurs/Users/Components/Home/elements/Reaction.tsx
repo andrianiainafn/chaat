@@ -5,15 +5,23 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import AuthContext from '../../../../../Context/GlobalContext';
 import { BASEURL } from '../../../../../Components/BaseLink';
+import { useCookies } from 'react-cookie';
 type Props = {
     id: string
 }
 
 const Reaction = ({id}: Props) => {
     const{userId} = useContext(AuthContext)
+    const [cookie] = useCookies()
     const queryKey = ['reaction',id]
     const check = async()=>{
-        const react = await axios.get(`${BASEURL}/post/checkReaction/${id}`)
+        const react = await axios.get(`${BASEURL}/post/checkReaction/${id}`,{
+            headers:
+            {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${cookie.name}`
+            }
+        })
         return react.data.message
     }
     const {isLoading,data}= useQuery(queryKey,check)

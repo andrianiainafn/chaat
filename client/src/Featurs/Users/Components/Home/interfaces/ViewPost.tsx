@@ -18,6 +18,7 @@ type Props = {
 const ViewPost = ({open,HandleClickPost}: Props) => {
   const {idPost} = useContext(ContextOfPost)
   const queryKey = ['post']
+  const [cookie] = useCookies()
   const commentqueryKey = ['comment',idPost]
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const HandleClickRepondre = ()=>{
@@ -26,11 +27,23 @@ const ViewPost = ({open,HandleClickPost}: Props) => {
     }
   }
   const getPost = async()=>{
-    const pub = await axios.get(`${BASEURL}/post/getpost/${idPost}`)
+    const pub = await axios.get(`${BASEURL}/post/getpost/${idPost}`,{
+      headers:
+      {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookie.name}`
+      }
+    })
     return pub
   }
   const getComment = async()=>{
-    const comment = await axios.get(`${BASEURL}/comment/get/${idPost}`)
+    const comment = await axios.get(`${BASEURL}/comment/get/${idPost}`,{
+      headers:
+      {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookie.name}`
+      }
+    })
     return comment.data.comments
   }
   const {isLoading :commentLoading, data :comments} = useQuery(commentqueryKey,getComment)

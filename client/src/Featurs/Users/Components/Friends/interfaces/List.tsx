@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import animation from '../../../../../assets/Images/animation.gif'
 import { BASEURL } from '../../../../../Components/BaseLink';
+import { useCookies } from 'react-cookie';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -40,8 +41,15 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   }));
 const List = () => {
  const queryKey = ['friend']
+ const [cookie] = useCookies()
  const getMyFriends = async() =>{
-   const friends = await axios.get(`${BASEURL}/friend/getAllFriends`)
+   const friends = await axios.get(`${BASEURL}/friend/getAllFriends`,{
+    headers:
+    {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${cookie.name}`
+    }
+   })
    return friends.data.message
  }
  const {isLoading,data} = useQuery(queryKey,getMyFriends)
