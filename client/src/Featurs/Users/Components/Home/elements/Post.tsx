@@ -32,7 +32,7 @@ const Post = (props: Props) => {
   const {isLoading,data} = useQuery(queryKey,checkSaved) 
   const HandleClickReaction = async(e: any)=>{
     const postId = e!.currentTarget.getAttribute('data-postid')
-    const response = await axios.put(`${BASEURL}/post/reaction/${postId}`,{
+    const response = await axios.post(`${BASEURL}/post/reaction/${postId}`,{
       headers:
       {
         'Authorization': `Bearer ${cookie.name}`,
