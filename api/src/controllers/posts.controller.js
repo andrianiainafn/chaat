@@ -134,37 +134,37 @@ exports.modify = async function(req, res){
 
 exports.reaction = async (req, res) => {
     try {
-    //   const user_id = req.userId;
-    //   const postId = req.params.post;
-    //   const post = await postsModel
-    //     .findOne({ _id: postId })
-    //     .select('love')
-    //     .populate({
-    //       path: 'love',
-    //       select: '_id',
-    //     });
+      const user_id = req.userId;
+      const postId = req.params.post;
+      const post = await postsModel
+        .findOne({ _id: postId })
+        .select('love')
+        .populate({
+          path: 'love',
+          select: '_id',
+        });
   
-    //   const love = post.love;
-    //   console.log(postId);
-    //   const idLove = love.filter(
-    //     (elem) => JSON.stringify(elem._id) == JSON.stringify(user_id)
-    //   );
+      const love = post.love;
+      console.log(postId);
+      const idLove = love.filter(
+        (elem) => JSON.stringify(elem._id) == JSON.stringify(user_id)
+      );
   
-    //   if (idLove.length > 0) {
-    //     try {
-    //         await postsModel.updateOne({ _id: postId }, { $pull: { love: user_id } });
-    //     }catch(e){
-    //         console.log(e);
-    //   res.status(500).json({ message: 'Internal Server Error' });
-    //     }
-    //   } else {
-    //       try{
-    //         await postsModel.updateOne({ _id: postId }, { $push: { love: user_id } });
-    //     }catch(e){
-    //         console.log(e);
-    //         res.status(500).json({ message: 'Internal Server Error' });
-    //     }
-    //   }
+      if (idLove.length > 0) {
+        try {
+            await postsModel.updateOne({ _id: postId }, { $pull: { love: user_id } });
+        }catch(e){
+            console.log(e);
+      res.status(500).json({ message: 'Internal Server Error' });
+        }
+      } else {
+          try{
+            await postsModel.updateOne({ _id: postId }, { $push: { love: user_id } });
+        }catch(e){
+            console.log(e);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+      }
         console.log("Fa ahoana eeee")
       res.status(200).json({ message: 'OK' });
     } catch (e) {
