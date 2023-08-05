@@ -35,8 +35,8 @@ const Post = (props: Props) => {
     const response = await axios.put(`${BASEURL}/post/reaction/${postId}`,{
       headers:
       {
+        'Authorization': `Bearer ${cookie.name}`,
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${cookie.name}`
       }
     })
     if(response.status === 200){
