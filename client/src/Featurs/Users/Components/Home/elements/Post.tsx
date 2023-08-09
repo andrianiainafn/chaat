@@ -31,8 +31,8 @@ const Post = (props: Props) => {
   }
   const {isLoading,data} = useQuery(queryKey,checkSaved) 
   const HandleClickReaction = async(e: any)=>{
-    console.log("mandeh ve lo")
     const postId = e!.currentTarget.getAttribute('data-postid')
+    console.log(postId)
     const response = await axios.post(`${BASEURL}/post/reaction/${postId}`,{
       headers:
       {
