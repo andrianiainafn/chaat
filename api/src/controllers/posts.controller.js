@@ -149,24 +149,29 @@ exports.reaction = async (req, res) => {
       const idLove = love.filter(
         (elem) => JSON.stringify(elem._id) == JSON.stringify(user_id)
       );
-  
       if (idLove.length > 0) {
         try {
             await postsModel.updateOne({ _id: postId }, { $pull: { love: user_id } });
         }catch(e){
             console.log(e);
-      res.status(500).json({ message: 'Internal Server Error' });
+            res
+            .status(500)
+            .json({ message: 'Internal Server Error' });
         }
       } else {
           try{
             await postsModel.updateOne({ _id: postId }, { $push: { love: user_id } });
         }catch(e){
             console.log(e);
-            res.status(500).json({ message: 'Internal Server Error' });
+            res
+            .status(500)
+            .json({ message: 'Internal Server Error' });
         }
       }
         console.log("Fa ahoana eeee")
-      res.status(200).json({ message: 'OK' });
+      res
+      .status(200)
+      .json({ message: 'OK' });
     } catch (e) {
     //   console.log(e);
     console.log("errrorrrrr")
