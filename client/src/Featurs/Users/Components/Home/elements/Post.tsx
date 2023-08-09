@@ -46,8 +46,9 @@ const Post = (props: Props) => {
       setHasNewReaction((reaction:any)=>[...reaction,response.data])
       queryClient.invalidateQueries(['reaction',postId])
     }else{
+      console.log('Quelle est l erreur ')
       setTest(an=>!an)
-      console.log(response,666)
+      
       }
     }
     const HandleClickSave = async(e: any) => {
