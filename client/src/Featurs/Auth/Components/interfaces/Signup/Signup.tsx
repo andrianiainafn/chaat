@@ -301,7 +301,7 @@ function Signup() {
               </div>
             </div>
           <button disabled={sent} onClick={HandleClickCreate}  className=" cursor-pointer flex items-center justify-center bg-[#4480ce] hover:bg-transparent hover:border hover:border-[#4480ce] hover:text-[#4480ce]  rounded-full h-[6vh] ">
-             <h3 className='text-[#efefef]'>Create account</h3>
+             <h3 className='text-[#efefef] hover:text-[#4480ce]'>Create account</h3>
           </button>
         </div>
          <div className="w-[80%] md:w-[75%] mx-auto flex flex-col space-y-3">
