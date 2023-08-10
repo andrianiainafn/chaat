@@ -25,6 +25,7 @@ function Signup() {
   const [information,setInformation] = useState({fname:'',lname:'',year: '',month:'',day:'',gender:'',email:'',password:'',confirmpassword:''})
   const [cookies, setCookie] = useCookies(['name']);
   const navigate = useNavigate()
+  const [sent,setSent] = useState(false)
   const HandleClickVisibility = ()=>{
     setVisibility(ancien=>!ancien)
   }
@@ -73,6 +74,7 @@ function Signup() {
     if(information.lname && information.email  && information.gender  && information.day 
       && information.month && information.year && information.confirmpassword 
       && information.password && information.fname){
+        setSent(true)
       const userinformation = {
         lname: information.lname,
         fname: information.fname,
@@ -298,9 +300,9 @@ function Signup() {
                 }
               </div>
             </div>
-          <div onClick={HandleClickCreate} className=" cursor-pointer flex items-center justify-center bg-[#4480ce]  rounded-full h-[6vh] ">
+          <button disabled={sent} onClick={HandleClickCreate}  className=" cursor-pointer flex items-center justify-center bg-[#4480ce] hover:bg-transparent hover:border hover:border-[#4480ce] hover:text-[#4480ce]  rounded-full h-[6vh] ">
              <h3 className='text-[#efefef]'>Create account</h3>
-          </div>
+          </button>
         </div>
          <div className="w-[80%] md:w-[75%] mx-auto flex flex-col space-y-3">
           <div className='bg-[#2c3a4a] h-[1px] w-[80%] flex justify-center items-center mx-auto ' />

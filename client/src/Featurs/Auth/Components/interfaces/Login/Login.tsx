@@ -20,6 +20,7 @@ function Login() {
   const [visibility,setVisibility] = useState(false)
   const [errorpassword,setErrorPassword] = useState(false)
   const [erroremail,setErrorEmail] = useState(false)
+  const [sent,setSent] = useState(false)
   const navigate = useNavigate()
   const [information,setInformation] = useState({
     email:'',
@@ -36,6 +37,7 @@ function Login() {
       setErrorPassword(true)
     }
    if(information.password && information.email){
+    setSent(true)
      const login = await axios.post(`${BASEURL}/auth/login`,information)
      if(login.status === 200){
        setCookie('name', login.data.token, { path: '/' });
@@ -104,9 +106,9 @@ function Login() {
                 <h6 className='text-[#4480ce] cursor-pointer'> Forgot password ?</h6>
             </div>
           </div>
-          <button onClick={HandleClickLogin} disabled={erroremail || errorpassword ? true : false}
+          <button onClick={HandleClickLogin} disabled={sent  || erroremail || errorpassword ? true : false}
           className='text-[#efefef] border-none outline-none cursor-pointer flex items-center justify-center
-           bg-[#4480ce]  rounded-full h-[6vh]'>
+           bg-[#4480ce]  rounded-full h-[6vh] hover:border hover:border-[#4480ce] hover:text-[#4480ce] hover:bg-transparent'>
               Log In
           </button>
         </div>
