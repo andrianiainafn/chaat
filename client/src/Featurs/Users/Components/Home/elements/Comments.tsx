@@ -32,7 +32,7 @@ const Comments = (props: Props) => {
   }
   const {isLoading,data} = useQuery(queryKey,CheckReaction)
   const HandleClickReaction = async()=>{
-    const reaction = await axios.put(`${BASEURL}/comment/reaction/${props.comment._id}`,{
+    const reaction = await axios.put(`${BASEURL}/comment/reaction/${props.comment._id}`,{comment:props.comment._id},{
       headers:
       {
         'Content-Type': 'application/json',
