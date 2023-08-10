@@ -6,15 +6,23 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { BASEURL } from '../../../../../Components/BaseLink';
+import { useCookies } from 'react-cookie';
 
 function Confirmation() {
   const [code,setCode] = useState<Number>()
   const [error,setError] = useState<Boolean>(false)
+  const [cookie] = useCookies()
   const navigate = useNavigate()
   const HandleChange = async(e:ChangeEvent<HTMLInputElement>)=>{
   if(e.target.value.length === 6){
     const code = parseInt(e.target.value);
-    const confirmation = await axios.post(`${BASEURL}/auth/confirmation`,{code})
+    const confirmation = await axios.post(`${BASEURL}/auth/confirmation`,{code},{
+      headers:
+      {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookie.name}`
+      }
+    })
     if(confirmation.status === 200){
       navigate('/users/')
     }else{

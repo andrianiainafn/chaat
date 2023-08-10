@@ -152,6 +152,8 @@ exports.verifyCode = async(req,res)=>{
     try{
         const {code} = req.body
         const user_id = req.userId
+        console.log("ito ilay code eee")
+        console.log(code,user_id)
         const codeFromDb = await logevent.findOne({author: user_id})
         if(code === codeFromDb.code){
             await logevent.deleteMany({author: user_id})
