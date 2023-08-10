@@ -26,7 +26,13 @@ const Post = (props: Props) => {
   const [test,setTest]= useState(false)
   const [cookie] = useCookies()
   const checkSaved = async()=>{
-      const saved = await axios.get(`${BASEURL}/post/checkSaved`)
+      const saved = await axios.get(`${BASEURL}/post/checkSaved`,{
+        headers:
+        {
+          'Authorization': `Bearer ${cookie.name}`,
+          'Content-Type': 'application/json',
+        }
+      })
       return saved.data.message
   }
   const {isLoading,data} = useQuery(queryKey,checkSaved) 
