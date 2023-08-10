@@ -107,8 +107,8 @@ function Login() {
             </div>
           </div>
           <button onClick={HandleClickLogin} disabled={sent  || erroremail || errorpassword ? true : false}
-          className='text-[#efefef] border-none outline-none cursor-pointer flex items-center justify-center
-           bg-[#4480ce]  rounded-full h-[6vh] hover:border hover:border-[#4480ce] hover:text-[#4480ce] hover:bg-transparent'>
+          className='text-[#efefef]  outline-none cursor-pointer flex items-center justify-center
+           bg-[#4480ce]  rounded-full h-[6vh] border border-[#4480ce] hover:text-[#4480ce] hover:bg-transparent'>
               Log In
           </button>
         </div>
