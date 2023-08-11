@@ -21,6 +21,7 @@ function Login() {
   const [errorpassword,setErrorPassword] = useState(false)
   const [erroremail,setErrorEmail] = useState(false)
   const [sent,setSent] = useState(false)
+  const [incorrect,setIncorrect] = useState(false)
   const navigate = useNavigate()
   const [information,setInformation] = useState({
     email:'',
@@ -43,6 +44,8 @@ function Login() {
        setCookie('name', login.data.token, { path: '/' });
        getConnection()
         navigate('/users/')
+     }else if(login.status === 401){
+        setIncorrect(true)
      }
   }
   }
@@ -106,6 +109,14 @@ function Login() {
                 <h6 className='text-[#4480ce] cursor-pointer'> Forgot password ?</h6>
             </div>
           </div>
+          {
+                incorrect && (
+                  <div className="flex justify-between items-center text-red-500 text-sm">
+                    <span className=' '> Incorrect password or email !!</span>
+                    <InfoOutlinedIcon sx={{height:'3vh'}}/>
+                  </div>
+                )
+            }
           <button onClick={HandleClickLogin} disabled={sent  || erroremail || errorpassword ? true : false}
           className='text-[#efefef]  outline-none cursor-pointer flex items-center justify-center
            bg-[#4480ce]  rounded-full h-[6vh] border border-[#4480ce] hover:text-[#4480ce] hover:bg-transparent'>

@@ -12,6 +12,7 @@ function Confirmation() {
   const [code,setCode] = useState<Number>()
   const [error,setError] = useState<Boolean>(false)
   const [cookie] = useCookies()
+  const [incorrect,setIncorrect] = useState<Boolean>(false)
   const navigate = useNavigate()
   const HandleChange = async(e:ChangeEvent<HTMLInputElement>)=>{
   if(e.target.value.length === 6){
@@ -25,8 +26,8 @@ function Confirmation() {
     })
     if(confirmation.status === 200){
       navigate('/users/')
-    }else{
-      setError(true)
+    }else if(confirmation.status === 401){
+        setIncorrect(true)
     }
   }
   }
@@ -44,7 +45,7 @@ function Confirmation() {
         <div className="flex flex-col items-center space-y-8">
           <div className="w-[80%] flex flex-col space-y-2">
               {
-                error && (
+                incorrect && (
                   <div className="flex justify-between items-center text-red-500 text-sm">
                     <span className=' '>This is required !!</span>
                     <InfoOutlinedIcon sx={{height:'3vh'}}/>
