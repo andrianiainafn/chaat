@@ -22,7 +22,7 @@ const AuthPage = () => {
             <div className="md:w-[40%] w-full">
                 <Outlet/>
             </div>
-            <div className="hidden md:flex w-[60%] bg-[#17202a] h-screen p-16">
+            <div className="hidden md:flex w-[60%] bg-[#17202a] h-screen px-28 py-20">
                 <img src={slides[current]} className='w-[80%] h-[80vh]' alt='an pictures of the interface of chaat when you are in' />
             </div>
         </div>
