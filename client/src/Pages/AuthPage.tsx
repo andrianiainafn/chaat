@@ -23,7 +23,7 @@ const AuthPage = () => {
                 <Outlet/>
             </div>
             <div className="hidden md:flex w-[60%] bg-[#17202a] h-screen md:justify-center md:items-center">
-                <img src={slides[current]} className='w-[80%] h-[80vh]' alt='an pictures of the interface of chaat when you are in' />
+                <img src={slides[current]} className='w-[80%] h-[80vh] rounded-lg' alt='an pictures of the interface of chaat when you are in' />
             </div>
         </div>
     </div>
