@@ -128,18 +128,16 @@ exports.deleteconversation = async(req,res)=>{
 
 exports.getDefaultConversation = async(req,res)=>{
     try{
-        // const user_id = req.userId
-        // const getDefaultConversation = await messageModel.find({
-        //     $or:[
-        //         {author: user_id},
-        //         {destination: user_id}
-        //     ]
-        // }).sort({date:-1}).limit(1)
-
-        const conv = []
+        const user_id = req.userId
+        const getDefaultConversation = await messageModel.find({
+            $or:[
+                {author: user_id},
+                {destination: user_id}
+            ]
+        }).sort({date:-1}).limit(1)
         res
         .status(200)
-        .json({message:conv})
+        .json({message:getDefaultConversation[0].conversation})
     }catch(e){
         console.log(e)
         res
