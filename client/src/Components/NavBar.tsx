@@ -55,6 +55,11 @@ const NavBar = () => {
   const queryKey = ['getConversationLink']
   const getConversationLink = async() =>{
     const conversationLink = await axios.get(`${BASEURL}/conversation/getDefaultConversation`)
+    if(conversationLink.status === 200){
+      console.log("mandeh ve sa aona")
+    }else{
+      console.log("misy olana lesy ah ")
+    }
     return conversationLink.data.message
   }
   const {isLoading,data} = useQuery(queryKey,getConversationLink)
@@ -138,7 +143,7 @@ const NavBar = () => {
                   anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                   variant="dot"
                 >
-                  <Avatar src={Yor}   />
+                  <Avatar src={`${BASEURL}/${profilepicture}`}   />
                 </StyledBadge>
                 <ExpandMoreOutlinedIcon sx={{color: '#efefef'}} />
             </div>

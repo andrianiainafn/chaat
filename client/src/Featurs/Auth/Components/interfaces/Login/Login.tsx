@@ -44,6 +44,7 @@ function Login() {
        setCookie('name', login.data.token, { path: '/' });
        getConnection()
         navigate('/users/')
+        getConnection()
      }else if(login.status === 401){
         setIncorrect(true)
      }
