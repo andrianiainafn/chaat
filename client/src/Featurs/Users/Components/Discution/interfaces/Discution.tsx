@@ -11,10 +11,12 @@ import AuthContext from '../../../../../Context/GlobalContext';
 import Message from '../Element/Message';
 import {io} from 'socket.io-client'
 import { BASEURL } from '../../../../../Components/BaseLink';
+import { useCookies } from 'react-cookie';
 
 type Props = {}
 
 const Discution = (props: Props) => {
+  const [cookie] = useCookies()
   const [showDiscu,setShowDiscu] = useState<boolean>(true)
   const [destination,setDestination] = useState<string>()
   const [message,setMessage] = useState<string>('')
@@ -35,16 +37,34 @@ const Discution = (props: Props) => {
   
   
   const getConversationInfo = async()=>{
-    const info = await axios.get(`${BASEURL}/conversation/getconversationinformation/${idConversation}`)
+    const info = await axios.get(`${BASEURL}/conversation/getconversationinformation/${idConversation}`,{
+      headers:
+      {
+        'Authorization': `Bearer ${cookie.name}`,
+        'Content-Type': 'application/json',
+      }
+    })
     return info.data.message
   }
   const getMessage = async()=>{
-    const  messages = await axios.get(`${BASEURL}/message/get/${idConversation}`)
+    const  messages = await axios.get(`${BASEURL}/message/get/${idConversation}`,{
+      headers:
+      {
+        'Authorization': `Bearer ${cookie.name}`,
+        'Content-Type': 'application/json',
+      }
+    })
     return messages.data.message
   }
   const queryDiscu=['discutions']
   const getdiscution = async ()=>{
-    const discution  = await axios.get(`${BASEURL}/message/discu`)
+    const discution  = await axios.get(`${BASEURL}/message/discu`,{
+      headers:
+      {
+        'Authorization': `Bearer ${cookie.name}`,
+        'Content-Type': 'application/json',
+      }
+    })
     return discution.data.message
   }
 
@@ -79,7 +99,13 @@ const Discution = (props: Props) => {
       receive_id: destination,
       text: message
     })
-     const send = await axios.post(`${BASEURL}/message/add/${idConversation}`,info)
+     const send = await axios.post(`${BASEURL}/message/add/${idConversation}`,info,{
+      headers:
+      {
+        'Authorization': `Bearer ${cookie.name}`,
+        'Content-Type': 'application/json',
+      }
+     })
      if(send.status === 200) { 
       queryClient.invalidateQueries(['message',idConversation])
       console.log('message sent successfully')

@@ -4,13 +4,21 @@ import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../Element/Sidebar'
 import { BASEURL } from '../../../../../Components/BaseLink'
+import { useCookies } from 'react-cookie'
 
 type Props = {}
   
 const Principale = (props: Props) => {
   const queryKey = ['discu']
+  const [cookie] = useCookies()
   const getMyFriends = async() =>{
-    const friends = await axios.get(`${BASEURL}/conversation/getconversation`)
+    const friends = await axios.get(`${BASEURL}/conversation/getconversation`,{
+      headers:
+      {
+        'Authorization': `Bearer ${cookie.name}`,
+        'Content-Type': 'application/json',
+      }
+    })
     return friends.data.message
   }
   const {isLoading,data} = useQuery(queryKey,getMyFriends)
