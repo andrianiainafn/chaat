@@ -73,7 +73,7 @@ const NavBar = () => {
     setShowResponsiveMenu(ancien=>!ancien)
   }
   useEffect(()=>{
-    !isLoading && console.log(data)
+    !isLoading && console.log("ireto ireo conversation azo ",data)
   },[isLoading])
   return (
     <>
