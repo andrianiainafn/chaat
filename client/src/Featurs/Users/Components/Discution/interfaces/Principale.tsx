@@ -36,7 +36,7 @@ const Principale = (props: Props) => {
           isLoading ? (
             <></>
           ):(
-            <Sidebar discuList={data}/>
+            <Sidebar discuList={[]}/>
           )
         }
         <div className="  fixed md:mx-0 overflow-y-scroll scrollbar-hide md:h-[85vh] h-[75vh] w-full md:w-[40vw] md:right-16 rounded-lg   bg-[#17202a] border-[1px] border-[#2c3a4a]">
