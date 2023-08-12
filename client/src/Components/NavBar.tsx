@@ -19,6 +19,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { BASEURL } from './BaseLink';
+import { useCookies } from 'react-cookie';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -53,13 +54,15 @@ const NavBar = () => {
   const [showMenu,setShowMenu] = useState<boolean>(false)
   const [showResponsiveMenu,setShowResponsiveMenu] = useState<boolean>(false)
   const queryKey = ['getConversationLink']
+  const [cookie] = useCookies()
   const getConversationLink = async() =>{
-    const conversationLink = await axios.get(`${BASEURL}/conversation/getDefaultConversation`)
-    if(conversationLink.status === 200){
-      console.log("mandeh ve sa aona")
-    }else{
-      console.log("misy olana lesy ah ")
-    }
+    const conversationLink = await axios.get(`${BASEURL}/conversation/getDefaultConversation`,{
+      headers:
+      {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookie.name}`
+      }
+    })
     return conversationLink.data.message
   }
   const {isLoading,data} = useQuery(queryKey,getConversationLink)
@@ -109,14 +112,16 @@ const NavBar = () => {
                 </NavLink>
             </div>
             <div className="cursor-pointer ">
-
+                {
+                    isLoading ? (<></>)
+                  :(
                     <NavLink className='text-[#efefef]' to={`/users/messages/${data}`}>              
                       <Badge badgeContent={20} color="error">
                         <MarkChatUnreadOutlinedIcon />
                       </Badge>
                     </NavLink>
                   )
-
+                }
             </div>
             <div className="cursor-pointer">
               <NavLink className='text-[#efefef]' to='/users/notifications'>
