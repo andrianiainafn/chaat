@@ -29,7 +29,7 @@ exports.getconversation = async(req,res)=>{
     }catch(e){
         res
         .status(500)
-        .json({message:'Internal Server Error',e})
+        .json({message:e.message})
     }
 }
 exports.getconversationinformation = async(req,res)=>{
