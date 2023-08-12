@@ -20,7 +20,7 @@ const Principale = (props: Props) => {
       }
     })
     if(friends.status === 200){
-      console.log("ils sont la ")
+      console.log("tonga ry lerony")
     }else{
       console.log(friends)
     }
