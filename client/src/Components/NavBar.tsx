@@ -109,16 +109,14 @@ const NavBar = () => {
                 </NavLink>
             </div>
             <div className="cursor-pointer ">
-                {
-                    isLoading ? (<></>)
-                  :(
+
                     <NavLink className='text-[#efefef]' to={`/users/messages/${data}`}>              
                       <Badge badgeContent={20} color="error">
                         <MarkChatUnreadOutlinedIcon />
                       </Badge>
                     </NavLink>
                   )
-                }
+
             </div>
             <div className="cursor-pointer">
               <NavLink className='text-[#efefef]' to='/users/notifications'>
