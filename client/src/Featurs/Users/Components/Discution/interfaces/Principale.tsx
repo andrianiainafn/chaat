@@ -19,6 +19,11 @@ const Principale = (props: Props) => {
         'Content-Type': 'application/json',
       }
     })
+    if(friends.status === 200){
+      console.log("ils sont la ")
+    }else{
+      console.log(friends)
+    }
     return friends.data.message
   }
   const {isLoading,data} = useQuery(queryKey,getMyFriends)
