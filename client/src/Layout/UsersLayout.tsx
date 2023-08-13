@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import NavBar from '../Components/NavBar'
 import SideBar from '../Components/SideBar'
 import { AllOFFriends, Community, Discution, EditProfile, Friends, Home, List, Media, Notification, PersonalPost, Principale, Profile, Recherche, Request, Saved, Suggestion } from '../Featurs/Users'
 import { PostContext } from '../Featurs/Users/Components/Home/Context/PostContext'
+import AuthContext from '../Context/GlobalContext'
 
 const UsersLayout = () => {
+    const {getConnection} = useContext(AuthContext)
+    useEffect(()=>{
+        getConnection();
+    },[])
   return (
     <div className="flex w-full ">
         <div className="md:flex hidden flex-col w-[17%]">
