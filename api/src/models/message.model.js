@@ -23,6 +23,10 @@ const messageSchema = Schema({
     date: {
         type: Date,
         default: new Date()
+    },
+    statu:{
+        type:Boolean,
+        default:false
     }
 },
 {

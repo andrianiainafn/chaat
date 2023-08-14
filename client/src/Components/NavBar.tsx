@@ -54,7 +54,21 @@ const NavBar = () => {
   const [showMenu,setShowMenu] = useState<boolean>(false)
   const [showResponsiveMenu,setShowResponsiveMenu] = useState<boolean>(false)
   const queryKey = ['getConversationLink']
+  const messNotifKey = ['getMessNotif']
   const [cookie] = useCookies()
+  const getMessNotif = async()=>{
+    const messNotif = await axios.get(`${BASEURL}/message/notif`,{
+      headers:
+      {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookie.name}`
+      }
+    })
+    if(messNotif.status === 200){
+      return messNotif.data.message
+    }
+  }
+  const {isLoading : loading, data : messNotif} = useQuery(messNotifKey,getMessNotif)
   const getConversationLink = async() =>{
     const conversationLink = await axios.get(`${BASEURL}/conversation/getDefaultConversation`,{
       headers:
@@ -75,6 +89,9 @@ const NavBar = () => {
   useEffect(()=>{
     !isLoading && console.log("ireto ireo conversation azo ",data)
   },[isLoading])
+  useEffect(()=>{
+    !loading && console.log(messNotif,1616)
+  },[loading])
   return (
     <>
     {

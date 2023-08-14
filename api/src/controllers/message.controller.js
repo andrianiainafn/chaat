@@ -103,12 +103,6 @@ exports.deletemessage = async(req,res)=>{
 }
 exports.searchmessage = async(req,res)=>{
     try{
-        // const token = req.cookies.user
-        // if(!token){
-        //     return res
-        //     .status(401)
-        //     .json({message:"Unauthorized"})
-        // }
         const wordkey = req.params['wordkey']
         const conversationId = req.params['conversation']
         const correspondingMessage =  await message.find({
@@ -126,14 +120,6 @@ exports.searchmessage = async(req,res)=>{
 
 exports.getLastMessage = async(req,res)=>{
     try{
-        // const token = req.cookies.user
-        // if(!token){
-        //     return res
-        //     .status(401)
-        //     .json({message:"Unauthorized"})
-        // }
-        // jwt.verify(token,process.env.JWT_SECRET)
-        // const payload = jwt.decode(token,options={"verify_signature": false})
         const lastmessage = await messageModel.aggregate([
             {$sort:{date: -1}},
             {$group: {_id: "$conversation",message:{$first: "$$ROOT"}}},
@@ -148,6 +134,21 @@ exports.getLastMessage = async(req,res)=>{
         res
         .status(200)
         .json({message: lastmessage})
+    }catch(e){
+        console.log(e)
+        res
+        .status(500)
+        .json({message:'Internal Server Error'})  
+    }
+}
+exports.getArrivalMessage = async (req,res)=>{
+    try{
+        const arrivalMessage = await messageModel.find({
+            $and:[{destination:req.userId},{statu:false}]
+        }).select('_id')
+        res 
+        .status(200)
+        .json({message: arrivalMessage})
     }catch(e){
         console.log(e)
         res
