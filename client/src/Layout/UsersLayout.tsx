@@ -7,10 +7,10 @@ import { PostContext } from '../Featurs/Users/Components/Home/Context/PostContex
 import AuthContext from '../Context/GlobalContext'
 
 const UsersLayout = () => {
-    const {getConnection} = useContext(AuthContext)
+    const {getConnection,connected} = useContext(AuthContext)
     useEffect(()=>{
         getConnection();
-    },[])
+    },[connected])
   return (
     <div className="flex w-full ">
         <div className="md:flex hidden flex-col w-[17%]">
