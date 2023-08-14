@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { BASEURL } from '../../../../../Components/BaseLink'
+import { useCookies } from 'react-cookie'
 
 type Props = {}
 
@@ -10,6 +11,7 @@ const EditProfile = (props: Props) => {
   const location = useLocation()
   const user_id = location.pathname.split('/')[4]
   const queryKey = ['getuserinformation']
+  const [cookie]= useCookies()
   const [information,setInformation] = useState({
     fname:'',
     lname:'',
@@ -23,7 +25,13 @@ const EditProfile = (props: Props) => {
     bio:true
   })
   const getuserinformation = async()=>{
-      const userInformation = await axios.get(`${BASEURL}/user/getUserInfo/${user_id}`)
+      const userInformation = await axios.get(`${BASEURL}/user/getUserInfo/${user_id}`,{
+        headers:
+        {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${cookie.name}`
+        }
+      })
       return userInformation.data.message 
   }
   const {isLoading,data} = useQuery(queryKey,getuserinformation)

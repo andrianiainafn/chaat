@@ -7,6 +7,7 @@ import animation from '../../../../../assets/Images/animation.gif'
 import ViewPost from '../../Home/interfaces/ViewPost'
 import { useLocation } from 'react-router-dom'
 import { BASEURL } from '../../../../../Components/BaseLink'
+import { useCookies } from 'react-cookie'
 
 type Props = {}
 
@@ -16,9 +17,16 @@ const PersonalPost = (props: Props) => {
   const [isCreate,setIsCreate] =  useState<boolean>(false)
   const [isPostView,setIsPostView] = useState<boolean>(false)
   const location = useLocation()
+  const [cookie] = useCookies()
   const user_id = location.pathname.split('/')[4]
   const getPersonalPost = async()=>{
-      const personalPost = await axios.get(`${BASEURL}/post/getUserPost/${user_id}`)
+      const personalPost = await axios.get(`${BASEURL}/post/getUserPost/${user_id}`,{
+        headers:
+        {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${cookie.name}`
+        }
+      })
       return personalPost.data.message
   }
   const {isLoading,data} = useQuery(queryKey,getPersonalPost)
