@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import image1 from '../assets/Images/image1.png'
-import image2 from '../assets/Images/yor.jpg'
+import image2 from '../assets/Images/image2.png'
+import image3 from '../assets/Images/image3.png'
 
 const AuthPage = () => {
   const [current,setCurrentSlide] = useState(0)
   const slides = [
     image1,
-    image2
+    image2,
+    image3
   ]
   const intervale = 3000
   useEffect(()=>{
