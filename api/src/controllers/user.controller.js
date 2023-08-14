@@ -6,15 +6,8 @@ dotenv.config()
 
 exports.deleteUsers = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
-        const deletedUser = await userModel.deleteOne({_id:payload.user._id})
+        const user_id = req.userId
+        const deletedUser = await userModel.deleteOne({_id: user_id})
         if(deletedUser.deletedCount === 1){
             res
             .status(200)
@@ -32,16 +25,9 @@ exports.deleteUsers = async(req,res)=>{
 }
 exports.modifyUserInfo = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
+        const user_id = req.userId
         const{firsname,lastname,email,phone,bio,profilepicture,couverture} = req.body
-        const condition ={_id:payload.user_id}
+        const condition ={_id: user_id}
         const newInformation = {
             firsname,
             lastname,
@@ -62,13 +48,6 @@ exports.modifyUserInfo = async(req,res)=>{
 }
 exports.getUserInfo = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
         const user_id = req.params.userId
         const userInformation = await  userModel.findOne({_id: user_id}).select(
             ['firstname','lastname','email','birthday','biographie']
@@ -86,14 +65,7 @@ exports.getUserInfo = async(req,res)=>{
 
 exports.getUserMedia = async(req,res) =>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-            .status(401)
-            .json({message:"Unauthorized"})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        const payload = jwt.decode(token,options={"verify_signature": false})
+        
         const userId = req.params.userId
         const userImage = await userModel.find({_id: userId}).select('media')
         console.log(userImage)
