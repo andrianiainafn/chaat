@@ -21,7 +21,6 @@ exports.getconversation = async(req,res)=>{
                 select:['firstname', 'lastname','profilepicture']
             }
         ])
-        console.log(payload.user_id)
         console.log(allconversation)
         res
         .status(200)
