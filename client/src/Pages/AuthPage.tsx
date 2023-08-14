@@ -11,7 +11,7 @@ const AuthPage = () => {
     image2,
     image3
   ]
-  const intervale = 3000
+  const intervale = 4000
   useEffect(()=>{
     const intervalId = setInterval(()=>{
       setCurrentSlide((current + 1) % slides.length)
