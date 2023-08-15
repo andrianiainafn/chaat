@@ -31,6 +31,7 @@ const ProfileMenu = (props: Props) => {
     //     'Authorization': `Bearer ${cookie.name}`
     //   }
     // })
+    navigate('/')
     removeCookie('name',{
       path:'/'
     })
