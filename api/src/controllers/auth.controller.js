@@ -173,8 +173,8 @@ exports.verifyCode = async(req,res)=>{
 }
 exports.logout = async(req,res)=>{
     try{
-        req
-        .send(200)
+        
+        res.send(200)
     }catch(e){
         res
         .status(500)

@@ -32,7 +32,7 @@ const ProfileMenu = (props: Props) => {
       }
     })
     removeCookie('name',{
-      path: '/',
+      path:'/'
     })
     navigate('/')
   }
