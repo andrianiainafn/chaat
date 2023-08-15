@@ -18,7 +18,7 @@ type Props = {
 const ProfileMenu = (props: Props) => {
   const {connected,firstname,profilepicture,userId} = useContext(AuthContext)
   const navigate = useNavigate()
-  const [cookie] = useCookies()
+  const [cookie,removeCookie] = useCookies()
   const HandleClickProfile = () =>{
       navigate(`/users/profile/home/${userId}`)
       props.HandleClickProfile()
@@ -30,6 +30,9 @@ const ProfileMenu = (props: Props) => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${cookie.name}`
       }
+    })
+    removeCookie('name',{
+      path: '/',
     })
     navigate('/')
   }

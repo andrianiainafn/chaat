@@ -6,6 +6,6 @@ route.post('/register', register);
 route.get('/verify', authMiddelware,verifySession)
 route.post('/login',login)
 route.post('/confirmation',authMiddelware,verifyCode)
-route.get('/logout',logout)
+route.get('/logout',authMiddelware,logout)
 
 module.exports = route;

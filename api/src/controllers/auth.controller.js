@@ -173,21 +173,7 @@ exports.verifyCode = async(req,res)=>{
 }
 exports.logout = async(req,res)=>{
     try{
-        const token = req.cookies.user
-        if(!token){
-            return res
-                .status(401)
-                .json({connected: false})
-        }
-        jwt.verify(token,process.env.JWT_SECRET)
-        res
-        .cookie("user", "",{
-          domain:'chaat-afn.netlify.app',
-          expires: new Date(0),
-          samSite:'none',
-          secure: true,
-          withcredentials:true
-        })
+        req
         .send(200)
     }catch(e){
         res
