@@ -24,13 +24,13 @@ const ProfileMenu = (props: Props) => {
       props.HandleClickProfile()
   }
   const HandleClickLogout = async()=>{
-    await axios.get(`${BASEURL}/auth/logout`,{
-      headers:
-      {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${cookie.name}`
-      }
-    })
+    // await axios.get(`${BASEURL}/auth/logout`,{
+    //   headers:
+    //   {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': `Bearer ${cookie.name}`
+    //   }
+    // })
     removeCookie('name',{
       path:'/'
     })
