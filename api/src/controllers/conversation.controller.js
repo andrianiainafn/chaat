@@ -124,12 +124,27 @@ exports.getDefaultConversation = async(req,res)=>{
 exports.getDiscution = async (req,res)=>{
     try{
     const user_id = req.userId
-    const getDiscution = await messageModel.find({
-        $or:[
-            {author: user_id},
-            {destination: user_id}
-        ]
-    }).sort({date:-1})
+    const getDiscution = await messageModel.aggregate([
+        {
+            $sort:{date: -1},
+
+        },{
+            $group:{
+                _id: '$conversation',
+                latestMessage:{$first: '$$ROOT'}
+            }
+        },
+        {
+            $replaceRoot:{newRoot: '$latestMessage'}
+        }
+    ]).populate(['author,destination']).exec((err,latestMessage)=>{
+        if(err){
+            console.error(err);
+            return;
+        }else{
+            return latestMessage;
+        }
+    })
     console.log(getDiscution,"discution")
     res 
     .status(200)
