@@ -127,18 +127,18 @@ exports.getDiscution = async (req,res)=>{
     const getDiscution = await messageModel.aggregate([
         {
           $lookup: {
-            from: 'messages', // Nom de la collection des messages
+            from: 'messages',
             localField: '_id',
             foreignField: 'conversation',
             as: 'messages'
           }
         },
         {
-          $unwind: '$messages' // Sépare les messages en documents individuels
+          $unwind: '$messages'
         },
         {
           $sort: {
-            'messages.date': -1 // Trie les messages par date décroissante
+            'messages.date': -1
           }
         },
         {
@@ -146,14 +146,20 @@ exports.getDiscution = async (req,res)=>{
             _id: '$_id',
             author: { $first: '$author' },
             destination: { $first: '$destination' },
-            latestMessage: { $first: '$messages' } // Sélectionne le message le plus récent
+            latestMessage: { $first: '$messages' }
           }
         },
         {
-          $replaceRoot: { newRoot: { $mergeObjects: ['$latestMessage', '$$ROOT'] } }
+          $replaceRoot: {
+            newRoot: {
+              $mergeObjects: ['$latestMessage', '$$ROOT']
+            }
+          }
         },
         {
-          $project: { latestMessage: 0 } // Supprime le champ latestMessage ajouté précédemment
+          $project: {
+            latestMessage: 0
+          }
         }
       ]);
     console.log(getDiscution,"discution")
