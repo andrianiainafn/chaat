@@ -18,7 +18,7 @@ const ResponsiveSidBar = (props: Props) => {
   const [cookie] = useCookies()
   const queryKey = ['getResDiscution']
   const getResDiscution = async () =>{
-    const discution = await  axios.get(`${BASEURL}/conversation/getconversation`,{
+    const discution = await  axios.get(`${BASEURL}/conversation/getDiscution`,{
       headers:{
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${cookie.name}`
@@ -48,9 +48,16 @@ const ResponsiveSidBar = (props: Props) => {
     <div className='bg-[#2c3a4a] mt-4 h-[1px] w-[80%] flex justify-center items-center mx-auto  ' />
     <div className="mt-10"/>
     {
-        discution.map((message)=>(
-            <Conversation key={message}/>
-        ))
+      isLoading ? <>
+      
+      </>:
+       <>
+        {
+          discution.map((message)=>(
+            <Conversation key={message} />
+          ))
+        }
+      </>
     }
     </div>
   )

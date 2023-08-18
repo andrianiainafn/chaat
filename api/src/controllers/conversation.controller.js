@@ -121,3 +121,23 @@ exports.getDefaultConversation = async(req,res)=>{
         .json({message:'Internal Server Error'})
     }
 }
+exports.getDiscution = async (req,res)=>{
+    try{
+    const user_id = req.userId
+    const getDiscution = await messageModel.find({
+        $or:[
+            {author: user_id},
+            {destination: user_id}
+        ]
+    }).sort({date:-1}).limit(1)
+    res 
+    .status(200)
+    .json({message: getDiscution})
+    }catch(err){
+        console.log(err)
+        res
+        .status(500)
+        .json({message:'Internal Server Error'})
+    }
+
+}
