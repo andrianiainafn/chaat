@@ -8,12 +8,14 @@ import Post from '../elements/Post';
 import animation from '../../../../../assets/Images/animation.gif'
 import ContextOfPost from '../Context/PostContext';
 import { BASEURL } from '../../../../../Components/BaseLink';
+import AuthContext from '../../../../../Context/GlobalContext';
 
 const Home = () => {
   const [isCreate,setIsCreate] =  useState<boolean>(false)
   const [posts,setPosts] = useState([])
   const {ModifyIdPost} = useContext(ContextOfPost)
   const [isPostView,setIsPostView] = useState<boolean>(false)
+  const {getConnection} = useContext(AuthContext)
   const HandleClickIsCreate:()=>void = ()=>{
     setIsCreate(ancien=>!ancien)
   }
@@ -42,6 +44,9 @@ const Home = () => {
   useEffect(()=>{
     console.log(posts,"this is posts")
   },[posts])
+  useEffect(()=>{
+    getConnection()
+  },[])
   if(isLoading){
     return (
       <div className=' flex mx-2 mb-5 md:mx-5 justify-around mt-[8vh]'>
