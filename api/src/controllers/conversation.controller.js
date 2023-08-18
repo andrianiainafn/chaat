@@ -126,29 +126,31 @@ exports.getDiscution = async (req,res)=>{
     const user_id = req.userId
     const getDiscution = await messageModel.aggregate([
         {
-          $lookup: {
-            from: 'messages',
-            localField: '_id',
-            foreignField: 'conversation',
-            as: 'messages'
+            $lookup: {
+              from: 'messages',
+              localField: '_id',
+              foreignField: 'conversation',
+              as: 'messages'
+            }
+          },
+          {
+            $addFields: {
+              latestMessage: { $max: '$messages.date' }
+            }
+          },
+          {
+            $sort: {
+              latestMessage: -1
+            }
+          },
+          {
+            $group: {
+              _id: '$_id',
+              author: { $first: '$author' },
+              destination: { $first: '$destination' },
+              latestMessage: { $first: '$latestMessage' }
+            }
           }
-        },
-        {
-          $unwind: '$messages'
-        },
-        {
-          $sort: {
-            'messages.date': -1
-          }
-        },
-        {
-          $group: {
-            _id: '$_id',
-            author: { $first: '$author' },
-            destination: { $first: '$destination' },
-            latestMessage: { $first: '$messages' }
-          }
-        }
       ]);
     console.log(getDiscution,"discution")
     res 
