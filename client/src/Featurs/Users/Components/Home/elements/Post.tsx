@@ -104,7 +104,7 @@ const Post = (props: Props) => {
               )
             }
             <div className="">
-                <h6 className='text-xs text-[#efefef]'>{props.post.author.firstname} {props.post.author.lastname}</h6>
+                <h6 className='text-xs text-[#efefef]'></h6>
                 <h6 className='text-xs text-[#777]'>{moment(props.post.date).fromNow()}</h6>
             </div>
           </div>
