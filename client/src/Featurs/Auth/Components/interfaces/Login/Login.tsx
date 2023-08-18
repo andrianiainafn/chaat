@@ -16,7 +16,7 @@ import { useCookies } from 'react-cookie';
 
 function Login() {
   const {getConnection} = useContext(AuthContext)
-  const [cookies, setCookie] = useCookies(['name']);
+  const [cookie, setCookie] = useCookies(['name']);
   const [visibility,setVisibility] = useState(false)
   const [errorpassword,setErrorPassword] = useState(false)
   const [erroremail,setErrorEmail] = useState(false)
@@ -43,6 +43,7 @@ function Login() {
      if(login.status === 200){
        setCookie('name', login.data.token, { path: '/' });
         navigate('/users/')
+        console.log(cookie.name)
         getConnection()
      }else if(login.status === 401){
         setIncorrect(true)
