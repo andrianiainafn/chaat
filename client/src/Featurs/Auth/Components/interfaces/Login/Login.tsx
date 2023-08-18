@@ -58,6 +58,7 @@ function Login() {
   }
   useEffect(()=>{
     getConnection()
+    console.log(cookie.name,"coookie login 61")
   },[logeding])
   return (
     <div className=" flex h-[90vh] flex-col space-y-8 justify-center ">
