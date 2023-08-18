@@ -43,7 +43,7 @@ function Login() {
      if(login.status === 200){
        setCookie('name', login.data.token, { path: '/' });
         navigate('/users/')
-        console.log(cookie.name)
+        console.log(cookie)
         getConnection()
      }else if(login.status === 401){
         setIncorrect(true)

@@ -27,7 +27,7 @@ function GlobalContext({children}:PropsWithChildren) {
   const [firstname,setFirstname] = useState('')
   const [lastname,setLastname] = useState('')
   const [userId,setUserId] = useState('')
-  const [cookie] = useCookies()
+  const [cookie] = useCookies(['name'])
   const getConnection = async()=>{
     console.log(cookie.name)
     const connection = await axios.get(`${BASEURL}/auth/verify`,{
