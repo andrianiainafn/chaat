@@ -40,7 +40,7 @@ const Home = () => {
     }
   },[isLoading])
   useEffect(()=>{
-    console.log(posts)
+    console.log(posts,"this is posts")
   },[posts])
   if(isLoading){
     return (
