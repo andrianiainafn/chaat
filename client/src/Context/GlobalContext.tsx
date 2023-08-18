@@ -1,6 +1,7 @@
 import {createContext, PropsWithChildren, useEffect, useState}  from 'react'
 import axios from 'axios'
 import { useCookies } from 'react-cookie';
+import { BASEURL } from '../Components/BaseLink';
 
 interface IthemeContext {
   connected: boolean,
@@ -29,7 +30,7 @@ function GlobalContext({children}:PropsWithChildren) {
   const [cookie] = useCookies()
   const getConnection = async()=>{
     console.log(cookie.name)
-    const connection = await axios.get('https://chaat-df6x.onrender.com/auth/verify',{
+    const connection = await axios.get(`${BASEURL}auth/verify`,{
       headers:
       {
         'Content-Type': 'application/json',

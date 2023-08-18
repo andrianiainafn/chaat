@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Conversation from './Conversation';
+import axios from 'axios';
+import { BASEURL } from '../../../../../Components/BaseLink';
+import { useCookies } from 'react-cookie';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {
      dicu: any,
@@ -11,6 +15,21 @@ type Props = {
 }
 
 const ResponsiveSidBar = (props: Props) => {
+  const [cookie] = useCookies()
+  const queryKey = ['getResDiscution']
+  const getResDiscution = async () =>{
+    const discution = await  axios.get(`${BASEURL}/conversation/getDefaultConversation`,{
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookie.name}`
+      }
+    })
+    return discution.data.message
+  }
+  const {isLoading,data} = useQuery(queryKey,getResDiscution)
+  useEffect(()=>{
+     !isLoading && console.log(data)
+  },[isLoading])
   const discution = [1,2,3,4,5,6,7,8,9,10]
   return (
   <div onClick={(e)=>e.stopPropagation()} className='overlayDiscu block md:hidden   bg-[#17202a] w-[100vw]  text-[#f2f2f2]   overflow-scroll h-[100vh] '>
