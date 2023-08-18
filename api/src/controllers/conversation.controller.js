@@ -134,13 +134,11 @@ exports.getDiscution = async (req,res)=>{
             }
           },
           {
-            $addFields: {
-              latestMessage: { $max: '$messages.date' }
-            }
+            $unwind: '$messages'
           },
           {
             $sort: {
-              latestMessage: -1
+              'messages.date': -1
             }
           },
           {
@@ -148,10 +146,15 @@ exports.getDiscution = async (req,res)=>{
               _id: '$_id',
               author: { $first: '$author' },
               destination: { $first: '$destination' },
-              latestMessage: { $first: '$latestMessage' }
+              latestMessage: { $first: '$messages' }
+            }
+          },
+          {
+            $replaceRoot: {
+              newRoot: '$latestMessage'
             }
           }
-      ]);
+        ]);
     console.log(getDiscution,"discution")
     res 
     .status(200)
