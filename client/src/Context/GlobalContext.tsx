@@ -28,8 +28,10 @@ function GlobalContext({children}:PropsWithChildren) {
   const [lastname,setLastname] = useState('')
   const [userId,setUserId] = useState('')
   const [cookie] = useCookies(['name'])
+  const [refresh,setRefresh] = useState(true)
   const getConnection = async()=>{
     console.log(cookie.name)
+    refresh && window.location.reload()
     const connection = await axios.get(`${BASEURL}/auth/verify`,{
       headers:
       {
@@ -38,6 +40,7 @@ function GlobalContext({children}:PropsWithChildren) {
       }
     })
     if(connection.status === 200){
+      setRefresh(false)
       console.log('testConnection')
       console.log(connection.data)
       setConnected(connection.data.connected)
