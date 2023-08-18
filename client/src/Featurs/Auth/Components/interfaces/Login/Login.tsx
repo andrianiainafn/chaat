@@ -59,7 +59,7 @@ function Login() {
   useEffect(()=>{
     getConnection()
     console.log(cookie.name,"coookie login 61")
-  },[logeding])
+  },[cookie.name])
   return (
     <div className=" flex h-[90vh] flex-col space-y-8 justify-center ">
           <h3 className='text-[#efefef] text-2xl  text-center'>Log In</h3>

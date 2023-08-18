@@ -5,12 +5,14 @@ import SideBar from '../Components/SideBar'
 import { AllOFFriends, Community, Discution, EditProfile, Friends, Home, List, Media, Notification, PersonalPost, Principale, Profile, Recherche, Request, Saved, Suggestion } from '../Featurs/Users'
 import { PostContext } from '../Featurs/Users/Components/Home/Context/PostContext'
 import AuthContext from '../Context/GlobalContext'
+import { useCookies } from 'react-cookie'
 
 const UsersLayout = () => {
     const {getConnection} = useContext(AuthContext)
+    const [cookie] = useCookies(['name'])
     useEffect(()=>{
         getConnection();
-    },[])
+    },[cookie.name])
     
   return (
     <div className="flex w-full ">

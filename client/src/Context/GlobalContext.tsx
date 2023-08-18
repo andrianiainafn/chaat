@@ -50,7 +50,7 @@ function GlobalContext({children}:PropsWithChildren) {
   useEffect(()=>{
     getConnection()
     console.log(connected)
-  },[connected])
+  },[cookie.name])
   return (
     <AuthContext.Provider value={{getConnection,connected,profilepicture,firstname,lastname,userId}}>
         {children}
