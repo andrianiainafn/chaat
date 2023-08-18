@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import NavBar from '../Components/NavBar'
 import SideBar from '../Components/SideBar'
@@ -8,12 +8,14 @@ import AuthContext from '../Context/GlobalContext'
 
 const UsersLayout = () => {
     const {getConnection} = useContext(AuthContext)
+    const[refresh,setRefresh] = useState(true)
     useEffect(()=>{
         getConnection();
     },[])
     useEffect(()=>{
-        window.location.reload()
-    },[])
+       setRefresh(false)
+       !refresh && window.location.reload()
+    },[refresh])
   return (
     <div className="flex w-full ">
         <div className="md:flex hidden flex-col w-[17%]">
