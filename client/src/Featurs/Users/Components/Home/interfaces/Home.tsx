@@ -37,9 +37,11 @@ const Home = () => {
     if(data){
       console.log(JSON.parse(data.data.message))
       setPosts(JSON.parse(data.data.message))
-      console.log(posts,"this is posts ....")
     }
   },[isLoading])
+  useEffect(()=>{
+    console.log(posts)
+  },[posts])
   if(isLoading){
     return (
       <div className=' flex mx-2 mb-5 md:mx-5 justify-around mt-[8vh]'>
