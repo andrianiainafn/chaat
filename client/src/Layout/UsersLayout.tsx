@@ -12,7 +12,7 @@ const UsersLayout = () => {
         getConnection();
     },[])
     useEffect(()=>{
-
+        window.location.reload()
     },[])
   return (
     <div className="flex w-full ">
