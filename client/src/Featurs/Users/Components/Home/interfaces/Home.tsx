@@ -37,6 +37,7 @@ const Home = () => {
     if(data){
       console.log(JSON.parse(data.data.message))
       setPosts(JSON.parse(data.data.message))
+      console.log(posts,"this is posts ....")
     }
   },[isLoading])
   if(isLoading){
