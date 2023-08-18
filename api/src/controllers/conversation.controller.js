@@ -134,13 +134,19 @@ exports.getDiscution = async (req,res)=>{
           }
         },
         {
-          $addFields: {
-            latestMessage: { $max: '$messages.date' }
-          }
+          $unwind: '$messages'
         },
         {
           $sort: {
-            latestMessage: -1
+            'messages.date': -1
+          }
+        },
+        {
+          $group: {
+            _id: '$_id',
+            author: { $first: '$author' },
+            destination: { $first: '$destination' },
+            latestMessage: { $first: '$messages' }
           }
         }
       ]);
