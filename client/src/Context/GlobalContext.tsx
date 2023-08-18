@@ -30,7 +30,7 @@ function GlobalContext({children}:PropsWithChildren) {
   const [cookie] = useCookies()
   const getConnection = async()=>{
     console.log(cookie.name)
-    const connection = await axios.get(`${BASEURL}auth/verify`,{
+    const connection = await axios.get(`${BASEURL}/auth/verify`,{
       headers:
       {
         'Content-Type': 'application/json',
