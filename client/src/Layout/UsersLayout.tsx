@@ -8,16 +8,9 @@ import AuthContext from '../Context/GlobalContext'
 
 const UsersLayout = () => {
     const {getConnection} = useContext(AuthContext)
-    const[refresh,setRefresh] = useState(true)
     useEffect(()=>{
         getConnection();
     },[])
-    useEffect(()=>{
-        setRefresh(false)
-    },[])
-    useEffect(()=>{
-       !refresh && window.location.reload()
-    },[refresh])
     
   return (
     <div className="flex w-full ">
