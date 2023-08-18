@@ -13,9 +13,12 @@ const UsersLayout = () => {
         getConnection();
     },[])
     useEffect(()=>{
-       setRefresh(false)
+        setRefresh(false)
+    },[])
+    useEffect(()=>{
        !refresh && window.location.reload()
     },[refresh])
+    
   return (
     <div className="flex w-full ">
         <div className="md:flex hidden flex-col w-[17%]">
