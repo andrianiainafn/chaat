@@ -39,7 +39,12 @@ function Login() {
     }
    if(information.password && information.email){
     setSent(true)
-     const login = await axios.post(`${BASEURL}/auth/login`,information)
+     const login = await axios.post(`${BASEURL}/auth/login`,information,{
+      headers:{
+        withCredentials: true,
+        httpOnly: false,
+      }
+     })
      if(login.status === 200){
        setCookie('name', login.data.token, { path: '/' });
        getConnection()
