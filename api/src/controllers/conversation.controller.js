@@ -126,25 +126,36 @@ exports.getDiscution = async (req,res)=>{
     const user_id = req.userId
     const getDiscution = await messageModel.aggregate([
         {
-            $sort:{date: -1},
-
-        },{
-            $group:{
-                _id: '$conversation',
-                latestMessage:{$first: '$$ROOT'}
-            }
+          $lookup: {
+            from: 'messages', // Nom de la collection des messages
+            localField: '_id',
+            foreignField: 'conversation',
+            as: 'messages'
+          }
         },
         {
-            $replaceRoot:{newRoot: '$latestMessage'}
+          $unwind: '$messages' // Sépare les messages en documents individuels
+        },
+        {
+          $sort: {
+            'messages.date': -1 // Trie les messages par date décroissante
+          }
+        },
+        {
+          $group: {
+            _id: '$_id',
+            author: { $first: '$author' },
+            destination: { $first: '$destination' },
+            latestMessage: { $first: '$messages' } // Sélectionne le message le plus récent
+          }
+        },
+        {
+          $replaceRoot: { newRoot: { $mergeObjects: ['$latestMessage', '$$ROOT'] } }
+        },
+        {
+          $project: { latestMessage: 0 } // Supprime le champ latestMessage ajouté précédemment
         }
-    ]).populate(['author,destination']).exec((err,latestMessage)=>{
-        if(err){
-            console.error(err);
-            return;
-        }else{
-            return latestMessage;
-        }
-    })
+      ]);
     console.log(getDiscution,"discution")
     res 
     .status(200)
