@@ -129,7 +129,8 @@ exports.getDiscution = async (req,res)=>{
             {author: user_id},
             {destination: user_id}
         ]
-    }).sort({date:-1}).limit(1)
+    }).sort({date:-1})
+    console.log(getDiscution,"discution")
     res 
     .status(200)
     .json({message: getDiscution})
