@@ -90,7 +90,7 @@ const Post = (props: Props) => {
       }
     }
     useEffect(()=>{
-        console.log(props,"this is props !!!")
+        console.log(props.post.author,"this is props !!!")
     },[])
   return (
     <div data-postid={props.post._id}  className="bg-[#17202a] flex flex-col space-y-2 border-[1px]  border-[#2c3a4a] rounded-lg mt-3">
