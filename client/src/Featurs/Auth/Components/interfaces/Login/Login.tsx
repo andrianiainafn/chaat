@@ -42,10 +42,6 @@ function Login() {
      const login = await axios.post(`${BASEURL}/auth/login`,information)
      if(login.status === 200){
        setCookie('name', login.data.token, { path: '/' });
-       getConnection()
-       setTimeout(()=>{
-         getConnection() 
-       },1000)
         navigate('/users/')
         getConnection()
      }else if(login.status === 401){
