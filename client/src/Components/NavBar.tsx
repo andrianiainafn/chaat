@@ -50,7 +50,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     },
   }));
 const NavBar = () => {
-  const {connected,firstname,profilepicture,getConnection} = useContext(AuthContext)
+  const {connected,firstname,profilepicture} = useContext(AuthContext)
   const [showMenu,setShowMenu] = useState<boolean>(false)
   const [showResponsiveMenu,setShowResponsiveMenu] = useState<boolean>(false)
   const queryKey = ['getConversationLink']
@@ -92,9 +92,6 @@ const NavBar = () => {
   useEffect(()=>{
     !loading && console.log(messNotif,1616)
   },[loading])
-  useEffect(()=>{
-    getConnection()
-  },[])
   return (
     <>
     {
