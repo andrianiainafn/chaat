@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
@@ -21,6 +21,7 @@ function Login() {
   const [errorpassword,setErrorPassword] = useState(false)
   const [erroremail,setErrorEmail] = useState(false)
   const [sent,setSent] = useState(false)
+  const [logeding,setLogeding] = useState(false)
   const [incorrect,setIncorrect] = useState(false)
   const navigate = useNavigate()
   const [information,setInformation] = useState({
@@ -43,7 +44,7 @@ function Login() {
      if(login.status === 200){
        setCookie('name', login.data.token, { path: '/' });
         navigate('/users/')
-        console.log(cookie)
+        setLogeding(true)
         getConnection()
      }else if(login.status === 401){
         setIncorrect(true)
@@ -55,7 +56,9 @@ function Login() {
         const value = e.target.value
         setInformation(values => ({...values,[name]:value}))
   }
-
+  useEffect(()=>{
+    getConnection()
+  },[logeding])
   return (
     <div className=" flex h-[90vh] flex-col space-y-8 justify-center ">
           <h3 className='text-[#efefef] text-2xl  text-center'>Log In</h3>
