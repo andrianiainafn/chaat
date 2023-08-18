@@ -134,31 +134,13 @@ exports.getDiscution = async (req,res)=>{
           }
         },
         {
-          $unwind: '$messages'
+          $addFields: {
+            latestMessage: { $max: '$messages.date' }
+          }
         },
         {
           $sort: {
-            'messages.date': -1
-          }
-        },
-        {
-          $group: {
-            _id: '$_id',
-            author: { $first: '$author' },
-            destination: { $first: '$destination' },
-            latestMessage: { $first: '$messages' }
-          }
-        },
-        {
-          $replaceRoot: {
-            newRoot: {
-              $mergeObjects: ['$latestMessage', '$$ROOT']
-            }
-          }
-        },
-        {
-          $project: {
-            latestMessage: 0
+            latestMessage: -1
           }
         }
       ]);
