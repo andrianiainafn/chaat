@@ -46,10 +46,13 @@ const EditProfile = (props: Props) => {
         fname: data.firstname,
         lname: data.lastname,
         birth: data.birthday,
-        bio: data.biographie
+        bio: data.bioraphie
       })
     )
   },[isLoading])
+  const HandleClickModify = ()=>{
+    setIsModify(info=> ({...info,lname: false}))
+  }
   return (
     <div className='p-3 md:mx-[20vw]'>
       <div className="flex flex-col space-y-3">
@@ -66,7 +69,7 @@ const EditProfile = (props: Props) => {
             <label htmlFor="fname"  className='opacity-90'>Lasttname:</label>
             <input onChange={HandleChange} value={information.lname} disabled={isModify.lname} className='w-[95%] font-semibold  placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='text' name='fname' placeholder='Your new  lastname...'/>
           </div>
-          <button className='text-[#f2f2f2] opacity-60 hover:opacity-100 font-semibold hover:text-[#4480ce]'>Modify</button>
+          <button onClick={HandleClickModify} className='text-[#f2f2f2] opacity-60 hover:opacity-100 font-semibold hover:text-[#4480ce]'>Modify</button>
         </div>
         {/* <div className='bg-[#2c3a4a] h-[1px] w-[100%] flex justify-center items-center mx-auto ' /> */}
         <div className="flex justify-between items-center">
