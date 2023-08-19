@@ -53,6 +53,7 @@ const EditProfile = (props: Props) => {
   },[isLoading])
   const HandleClickModify = ()=>{
     setIsModify(info=> ({...info,lname: false}))
+    inputRef.current?.focus()
   }
   return (
     <div className='p-3 md:mx-[20vw]'>
