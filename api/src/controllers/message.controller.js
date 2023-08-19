@@ -120,27 +120,28 @@ exports.searchmessage = async(req,res)=>{
 
 exports.getLastMessage = async(req,res)=>{
     try{
-const lastmessage = await messageModel.aggregate([
-  { $sort: { date: -1 } },
-  { $group: { _id: "$conversation", message: { $first: "$$ROOT" } } },
-  { $replaceRoot: { newRoot: "$message" } },
-  {
-    $lookup: {
-      from: 'user',
-      localField: 'author',
-      foreignField: '_id',
-      as: 'authorInfo'
-    }
-  },
-  {
-    $lookup: {
-      from: 'user',
-      localField: 'destination',
-      foreignField: '_id',
-      as: 'destinationInfo'
-    }
-  }
-]);
+        const lastmessage = await messageModel.aggregate([
+            { $sort: { date: -1 } },
+            { $group: { _id: "$conversation", message: { $first: "$$ROOT" } } },
+            { $replaceRoot: { newRoot: "$message" } },
+            {
+              $lookup: {
+                from: 'users', // Assurez-vous que le nom de la collection est correct
+                localField: 'author',
+                foreignField: '_id',
+                as: 'authorInfo'
+              }
+            },
+            {
+              $lookup: {
+                from: 'users', // Assurez-vous que le nom de la collection est correct
+                localField: 'destination',
+                foreignField: '_id',
+                as: 'destinationInfo'
+              }
+            }
+          ]);
+          
        
         console.log(lastmessage,90909)
         res
