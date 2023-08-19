@@ -80,7 +80,7 @@ const Profile = () => {
             </div>
         </div>
         <div className='w-full my-4  px-auto flex justify-center items-center'>
-          <h3 >Enjoy your life...</h3>
+          <h3 >{data.bioraphie}</h3>
         </div>
         <div className='bg-[#2c3a4a] h-[1px] w-[60vw] flex justify-center items-center mx-auto ' />
         <div className="flex justify-between items-center p-3 md:px-[8vw] text-lg">
