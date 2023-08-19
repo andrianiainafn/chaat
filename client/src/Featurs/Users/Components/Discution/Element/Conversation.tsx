@@ -32,25 +32,48 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
       },
     },
 }));
-type Props = {}
+type Props = {
+  discu:any
+}
 
 const Conversation = (props: Props) => {
     const {userId} = useContext(AuthContext)
   return (
-    <Link to='/users/messages/33436' className='mt-5 pt-5' >
+    <Link to={`/users/messages/${props.discu.conversation}`} className='mt-5 pt-5' >
     <div className="mt-5" >
       <div className="flex space-x-2 ">
+    {
+      userId === props.discu.authorInfo[0]._id ? (
+        <>
           <StyledBadge
-            overlap="circular"
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            variant="dot"
-            >
-            <Avatar   />
+          overlap="circular"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          variant="dot"
+          >
+            <Avatar  src={`${props.discu.destinationInfo[0].profilepicture}`} />
           </StyledBadge>
           <div className="flex flex-col space-y-1">
-              <h5 className='text-[#444]'>Loyd Forger</h5>
-              <h6 className='text-xs text-[#777]'>You: Heyy .1h</h6>
+            <h5 className='text-[#444]'>{props.discu.destinationInfo[0].firstname}</h5>
+            <h6 className='text-xs text-[#777]'>You: {props.discu.message}</h6>
           </div>
+        </>
+      ) : (
+        <>
+          <StyledBadge
+          overlap="circular"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          variant="dot"
+          >
+            <Avatar src={`${props.discu.authorInfo[0].profilepicture}`}  />
+          </StyledBadge>
+          <div className="flex flex-col space-y-1">
+            <h5 className='text-[#444]'>{props.discu.authorInfo[0].firstname}</h5>
+            <h6 className='text-xs text-[#777]'>{props.discu.message}</h6>
+          </div>
+        </>
+      )
+
+    }
       </div>
     </div>
   </Link>
