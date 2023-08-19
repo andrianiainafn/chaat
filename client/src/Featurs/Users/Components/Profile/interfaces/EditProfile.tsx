@@ -13,6 +13,9 @@ const EditProfile = (props: Props) => {
   const queryKey = ['getuserinformation']
   const [cookie]= useCookies()
   const inputRef = useRef<HTMLInputElement>(null)
+  const fnameInput = useRef<HTMLInputElement>(null)
+  const bioInput = useRef<HTMLInputElement>(null)
+
   const [information,setInformation] = useState({
     fname:'',
     lname:'',
@@ -55,13 +58,16 @@ const EditProfile = (props: Props) => {
     setIsModify(info=> ({...info,lname: false}))
     inputRef.current?.focus()
   }
+  const HandleClickFname = ()=>{
+    
+  }
   return (
     <div className='p-3 md:mx-[20vw]'>
       <div className="flex flex-col space-y-3">
         <div className="flex justify-between items-center ">
             <div className="">
               <label htmlFor="fname" className='opacity-90'>Firstname:</label>
-              <input ref={inputRef} onChange={HandleChange} value={information.fname} disabled={isModify.fname} className='w-[95%] font-semibold  placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='text' name='fname' placeholder='Your new firstname...'/>
+              <input  onChange={HandleChange} value={information.fname} disabled={isModify.fname} className='w-[95%] font-semibold  placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='text' name='fname' placeholder='Your new firstname...'/>
             </div>
             <button className='text-[#f2f2f2] opacity-60 hover:opacity-100 font-semibold hover:text-[#4480ce]'>Modify</button>
         </div>
