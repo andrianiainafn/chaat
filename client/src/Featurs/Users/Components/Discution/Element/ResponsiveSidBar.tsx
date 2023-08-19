@@ -18,7 +18,7 @@ const ResponsiveSidBar = (props: Props) => {
   const [cookie] = useCookies()
   const queryKey = ['getResDiscution']
   const getResDiscution = async () =>{
-    const discution = await  axios.get(`${BASEURL}/conversation/getDiscution`,{
+    const discution = await  axios.get(`${BASEURL}/message/discu`,{
       headers:{
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${cookie.name}`
