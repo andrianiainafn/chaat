@@ -79,8 +79,8 @@ const Profile = () => {
                 </div>
             </div>
         </div>
-        <div>
-          <h3>Enjoy your life...</h3>
+        <div className='w-full my-4'>
+          <h3 className='mx-auto'>Enjoy your life...</h3>
         </div>
         <div className='bg-[#2c3a4a] h-[1px] w-[60vw] flex justify-center items-center mx-auto ' />
         <div className="flex justify-between items-center p-3 md:px-[8vw] text-lg">
