@@ -30,7 +30,6 @@ const ResponsiveSidBar = (props: Props) => {
   useEffect(()=>{
      !isLoading && console.log(data)
   },[isLoading])
-  const discution = [1,2,3,4,5,6,7,8,9,10]
   return (
   <div onClick={(e)=>e.stopPropagation()} className='overlayDiscu block md:hidden   bg-[#17202a] w-[100vw]  text-[#f2f2f2]   overflow-scroll h-[100vh] '>
     <div className="flex flex-col space-y-3 ">
