@@ -127,7 +127,7 @@ exports.getLastMessage = async(req,res)=>{
             {
               $lookup: {
                 from: 'users', // Assurez-vous que le nom de la collection est correct
-                localField: 'author',
+                localField: "6481da9fa095d432b2a6b702",
                 foreignField: '_id',
                 as: 'authorInfo'
               }
