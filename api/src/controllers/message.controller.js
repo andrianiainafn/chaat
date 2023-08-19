@@ -121,15 +121,18 @@ exports.searchmessage = async(req,res)=>{
 exports.getLastMessage = async(req,res)=>{
     try{
         const lastmessage = await messageModel.aggregate([
-            {$sort:{date: -1}},
-            {$group: {_id: "$conversation",message:{$first: "$$ROOT"}}},
-            {$replaceRoot: {newRoot: "$message"}},
-        ]).lookup({
-            from: 'user',
-            localField: 'destination',
-            foreignField: '_id',
-            as: 'destinationInfo'
-        })
+            { $sort: { date: -1 } },
+            { $group: { _id: "$conversation", message: { $first: "$$ROOT" } } },
+            { $replaceRoot: { newRoot: "$message" } },
+            {
+              $lookup: {
+                from: 'user',
+                localField: 'destination',
+                foreignField: '_id',
+                as: 'destinationInfo'
+              }
+            }
+          ]);          
         console.log(lastmessage,90909)
         res
         .status(200)
