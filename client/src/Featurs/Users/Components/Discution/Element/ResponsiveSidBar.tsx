@@ -53,7 +53,7 @@ const ResponsiveSidBar = (props: Props) => {
       </>:
        <>
         {
-          data.map((key:number,discu:any)=>(
+          data.map((discu:any,key:number)=>(
             <Conversation key={key} discu={discu} />
           ))
         }
