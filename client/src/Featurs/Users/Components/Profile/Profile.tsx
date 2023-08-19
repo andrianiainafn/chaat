@@ -79,7 +79,7 @@ const Profile = () => {
                 </div>
             </div>
         </div>
-        <div className='w-full my-4'>
+        <div className='w-full my-4  px-auto'>
           <h3 className='mx-auto'>Enjoy your life...</h3>
         </div>
         <div className='bg-[#2c3a4a] h-[1px] w-[60vw] flex justify-center items-center mx-auto ' />
