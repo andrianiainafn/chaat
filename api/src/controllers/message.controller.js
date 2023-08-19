@@ -127,7 +127,7 @@ exports.getLastMessage = async(req,res)=>{
             {
               $lookup: {
                 from: 'user',
-                localField: 'author',
+                localField: 'firstname',
                 foreignField: '_id',
                 as: 'authorInfo'
               }
@@ -135,7 +135,7 @@ exports.getLastMessage = async(req,res)=>{
             {
               $lookup: {
                 from: 'user',
-                localField: 'destination',
+                localField: 'lastname',
                 foreignField: '_id',
                 as: 'destinationInfo'
               }
