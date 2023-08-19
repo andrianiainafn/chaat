@@ -38,16 +38,12 @@ type Props = {
 
 const Conversation = (props: Props) => {
     const {userId} = useContext(AuthContext)
-    useEffect(()=>{
-      console.log(props.discu,"premier")
-      // console.log(props.discu.destinationInfo[0].firstname,"deuxxieme")
-    },[])
   return (
     <Link to={`/users/messages/${props.discu.conversation}`} className='mt-5 pt-5' >
     <div className="mt-5" >
       <div className="flex space-x-2 ">
     {
-      userId === props.discu.authorInfo[0]._id ? (
+      userId === props.discu.author ? (
         <>
           <StyledBadge
           overlap="circular"
