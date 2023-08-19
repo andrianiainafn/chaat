@@ -1,5 +1,5 @@
 import { Avatar, Badge, styled } from '@mui/material';
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import AuthContext from '../../../../../Context/GlobalContext';
 
@@ -38,6 +38,9 @@ type Props = {
 
 const Conversation = (props: Props) => {
     const {userId} = useContext(AuthContext)
+    useEffect(()=>{
+      console.log(props.discu.authorInfo)
+    },[])
   return (
     <Link to={`/users/messages/${props.discu.conversation}`} className='mt-5 pt-5' >
     <div className="mt-5" >
@@ -64,10 +67,10 @@ const Conversation = (props: Props) => {
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           variant="dot"
           >
-            <Avatar src={`${props.discu.authorInfo[0].profilepicture}`}  />
+            <Avatar   />
           </StyledBadge>
           <div className="flex flex-col space-y-1">
-            <h5 className='text-[#444]'>{props.discu.authorInfo[0].firstname}</h5>
+            <h5 className='text-[#444]'></h5>
             <h6 className='text-xs text-[#777]'>{props.discu.message}</h6>
           </div>
         </>
