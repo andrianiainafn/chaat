@@ -126,35 +126,62 @@ exports.getDiscution = async (req,res)=>{
     const user_id = req.userId
     const getDiscution = await messageModel.aggregate([
         {
-            $lookup: {
-              from: 'messages',
-              localField: '_id',
-              foreignField: 'conversation',
-              as: 'messages'
-            }
-          },
-          {
-            $unwind: '$messages'
-          },
-          {
-            $sort: {
-              'messages.date': -1
-            }
-          },
-          {
-            $group: {
-              _id: '$_id',
-              author: { $first: '$author' },
-              destination: { $first: '$destination' },
-              latestMessage: { $first: '$messages' }
-            }
-          },
-          {
-            $replaceRoot: {
-              newRoot: '$latestMessage'
+          $lookup: {
+            from: 'messages',
+            localField: '_id',
+            foreignField: 'conversation',
+            as: 'messages'
+          }
+        },
+        {
+          $unwind: '$messages'
+        },
+        {
+          $sort: {
+            'messages.date': -1
+          }
+        },
+        {
+          $group: {
+            _id: '$_id',
+            author: { $first: '$author' },
+            destination: { $first: '$destination' },
+            latestMessage: { $first: '$messages' }
+          }
+        },
+        {
+          $lookup: {
+            from: 'users', // La collection des utilisateurs
+            localField: 'latestMessage.author',
+            foreignField: '_id',
+            as: 'authorInfo'
+          }
+        },
+        {
+          $project: {
+            _id: 1,
+            author: 1,
+            destination: 1,
+            latestMessage: 1,
+            authorProfile: {
+              $arrayElemAt: ['$authorInfo', 0]
             }
           }
-        ]);
+        },
+        {
+          $project: {
+            _id: 1,
+            author: 1,
+            destination: 1,
+            latestMessage: 1,
+            authorProfile: {
+              profilePic: 1,
+              firstname: 1,
+              lastname: 1
+            }
+          }
+        }
+      ]);
     console.log(getDiscution,"discution")
     res 
     .status(200)
