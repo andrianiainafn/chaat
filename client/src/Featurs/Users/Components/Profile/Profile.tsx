@@ -79,6 +79,9 @@ const Profile = () => {
                 </div>
             </div>
         </div>
+        <div>
+          <h3>Enjoy your life...</h3>
+        </div>
         <div className='bg-[#2c3a4a] h-[1px] w-[60vw] flex justify-center items-center mx-auto ' />
         <div className="flex justify-between items-center p-3 md:px-[8vw] text-lg">
             <NavLink className='link text-center' to={`/users/profile/home/${data._id}`}>
