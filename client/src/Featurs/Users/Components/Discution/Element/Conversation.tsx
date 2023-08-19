@@ -46,7 +46,7 @@ const Conversation = (props: Props) => {
     <div className="mt-5" >
       <div className="flex space-x-2 ">
     {
-      userId === props.discu.authorInfo[0]._id ? (
+      userId === '' ? (
         <>
           <StyledBadge
           overlap="circular"
