@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { BASEURL } from '../../../../../Components/BaseLink'
 import { useCookies } from 'react-cookie'
@@ -12,6 +12,7 @@ const EditProfile = (props: Props) => {
   const user_id = location.pathname.split('/')[4]
   const queryKey = ['getuserinformation']
   const [cookie]= useCookies()
+  const inputRef = useRef<HTMLInputElement>(null)
   const [information,setInformation] = useState({
     fname:'',
     lname:'',
@@ -59,7 +60,7 @@ const EditProfile = (props: Props) => {
         <div className="flex justify-between items-center ">
             <div className="">
               <label htmlFor="fname" className='opacity-90'>Firstname:</label>
-              <input onChange={HandleChange} value={information.fname} disabled={isModify.fname} className='w-[95%] font-semibold  placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='text' name='fname' placeholder='Your new firstname...'/>
+              <input ref={inputRef} onChange={HandleChange} value={information.fname} disabled={isModify.fname} className='w-[95%] font-semibold  placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='text' name='fname' placeholder='Your new firstname...'/>
             </div>
             <button className='text-[#f2f2f2] opacity-60 hover:opacity-100 font-semibold hover:text-[#4480ce]'>Modify</button>
         </div>
@@ -67,7 +68,7 @@ const EditProfile = (props: Props) => {
         <div className="flex justify-between items-center">
           <div className="">
             <label htmlFor="fname"  className='opacity-90'>Lasttname:</label>
-            <input onChange={HandleChange} value={information.lname} disabled={isModify.lname} className='w-[95%] font-semibold  placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='text' name='fname' placeholder='Your new  lastname...'/>
+            <input ref={inputRef} onChange={HandleChange} value={information.lname} disabled={isModify.lname} className='w-[95%] font-semibold  placeholder:text-sm  ml-2 border-none outline-none bg-transparent text-[#efefef]' type='text' name='fname' placeholder='Your new  lastname...'/>
           </div>
           <button onClick={HandleClickModify} className='text-[#f2f2f2] opacity-60 hover:opacity-100 font-semibold hover:text-[#4480ce]'>Modify</button>
         </div>
