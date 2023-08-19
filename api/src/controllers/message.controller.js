@@ -127,12 +127,21 @@ exports.getLastMessage = async(req,res)=>{
             {
               $lookup: {
                 from: 'user',
+                localField: 'author',
+                foreignField: '_id',
+                as: 'authorInfo'
+              }
+            },
+            {
+              $lookup: {
+                from: 'user',
                 localField: 'destination',
                 foreignField: '_id',
                 as: 'destinationInfo'
               }
             }
-          ]);          
+          ]);
+                 
         console.log(lastmessage,90909)
         res
         .status(200)
