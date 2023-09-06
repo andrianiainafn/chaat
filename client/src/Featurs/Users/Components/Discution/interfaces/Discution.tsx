@@ -181,7 +181,7 @@ const Discution = (props: Props) => {
         </>
       )
     }
-    <div className='mt-[9vh]'/>
+    <div className='mt-[14vh] md:mt-[9vh]'/>
     </div>
     <div className="bottom-0 md:bottom-8 h-[8vh] bg-[#17202a]  w-full md:w-[30vw] md:space-x-3 md:justify-center fixed flex justify-between">
       <div className=" w-[50%] flex justify-between items-center border-[1px] rounded-full py-1 px-2 border-[#444] overflow-hidden">
