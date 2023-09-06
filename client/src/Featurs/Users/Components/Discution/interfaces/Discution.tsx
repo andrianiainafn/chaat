@@ -151,7 +151,7 @@ const Discution = (props: Props) => {
         <DiscuEntete ClickDiscu={ClickDiscu} information={information}/>
       )
     }
-    <div className='fixed md:right-4  md:h-[85vh] overflow-y-scroll bg-[#17202a] md:w-[55vw] w-full  py-2 '>
+    <div className='fixed md:right-4  h-[85vh] overflow-y-scroll bg-[#17202a] md:w-[55vw] w-full  py-2 '>
     {
       isLoading ? (
         <h3>Loading</h3>
