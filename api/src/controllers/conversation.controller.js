@@ -180,6 +180,13 @@ exports.getDiscution = async (req,res)=>{
               lastname: 1
             }
           }
+        },{
+          $match: {
+            $or: [
+              { author: mongoose.Types.ObjectId(user_id) },
+              { destination: mongoose.Types.ObjectId(user_id) }
+            ]
+          }
         }
       ]);
     console.log(getDiscution,"discution")
