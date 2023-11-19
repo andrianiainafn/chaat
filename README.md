@@ -29,7 +29,7 @@ Description concise du projet.
 
     ```bash
     cd api
-    npm install
+    nodemon index.js
     ```
 
 ## Configuration
