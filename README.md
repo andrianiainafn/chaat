@@ -29,7 +29,7 @@ Description concise du projet.
 
     ```bash
     cd api
-    nodemon index.js
+    npm install
     ```
 
 ## Configuration
@@ -46,7 +46,7 @@ Description concise du projet.
 1. Lancer la backend (dans le dossier `backend`) :
 
     ```bash
-    npm start
+    nodemon index.js
     ```
 
 2. Lancer la frontend (dans le dossier `frontend`) :
