@@ -38,7 +38,7 @@ exports.create = async(req,res)=>{
         await actuality.save()
         res
         .status(200)
-        .json({message:"Posts created successfully"})
+        .json({message:user_id})
 
     }catch(e){
         console.error(e)
