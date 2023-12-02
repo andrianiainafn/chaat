@@ -8,16 +8,8 @@ const userModel = require('../models/user.model')
 //creating a new posts
 exports.create = async(req,res)=>{
     try{
-        // const token = req.cookies.user
-        // if(!token){
-        //     return res
-        //     .status(401)
-        //     .json({message:"Unauthorized"})
-        // }
-        const user_id = req.userid
+        const user_id = req.userId
         const {description} = req.body
-        // jwt.verify(token,process.env.JWT_SECRET)
-        // const payload = jwt.decode(token,options={"verify_signature": false})
         let imagesUrl = []
         if(req.files){
             imagesUrl = req.files.map(file=>file.path)
@@ -37,8 +29,8 @@ exports.create = async(req,res)=>{
         })
         await actuality.save()
         res
+        .json("test")
         .status(200)
-        .json({message:user_id})
 
     }catch(e){
         console.error(e)
@@ -49,12 +41,6 @@ exports.create = async(req,res)=>{
 }
 exports.get = async (req,res)=>{
     try{
-        // const token = req.cookies.user
-        // if(!token){
-        //     return res
-        //     .status(401)
-        //     .json({message:"Unauthorized"})
-        // }
         const postId = req.params['id']
         const post = await  postsModel.findById(postId).populate({
             path:'author',
@@ -72,16 +58,8 @@ exports.get = async (req,res)=>{
 }
 exports.deletePosts= async(req,res)=>{
     try{
-        // const token = req.cookies.user
-        // if(!token){
-        //     return res
-        //     .status(401)
-        //     .json({message:"Unauthorized"})
-        // }
         const postId = req.params['post']
         const post = await postsModel.find({_id: postId})
-        // jwt.verify(token,process.env.JWT_SECRET)
-        // const payload = jwt.decode(token,options={"verify_signature": false})
         const user_id =req.userId
         if(post.author !== user_id){
             return res
@@ -108,16 +86,9 @@ exports.deletePosts= async(req,res)=>{
 
 exports.modify = async function(req, res){
     try{
-        // const token = req.cookies.user
-        // if(!token){
-        //     return res
-        //     .status(401)
-        //     .json({message:"Unauthorized"})
-        // }
+
         const postId = req.params.post
         const post = await postsModel.find({_id: postId})
-        // jwt.verify(token,process.env.JWT_SECRET)
-        // const payload = jwt.decode(token,options={"verify_signature": false})
         const user_id = req.userId
         if(post.author !== user_id){
             return res
@@ -234,14 +205,6 @@ exports.savePost = async(req,res)=>{
 }
 exports.unsavePost = async(req,res)=>{
     try{
-        // const token = req.cookies.user
-        // if(!token){
-        //     return res
-        //     .status(401)
-        //     .json({message:"Unauthorized"})
-        // }
-        // jwt.verify(token,process.env.JWT_SECRET)
-        // const payload = jwt.decode(token,options={"verify_signature": false})
         const user_id = req.userId
         const postid = req.params.post
         await userModel.updateOne(
@@ -260,14 +223,6 @@ exports.unsavePost = async(req,res)=>{
 
 exports.getSavedPost = async(req,res)=>{
     try{
-        // const token = req.cookies.user
-        // if(!token){
-        //     return res
-        //     .status(401)
-        //     .json({message:"Unauthorized"})
-        // }
-        // jwt.verify(token,process.env.JWT_SECRET)
-        // const payload = jwt.decode(token,options={"verify_signature": false})
         const user_id = req.userId
         const savedPost = await userModel.findOne({_id: user_id}).select('saved').populate({
             path: 'saved',
@@ -289,14 +244,6 @@ exports.getSavedPost = async(req,res)=>{
 }
 exports.checkSaved = async(req,res)=>{
     try{
-        // const token = req.cookies.user
-        // if(!token){
-        //     return res
-        //     .status(401)
-        //     .json({message:"Unauthorized"})
-        // }
-        // jwt.verify(token,process.env.JWT_SECRET)
-        // const payload = jwt.decode(token,options={"verify_signature": false})
         const user_id = req.userId
         const savedPost = await userModel.findOne({_id: user_id}).select('saved')
         console.log(savedPost)

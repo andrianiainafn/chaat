@@ -5,17 +5,9 @@ const jwt = require('jsonwebtoken')
 
 exports.addmessage = async(req,res)=>{
     try{
-        // const token = req.cookies.user
-        // if(!token){
-        //     return res
-        //     .status(401)
-        //     .json({message:"Unauthorized"})
-        // }
         const {destination,message} = req.body
         const conversation = req.params.conversation
         console.log(78787,conversation,78787)
-        // jwt.verify(token,process.env.JWT_SECRET)
-        // const payload = jwt.decode(token,options={"verify_signature": false})
         const user_id = req.userId
         const newMessage = new messageModel({
             author: user_id,
