@@ -88,7 +88,7 @@ function Signup() {
        if(register.status === 200){
         setCookie('name', register.data.token, { path: '/' });
         getConnection()
-         navigate('/auth/confirmation')
+           navigate('/users/')
        }
     }
   }
