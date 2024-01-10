@@ -57,6 +57,7 @@ function CreatePost({open,HandleClick}:Props) {
         console.log(cookie.name)
         if(createPost.status === 200){
             await queryClient.invalidateQueries(['posts'])
+            console.log(createPost)
             HandleClick()
             socket.current.emit("sendPosts",{
                 description,
