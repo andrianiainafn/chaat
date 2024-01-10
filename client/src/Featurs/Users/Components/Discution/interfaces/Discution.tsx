@@ -138,62 +138,73 @@ const Discution = (props: Props) => {
     queryClient.invalidateQueries(['message',idConversation])
   },[arrivalMessage])
   return (
-    <>
-    {
-      showDiscu && (
-          <ResponsiveSidBar open={showDiscu} ClickDiscu={ClickDiscu} dicu={dataDiscu} />
-      )
-    }
-    {
-      infoLoading ?(
-        <p>Loading...</p>
-      ):(
-        <DiscuEntete ClickDiscu={ClickDiscu} information={information}/>
-      )
-    }
-    <div className='fixed md:right-4  h-[85vh] overflow-y-scroll bg-[#17202a] md:w-[55vw] w-full  py-2 '>
-    {
-      isLoading ? (
-        <h3>Loading</h3>
-      ):(
-        <>
-              {
-      data.length === 0 ? (
-          <div className="mt-[8vh] flex flex-col items-center justify-center space-y-3">
-              <Avatar sx={{height:'14vh',width:'8vw'}}/>
-              <h3 className='text-white text-lg'>Anya Forger</h3>
-              <h6 className='text-white text-base opacity-80'>Say Hello to Anya Forger <span className='animate-spin text-xl'>&#x1F44B;</span></h6>
-              <Link to={``} className='text-base text-[#4480ce] hover:underline hover:text-white' >View profile</Link>
-          </div>
-      ):(
-        <>
-          <div className="mt-[8vh] "/>
-          {
-            data.map((mess:any,key:number)=>(
-              <div className="" key={key} ref={scrollref}>
-                <Message mess={mess}  />
+      <>
+        {
+          idConversation ? (
+              <div>
+                <p>Add friends  to start conversation !</p>
               </div>
-            ))
-          }
-        </>
-      )
-    }
-        </>
-      )
-    }
-    <div className='mt-[14vh] md:mt-[9vh]'/>
-    </div>
-    <div className="bottom-0 md:bottom-8 h-[8vh] bg-[#17202a]  w-full md:w-[30vw] md:space-x-3 md:justify-center fixed flex justify-between">
-      <div className=" w-[50%] flex justify-between items-center border-[1px] rounded-full py-1 px-2 border-[#444] overflow-hidden">
-              <input onChange={HandleMessageChange} value={message} type='text' className='outline-none text-[#f2f2f2] border-none bg-transparent' placeholder='Your message..' />
-              <AddReactionOutlinedIcon className='text-[#fefefe]'/>
-      </div>
-      <button onClick={HandleClickSend} className=' w-[40%] flex justify-center items-center bg-[#2c3a4a] text-sm space-x-2 text-[#f2f2f2] px-2 border-[1px] border-[#444] rounded-full '>
-        <h6>Send Message</h6>
-        <SendIcon sx={{color: '#efefef',cursor: 'pointer'}}/>
-      </button>
-    </div>
-    </>
+          ): (
+              <>
+                {
+                    showDiscu && (
+                        <ResponsiveSidBar open={showDiscu} ClickDiscu={ClickDiscu} dicu={dataDiscu} />
+                    )
+                }
+                {
+                  infoLoading ?(
+                      <p>Loading...</p>
+                  ):(
+                      <DiscuEntete ClickDiscu={ClickDiscu} information={information}/>
+                  )
+                }
+                <div className='fixed md:right-4  h-[85vh] overflow-y-scroll bg-[#17202a] md:w-[55vw] w-full  py-2 '>
+                  {
+                    isLoading ? (
+                        <h3>Loading</h3>
+                    ):(
+                        <>
+                          {
+                            data.length === 0 ? (
+                                <div className="mt-[8vh] flex flex-col items-center justify-center space-y-3">
+                                  <Avatar sx={{height:'14vh',width:'8vw'}}/>
+                                  <h3 className='text-white text-lg'>Anya Forger</h3>
+                                  <h6 className='text-white text-base opacity-80'>Say Hello to Anya Forger <span className='animate-spin text-xl'>&#x1F44B;</span></h6>
+                                  <Link to={``} className='text-base text-[#4480ce] hover:underline hover:text-white' >View profile</Link>
+                                </div>
+                            ):(
+                                <>
+                                  <div className="mt-[8vh] "/>
+                                  {
+                                    data.map((mess:any,key:number)=>(
+                                        <div className="" key={key} ref={scrollref}>
+                                          <Message mess={mess}  />
+                                        </div>
+                                    ))
+                                  }
+                                </>
+                            )
+                          }
+                        </>
+                    )
+                  }
+                  <div className='mt-[14vh] md:mt-[9vh]'/>
+                </div>
+                <div className="bottom-0 md:bottom-8 h-[8vh] bg-[#17202a]  w-full md:w-[30vw] md:space-x-3 md:justify-center fixed flex justify-between">
+                  <div className=" w-[50%] flex justify-between items-center border-[1px] rounded-full py-1 px-2 border-[#444] overflow-hidden">
+                    <input onChange={HandleMessageChange} value={message} type='text' className='outline-none text-[#f2f2f2] border-none bg-transparent' placeholder='Your message..' />
+                    <AddReactionOutlinedIcon className='text-[#fefefe]'/>
+                  </div>
+                  <button onClick={HandleClickSend} className=' w-[40%] flex justify-center items-center bg-[#2c3a4a] text-sm space-x-2 text-[#f2f2f2] px-2 border-[1px] border-[#444] rounded-full '>
+                    <h6>Send Message</h6>
+                    <SendIcon sx={{color: '#efefef',cursor: 'pointer'}}/>
+                  </button>
+                </div>
+              </>
+          )
+        }
+
+      </>
   )
 }
 
