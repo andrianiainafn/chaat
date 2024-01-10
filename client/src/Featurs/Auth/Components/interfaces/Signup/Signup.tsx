@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import React, { ChangeEvent, useContext, useState } from 'react'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
@@ -7,7 +7,6 @@ import { IconButton } from '@mui/material';
 import Google from '../../../../../assets/Images/google.svg' 
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import { Link, useNavigate } from 'react-router-dom';
-import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import {yearInput,months,dateInput} from '../../Elements/data'
