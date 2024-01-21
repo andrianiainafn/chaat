@@ -66,7 +66,7 @@ function Login() {
         <div className=" w-[80%] md:w-[75%] mx-auto flex flex-col space-y-4">
             <div className="flex flex-col space-y-1">
               {
-                erroremail && (
+                  (incorrect ||erroremail) && (
                   <div className="flex justify-between items-center text-red-500 text-sm">
                     <span className=' '>This is required !!</span>
                     <InfoOutlinedIcon sx={{height:'3vh'}}/>
@@ -81,7 +81,7 @@ function Login() {
             </div>
             <div className="flex flex-col space-y-1">
               {
-                errorpassword && (
+                  ( incorrect || errorpassword ) && (
                   <div className="flex justify-between items-center text-red-500 text-sm">
                     <span className=' '>This is required !!</span>
                     <InfoOutlinedIcon sx={{height:'3vh'}}/>
