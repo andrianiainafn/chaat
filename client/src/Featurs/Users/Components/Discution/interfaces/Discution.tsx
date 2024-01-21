@@ -140,7 +140,7 @@ const Discution = (props: Props) => {
   return (
       <>
         {
-          idConversation ? (
+          !idConversation ? (
               <div>
                 <p>Add friends  to start conversation !</p>
               </div>
