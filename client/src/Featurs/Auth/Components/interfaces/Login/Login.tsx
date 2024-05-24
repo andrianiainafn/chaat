@@ -25,8 +25,8 @@ function Login() {
   const [incorrect,setIncorrect] = useState(false)
   const navigate = useNavigate()
   const [information,setInformation] = useState({
-    email:'',
-    password:''
+    email:'nomenafanomezantsoandrianiaina@gmail.com',
+    password:'admin'
   })
   const HandleClickVisibility = ()=>{
     setVisibility(ancien=>!ancien)
@@ -63,6 +63,10 @@ function Login() {
   return (
     <div className=" flex h-[90vh] flex-col space-y-8 justify-center ">
           <h3 className='text-[#efefef] text-2xl  text-center'>Log In</h3>
+            <p className="opacity-80">
+                <InfoOutlinedIcon sx={{height:'2vh'}}/>
+                I had added this default login so that you could quickly see the features of the application, but you can also create your account and start from scratch.
+            </p>
         <div className=" w-[80%] md:w-[75%] mx-auto flex flex-col space-y-4">
             <div className="flex flex-col space-y-1">
               {
