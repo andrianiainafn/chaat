@@ -68,7 +68,7 @@ function Login() {
     return (
         <div className="flex h-[90vh] flex-col space-y-8 justify-center">
             <h3 className='text-[#efefef] text-2xl text-center'>Log In</h3>
-            <p className="opacity-80 w-[80%] md:w-[75%] text-white">
+            <p className="opacity-80 w-[80%] md:w-[75%] text-white text-center">
                 <InfoOutlinedIcon sx={{ height: '2vh' }} />
                 I had added this default login so that you could quickly see the features
                 of the application, but you can also create your account and start from scratch.
