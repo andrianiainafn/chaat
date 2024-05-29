@@ -217,32 +217,30 @@ exports.getAll = async(req,res)=>{
         .status(500)
         .json({message:'Internal Server Error'})
     }
-} 
+}
 exports.getSuggestions = async(req,res)=>{
-    try{
-        // const token = req.cookies.user
-        // if(!token){
-        //     return res
-        //     .status(401)
-        //     .json({message:"Unauthorized"})
-        // }
-        // jwt.verify(token,process.env.JWT_SECRET)
-        // const payload = jwt.decode(token,options={"verify_signature": false})
-        const user_id = req.userId
+    try {
+        const user_id = req.userId;
+
+        if (!user_id) {
+            console.error("User ID is not defined");
+            return res.status(400).json({ message: "User ID is required" });
+        }
+
+        console.log(`Fetching suggestions for user ID: ${user_id}`);
+
         const users = await userModel.find({
-            $and:[
-                {_id:{$ne: user_id}},
-                {request:{$nin:[user_id]}},
-                {friends:{$nin:[user_id]}},
-            ]
+            _id: { $ne: user_id },
+            requests: { $nin: [user_id] },
+            friends: { $nin: [user_id] }
         });
-        res
-        .status(200)
-        .json({message: users})
-    }catch(e){
-        res
-        .status(500)
-        .json({message:'Internal Server Error'})
+
+        console.log(`Found ${users.length} user(s) for suggestions`);
+
+        res.status(200).json(users);
+    } catch (e) {
+        console.error("Error fetching user suggestions:", e);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 }
 exports.getFriendRequest = async(req,res)=>{
