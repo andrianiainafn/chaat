@@ -50,10 +50,10 @@ const Conversation = (props: Props) => {
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           variant="dot"
           >
-            <Avatar  src={`${props.discu.destinationInfo[0].profilepicture}`} />
+            {/*<Avatar  src={`${props.discu.destinationInfo[0].profilepicture}`} />*/}
           </StyledBadge>
           <div className="flex flex-col space-y-1">
-            <h5 className='text-[#444]'>{props.discu.destinationInfo[0].firstname}</h5>
+            {/*<h5 className='text-[#444]'>{props.discu.destinationInfo[0].firstname}</h5>*/}
             <h6 className='text-xs text-[#777]'>You: {props.discu.message}</h6>
           </div>
         </>
